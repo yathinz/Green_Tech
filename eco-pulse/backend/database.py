@@ -384,23 +384,51 @@ async def get_all_events(item_id: Optional[str] = None) -> list[dict]:
 
 
 async def fuzzy_match_carbon_db(item_name: str) -> Optional[dict]:
-    """Find a carbon impact entry by exact or fuzzy match."""
-    # Exact match first
+    """Find a carbon impact entry by exact, fuzzy, or token-based match."""
+    name_lower = item_name.lower().strip()
+
+    # Step 1 — exact match
     rows = await _execute(
         "SELECT * FROM carbon_impact_db WHERE LOWER(item_name) = :name",
-        {"name": item_name.lower()},
+        {"name": name_lower},
     )
     if rows:
         return rows[0]
 
-    # Fuzzy match
     all_entries = await _execute("SELECT * FROM carbon_impact_db")
+
+    # Step 2 — high-confidence fuzzy match (≥ 85%)
     for entry in all_entries:
         similarity = SequenceMatcher(
-            None, item_name.lower(), entry["item_name"].lower()
+            None, name_lower, entry["item_name"].lower()
         ).ratio()
         if similarity >= 0.85:
             return entry
+
+    # Step 3 — token / substring match
+    # e.g. "penne pasta" matches "pasta", "chopped tomato" matches "tomato"
+    input_tokens = set(name_lower.split())
+    best_match: Optional[dict] = None
+    best_score = 0.0
+    for entry in all_entries:
+        entry_name = entry["item_name"].lower()
+        entry_tokens = set(entry_name.split())
+        # Check if the carbon DB entry name is a token in the input
+        if entry_name in input_tokens:
+            return entry
+        # Check if any input token exactly matches the carbon DB entry
+        if entry_tokens & input_tokens:
+            overlap = len(entry_tokens & input_tokens) / max(len(entry_tokens), 1)
+            if overlap > best_score:
+                best_score = overlap
+                best_match = entry
+        # Check substring containment ("chopped tomato" contains "tomato")
+        if entry_name in name_lower or name_lower in entry_name:
+            return entry
+
+    if best_match and best_score >= 0.5:
+        return best_match
+
     return None
 
 

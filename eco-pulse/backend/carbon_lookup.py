@@ -82,3 +82,37 @@ async def lookup_carbon_impact(
 
     # Fallback — 0.0 (will be updated when data becomes available)
     return 0.0
+
+
+async def estimate_expiry_date(
+    item_name: str,
+    from_date: str | None = None,
+    db_module=None,
+) -> str | None:
+    """
+    Estimate an expiry date for an item based on avg_shelf_life_days
+    from the carbon_impact_db.  Returns ISO date string or None.
+    """
+    from datetime import datetime, timedelta
+
+    if db_module is None:
+        import database as db_module  # noqa: F811
+
+    match = await db_module.fuzzy_match_carbon_db(item_name)
+    if not match:
+        return None
+
+    shelf_life = match.get("avg_shelf_life_days")
+    if not shelf_life or int(shelf_life) <= 0:
+        return None  # non-perishable
+
+    if from_date:
+        base = datetime.fromisoformat(from_date)
+    else:
+        try:
+            from dev_mode import get_current_date
+            base = await get_current_date()
+        except Exception:
+            base = datetime.now()
+
+    return (base + timedelta(days=int(shelf_life))).strftime("%Y-%m-%d")

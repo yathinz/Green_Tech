@@ -40,7 +40,7 @@
 - [Quick Start](#-quick-start)
 - [CLI Reference](#-cli-reference)
 - [End-to-End Demo Flows](#-end-to-end-demo-flows-10-flows)
-- [Testing](#-testing--23-tests)
+- [Testing](#-testing--32-tests)
 - [Tradeoffs](#-tradeoffs--6-documented-decisions)
 - [Project Structure](#-project-structure)
 - [Data Sources & Attribution](#-data-sources--attribution)
@@ -461,7 +461,7 @@ erDiagram
 | 📷 **Image** | `eco-pulse ingest --image camera_capture.jpg [--multiplier 2.0]` | Receipt/shelf photo → Gemini Vision → structured items (quantities scaled by multiplier) |
 | 🎙️ **Voice** | `eco-pulse ingest --voice` | Live recording or `--file sample.wav` → Gemini Audio → structured items |
 | ✏️ **Text** | `eco-pulse ingest --text "Got 20L milk, expires Friday"` | Natural language → Gemini → structured items |
-| 📄 **CSV** | `eco-pulse ingest --csv grocery_list.csv` | Direct batch import — no AI needed |
+| 📄 **CSV** | `eco-pulse ingest --csv grocery_list.csv` | Direct batch import — auto-populates CO₂ and expiry from carbon DB when missing |
 
 ### 30 Item Categories
 
@@ -530,7 +530,7 @@ graph LR
     INPUT["Raw AI Output"] --> L1["Layer 1:<br/>AI Prompt Engineering<br/><i>Singular, lowercase,<br/>base metric units</i>"]
     L1 --> L15["Layer 1.5:<br/>Quantity Multiplier<br/><i>--multiplier N<br/>(image mode only)</i>"]
     L15 --> L2["Layer 2:<br/>Python Normaliser<br/><i>Spelling map, singularise,<br/>unit conversion, auto-upscale</i>"]
-    L2 --> L3["Layer 3:<br/>DB Deduplication<br/><i>Exact match → fuzzy match<br/>(SequenceMatcher ≥ 0.85)</i>"]
+    L2 --> L3["Layer 3:<br/>DB Deduplication<br/><i>Exact → fuzzy (≥ 0.85)<br/>→ token/substring match</i>"]
     L3 --> DB["Merged DB Row"]
 
     style INPUT fill:#fce4ec,stroke:#c62828,color:#000
@@ -544,7 +544,7 @@ graph LR
 - **Layer 1 (AI-level):** The extraction prompt instructs Gemini to output singular, lowercase, base-metric-unit data
 - **Layer 1.5 (Multiplier):** For image ingestion, an optional `--multiplier` scales every extracted quantity (e.g. a receipt for 1 crate → `--multiplier 10` ingests 10 crates)
 - **Layer 2 (Python):** Deterministic normalization — spelling map (15 variants), irregular plural handling, 25+ unit conversions, pack size resolution, auto-upscale (1500g → 1.5kg)
-- **Layer 3 (Database):** Before INSERT, fuzzy-match existing items (SequenceMatcher ≥ 0.85). If match found → merge quantities, keep earlier expiry date
+- **Layer 3 (Database):** Before INSERT, fuzzy-match existing items (SequenceMatcher ≥ 0.85) with token and substring fallback (e.g. "penne pasta" matches "pasta"). If match found → merge quantities, keep earlier expiry date
 
 ---
 
@@ -779,7 +779,7 @@ docker exec -it ecopulse-app python -m cli dev seed-data
 ```
 
 This loads:
-- 30 items from `carbon_impact_db.csv` into the carbon lookup table
+- 30 items from `carbon_impact_db.csv` into the carbon lookup table (CO₂ values + shelf life for expiry estimation)
 - 639 mock inventory events (30 days, weekend spikes) from `mock_inventory_events.csv`
 - Sample inventory items with realistic expiry dates
 
@@ -933,11 +933,11 @@ docker exec -it ecopulse-app python -m cli inventory review
 ```bash
 docker exec -it ecopulse-app pytest -v
 ```
-**Expected:** All 23+ tests pass across 5 test files.
+**Expected:** All 32 tests pass across 6 test files.
 
 ---
 
-## 🧪 Testing — 24 Tests
+## 🧪 Testing — 32 Tests
 
 ### Test Architecture
 
@@ -952,6 +952,7 @@ All tests mock the Gemini API — **no real API calls are made during testing**.
 | `test_math_forecasting.py` | 4 | Burn-rate calculation, insufficient data, weekend spikes, zero consumption |
 | `test_carbon_lookup.py` | 2 | Known item lookup, unknown item fallback |
 | `test_normalizer.py` | 6 | Name normalisation, spelling variants, unit conversion, pack sizes, auto-upscale |
+| `test_field_population.py` | 8 | Token/substring carbon matching, expiry estimation, CO₂ auto-population |
 
 ### Running Tests
 
@@ -1008,6 +1009,19 @@ docker exec -it ecopulse-app pytest --cov=backend -v
 |---|---|
 | `test_known_item_returns_co2` | Items in carbon DB return their CO₂ value |
 | `test_unknown_item_returns_zero` | Unknown items fall back to 0.0 CO₂ |
+
+#### `test_field_population.py` (8 tests)
+
+| Test Name | What It Validates |
+|---|---|
+| `test_token_match_penne_pasta` | "penne pasta" matches carbon DB entry "pasta" via token matching |
+| `test_substring_match_chopped_tomato` | "chopped tomato" matches "tomato" via substring containment |
+| `test_exact_match_still_works` | Exact matches still take priority over token/substring |
+| `test_no_false_positive` | Completely unrelated items (e.g. "laptop computer") do NOT match |
+| `test_expiry_estimated_from_shelf_life` | Items with `avg_shelf_life_days` get an estimated expiry date |
+| `test_no_expiry_for_non_perishable` | Non-perishable items (shelf life = 0) return `None` for expiry |
+| `test_expiry_estimation_token_match` | Expiry estimation works through token-based carbon matching |
+| `test_carbon_lookup_token_match` | `lookup_carbon_impact` finds CO₂ via token match |
 
 #### `test_normalizer.py` (6 tests)
 
@@ -1108,7 +1122,7 @@ eco-pulse/
 │   ├── ai_service.py           # Gemini integration + 5 fallback paths
 │   ├── normalizer.py           # 3-layer normalisation pipeline
 │   ├── pii_scrubber.py         # Sync regex PII removal
-│   ├── carbon_lookup.py        # Green DB lookup + AI fallback
+│   ├── carbon_lookup.py        # Green DB lookup + AI fallback + expiry estimation
 │   ├── predictive_math.py      # LinearRegression with day-of-week features
 │   └── dev_mode.py             # Time simulation via system_config
 │
@@ -1119,6 +1133,7 @@ eco-pulse/
 │   ├── test_timeout_and_ratelimit.py # 5 tests — F3, F4, F4b fallbacks
 │   ├── test_math_forecasting.py      # 4 tests — burn rate, weekends
 │   ├── test_carbon_lookup.py         # 2 tests — carbon lookup
+│   ├── test_field_population.py      # 8 tests — field auto-population
 │   └── test_normalizer.py           # 6 tests — normalisation pipeline
 │
 ├── scripts/

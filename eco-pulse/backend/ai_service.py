@@ -635,6 +635,14 @@ async def process_input(
                     ai_client=_get_client(),
                     settings=settings,
                 )
+
+                # Back-fill expiry_date from carbon DB shelf life when AI left it null
+                if not item.expiry_date:
+                    from carbon_lookup import estimate_expiry_date
+                    estimated_expiry = await estimate_expiry_date(item.item_name)
+                    if estimated_expiry:
+                        item.expiry_date = estimated_expiry
+
                 upsert_result = await upsert_inventory_item(
                     item, carbon, input_method
                 )

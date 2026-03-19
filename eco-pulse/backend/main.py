@@ -147,21 +147,38 @@ async def ingest_text(text: str = Form(...)):
 
 @app.post("/ingest/csv")
 async def ingest_csv(file: UploadFile = File(...)):
-    """Bulk CSV import."""
+    """Bulk CSV import with automatic CO₂ lookup and expiry estimation."""
     import csv
     import io
+
+    from carbon_lookup import estimate_expiry_date, lookup_carbon_impact
 
     content = (await file.read()).decode("utf-8")
     reader = csv.DictReader(io.StringIO(content))
     count = 0
     for row in reader:
+        item_name = row.get("item_name", "unknown")
+        category = row.get("category", "Other")
+
+        # ── CO₂: use CSV value if provided, otherwise look up from carbon DB
+        raw_co2 = row.get("co2_per_unit_kg", "").strip()
+        if raw_co2:
+            co2 = float(raw_co2)
+        else:
+            co2 = await lookup_carbon_impact(item_name, category)
+
+        # ── Expiry: use CSV value if provided, otherwise estimate from shelf life
+        expiry = row.get("expiry_date", "").strip() or None
+        if not expiry:
+            expiry = await estimate_expiry_date(item_name)
+
         await db.insert_inventory_item(
-            item_name=row.get("item_name", "unknown"),
-            category=row.get("category", "Other"),
+            item_name=item_name,
+            category=category,
             quantity=float(row.get("quantity", 0)),
             unit=row.get("unit", "units"),
-            expiry_date=row.get("expiry_date"),
-            co2_per_unit_kg=float(row.get("co2_per_unit_kg", 0)),
+            expiry_date=expiry,
+            co2_per_unit_kg=co2,
             confidence_score=1.0,
             input_method="CSV_IMPORT",
         )
