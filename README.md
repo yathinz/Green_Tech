@@ -22,7 +22,68 @@
 
 ---
 
-## 📑 Table of Contents
+## 📋 Submission Details
+
+**Candidate Name:** Yathin S
+
+**Scenario Chosen:** Green-Tech Inventory Assistant
+
+**Estimated Time Spent:** ~5.5 hours
+
+| Phase | Time | Details |
+|---|---|---|
+| Implementation design | ~1.5 hrs | Explored the problem space, drafted [Initial_idea.md](Initial_idea.md), then iterated into [improved_idea.md](improved_idea.md) — a detailed implementation prompt that guided all code generation. Investing heavily here meant the generated code was accurate from the start. |
+| Code generation | ~1 hr | Generated the full backend, CLI, AI service, normalizer, forecasting engine, and test suite from the implementation prompt |
+| Grafana dashboards | ~0.5 hrs | Configured and edited all 23 panels, verified queries against seeded data |
+| Bug fixes & E2E testing | ~1.5 hrs | Fixed logic issues (carbon matching, expiry backfill, dedup keys), ran all CLI flows end-to-end inside Docker |
+| README & demo video | ~1 hr | Wrote documentation and recorded the walkthrough |
+
+### Quick Start Guide:
+
+[Quick Start](#-quick-start) 
+
+[CLI Reference](#-cli-reference)  
+
+[End-to-End Demo Flows](#-end-to-end-demo-flows-11-flows) 
+
+[Testing](#-testing--32-tests)
+
+### AI Disclosure
+
+**Did you use an AI assistant (Copilot, ChatGPT, etc.)?** Yes — GitHub Copilot (Claude) for code generation, debugging, and test writing.
+
+**How did you verify the suggestions?**
+- Every change was validated by running the full 37-test suite (`pytest -v`) against an in-memory SQLite instance
+- Manual end-to-end testing via CLI commands inside Docker
+- Grafana dashboard queries verified against live seeded data
+- All AI-generated code was reviewed for correctness before committing although reviews were surface level due to time constraints.
+
+**Give one example of a suggestion you rejected or changed:**
+The generated code used only `item_name` as the deduplication key — so buying milk today and buying milk next week with a different expiry date would silently merge into one row, losing the expiry distinction. I changed the composite key to `item_name + expiry_date`, so the same item with different expiry dates gets separate inventory entries (as it should in a FEFO system), while the same item with the same expiry correctly merges quantities. Full list of changes I made during review: [my_changes.md](my_changes.md)
+
+### Tradeoffs & Prioritization
+
+**What did you cut to stay within the 4–6 hour limit?**
+- No web frontend — CLI + Grafana dashboards cover all demo needs. 
+- Community mesh (donation partner matching to reduce waste) — the API exists and logs mock emails, but no real integration
+- No user authentication — acceptable for a single-machine demo tool
+
+**What would you build next if you had more time?**
+- Real-time WebSocket push notifications when items enter triage zone (when they are about to run out / expire)
+- Multi-tenant support with proper auth
+- Live community mesh integration with actual partner APIs and email delivery
+- Historical waste analytics and savings dashboard (trend over weeks/months)
+- Review code more thoroughly
+
+**Known limitations:**
+- SQLite doesn't scale beyond a single server (WAL mode handles our ~100 events/day target) - but was chosen for ease of implementation for a small scale prototype with built in integration in grafana.
+- Background tasks don't survive container restarts (no durable queue like Celery/Redis)
+- PII scrubbing on images relies on the user not photographing sensitive documents — only text input is scrubbed pre-AI
+
+
+---
+
+## �📑 Table of Contents for MORE INFO 
 
 - [The Problem](#-the-problem)
 - [The Solution](#-the-solution)
@@ -39,8 +100,8 @@
 - [Developer Mode](#-developer-mode--time-simulation)
 - [Quick Start](#-quick-start)
 - [CLI Reference](#-cli-reference)
-- [End-to-End Demo Flows](#-end-to-end-demo-flows-10-flows)
-- [Testing](#-testing--32-tests)
+- [End-to-End Demo Flows](#-end-to-end-demo-flows-11-flows)
+- [Testing](#-testing--37-tests)
 - [Tradeoffs](#-tradeoffs--6-documented-decisions)
 - [Project Structure](#-project-structure)
 - [Data Sources & Attribution](#-data-sources--attribution)
@@ -69,6 +130,7 @@ A fully Dockerized, CLI-first, AI-powered inventory lifecycle manager that runs 
 - **Deterministic forecasting** — scikit-learn LinearRegression with day-of-week seasonality.
 - **AI-powered waste reduction** — Gemini generates recipes for expiring ingredients with **menu discount suggestions**.
 - **Carbon impact tracking** — every item's CO₂ footprint tracked from ingestion to triage.
+- **Community mesh donations** — auto-matches expiring items with local partners (Food Bank Central, Shelter Network, etc.), logs mock emails, and tracks CO₂ saved per donation.
 
 ---
 
@@ -76,7 +138,7 @@ A fully Dockerized, CLI-first, AI-powered inventory lifecycle manager that runs 
 
 | Scoring Metric | How Eco-Pulse Wins |
 |---|---|
-| **🗑️ Waste Reduction** | FEFO-ordered triage, burn-rate forecasting with day-of-week seasonality, AI-generated recipes with menu discount suggestions for expiring goods, carbon impact tracking, proactive alerts |
+| **🗑️ Waste Reduction** | FEFO-ordered triage, burn-rate forecasting with day-of-week seasonality, AI-generated recipes with menu discount suggestions for expiring goods, community mesh donation partner matching, carbon impact tracking, proactive alerts |
 | **⚡ Ease of Entry** | Three frictionless input modes (📷 image, 🎙️ voice, ✏️ text) — all via a single CLI command. No forms, no manual typing. Natural language → structured data in seconds |
 | **🤖 AI Application** | Gemini 2.5 Flash for multimodal extraction + recipe generation. Deterministic math for forecasting. **5 distinct fallback paths** for when AI fails: low confidence routing, timeout heuristics, Pydantic validation rejection, API failure graceful degradation, and rule-based manual entry |
 
@@ -793,7 +855,7 @@ docker exec -it ecopulse-app python -m cli health
 docker exec -it ecopulse-app python -m cli inventory list
 
 # Open Grafana
-open http://localhost:3000  # admin / ecopulse
+open http://localhost:3000  # credentials :- admin / ecopulse
 ```
 
 ### 5. Run a Demo Flow
@@ -832,6 +894,10 @@ eco-pulse
 │   └── review      Interactive human review queue
 ├── triage          Run expiry triage + AI recipes
 │   └── --dry-run   Preview without executing
+├── community-mesh  Donate expiring items to partners
+│   ├── partners    List registered donation partners
+│   ├── find-matches Find expiring items with matched partners
+│   └── donate      Donate an item (logs mock email)
 ├── forecast        View/refresh burn-rate forecasts
 │   ├── --item-id   Forecast for specific item
 │   └── --refresh   Force recalculation
@@ -855,7 +921,7 @@ docker exec -it ecopulse-app python -m cli <command> [options]
 
 ---
 
-## 🎬 End-to-End Demo Flows (10 Flows)
+## 🎬 End-to-End Demo Flows (11 Flows)
 
 Each flow can be triggered independently and demonstrates a complete pipeline.
 
@@ -929,15 +995,28 @@ docker exec -it ecopulse-app python -m cli inventory update <item-id> --qty 5
 docker exec -it ecopulse-app python -m cli inventory review
 ```
 
-### Flow 10: 🧪 Run All Tests
+### Flow 10: � Community Mesh Donation
+```bash
+# List all donation partners
+docker exec -it ecopulse-app python -m cli community-mesh partners
+
+# Find expiring items with matching partners
+docker exec -it ecopulse-app python -m cli community-mesh find-matches --days 7
+
+# Donate a specific item to its matched partner
+docker exec -it ecopulse-app python -m cli community-mesh donate --item-id <item-id>
+```
+**Expected:** Partner table displayed, matches found for expiring items with known partners. Donation records the status change to DONATED, logs a mock email payload, calculates CO₂ saved, and creates audit + triage entries.
+
+### Flow 11: �🧪 Run All Tests
 ```bash
 docker exec -it ecopulse-app pytest -v
 ```
-**Expected:** All 32 tests pass across 6 test files.
+**Expected:** All 37 tests pass across 7 test files.
 
 ---
 
-## 🧪 Testing — 32 Tests
+## 🧪 Testing — 37 Tests
 
 ### Test Architecture
 
@@ -953,6 +1032,7 @@ All tests mock the Gemini API — **no real API calls are made during testing**.
 | `test_carbon_lookup.py` | 2 | Known item lookup, unknown item fallback |
 | `test_normalizer.py` | 6 | Name normalisation, spelling variants, unit conversion, pack sizes, auto-upscale |
 | `test_field_population.py` | 8 | Token/substring carbon matching, expiry estimation, CO₂ auto-population |
+| `test_community_mesh.py` | 5 | Partner listing, donation matching, N/A exclusion, donation recording, CO₂ tracking |
 
 ### Running Tests
 
@@ -1022,6 +1102,16 @@ docker exec -it ecopulse-app pytest --cov=backend -v
 | `test_no_expiry_for_non_perishable` | Non-perishable items (shelf life = 0) return `None` for expiry |
 | `test_expiry_estimation_token_match` | Expiry estimation works through token-based carbon matching |
 | `test_carbon_lookup_token_match` | `lookup_carbon_impact` finds CO₂ via token match |
+
+#### `test_community_mesh.py` (5 tests)
+
+| Test Name | What It Validates |
+|---|---|
+| `test_get_all_partners` | Partners from carbon DB are listed; N/A entries excluded |
+| `test_find_donation_matches` | Expiring items with registered partners appear as donation matches |
+| `test_no_match_for_items_without_partner` | Items with `preferred_partner = "N/A"` are excluded from matches |
+| `test_record_donation` | Donation updates status to DONATED, logs event, creates triage action, calculates CO₂ |
+| `test_record_donation_item_not_found` | Non-existent item returns an error dict |
 
 #### `test_normalizer.py` (6 tests)
 
@@ -1134,6 +1224,7 @@ eco-pulse/
 │   ├── test_math_forecasting.py      # 4 tests — burn rate, weekends
 │   ├── test_carbon_lookup.py         # 2 tests — carbon lookup
 │   ├── test_field_population.py      # 8 tests — field auto-population
+│   ├── test_community_mesh.py       # 5 tests — community mesh donations
 │   └── test_normalizer.py           # 6 tests — normalisation pipeline
 │
 ├── scripts/

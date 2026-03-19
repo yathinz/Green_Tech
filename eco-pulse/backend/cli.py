@@ -552,6 +552,152 @@ def triage(
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  COMMUNITY-MESH Command
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+community_app = typer.Typer(help="🤝 Community mesh — donate expiring items to partners")
+app.add_typer(community_app, name="community-mesh")
+
+
+@community_app.command("partners")
+def mesh_partners():
+    """📋 List all registered donation partners."""
+
+    async def _do():
+        await _ensure_db()
+        import database as db
+
+        partners = await db.get_all_partners()
+        if not partners:
+            console.print("  ℹ️  No donation partners registered in carbon DB")
+            return
+
+        table = Table(
+            title="🤝 Community Mesh — Donation Partners",
+            box=box.ROUNDED,
+            title_style="bold cyan",
+        )
+        table.add_column("Partner", style="bold cyan")
+        table.add_column("Accepted Items", style="dim")
+        table.add_column("Item Count", justify="right")
+
+        for p in partners:
+            table.add_row(
+                p["name"],
+                p["accepted_items"],
+                str(p["item_count"]),
+            )
+
+        console.print(table)
+
+    _run(_do())
+
+
+@community_app.command("find-matches")
+def mesh_find_matches(
+    days: int = typer.Option(7, "--days", "-d", help="Look-ahead window in days"),
+):
+    """🔍 Find expiring items with matching donation partners."""
+
+    async def _do():
+        await _ensure_db()
+        import database as db
+
+        matches = await db.find_donation_matches(days=days)
+        if not matches:
+            console.print(f"  ✅  No donation matches within {days} days")
+            return
+
+        table = Table(
+            title=f"🤝 Donation Matches (next {days} days)",
+            box=box.ROUNDED,
+            title_style="bold green",
+        )
+        table.add_column("#", style="bold", max_width=4)
+        table.add_column("Item", style="cyan")
+        table.add_column("Qty", justify="right", style="bold")
+        table.add_column("Expires In", justify="center")
+        table.add_column("Partner", style="bold green")
+        table.add_column("CO₂ Saved", justify="right", style="dim")
+
+        for idx, m in enumerate(matches, 1):
+            co2 = round(m["quantity"] * m.get("co2_per_unit_kg", 0), 2)
+            days_left = m.get("days_left", "?")
+            urgency = "🔴" if isinstance(days_left, int) and days_left <= 3 else "🟡"
+            table.add_row(
+                str(idx),
+                f"{urgency} {m['item_name']}",
+                f"{m['quantity']:.0f} {m.get('unit', '')}",
+                f"{days_left} days",
+                m["partner_name"],
+                f"{co2:.1f} kg",
+            )
+
+        console.print(table)
+        console.print(
+            "\n  💡 Use [bold]eco-pulse community-mesh donate --item-id <ID>[/bold] to donate"
+        )
+
+    _run(_do())
+
+
+@community_app.command("donate")
+def mesh_donate(
+    item_id: str = typer.Option(..., "--item-id", "-id", help="Inventory item ID to donate"),
+    partner: Optional[str] = typer.Option(None, "--partner", "-p", help="Override partner name"),
+):
+    """📦 Donate an item to its matched community partner."""
+
+    async def _do():
+        await _ensure_db()
+        import database as db
+
+        item = await db.get_item(item_id)
+        if not item:
+            console.print(f"[red]❌ Item not found: {item_id}[/red]")
+            raise typer.Exit(1)
+
+        # Auto-detect partner if not provided
+        target_partner = partner
+        if not target_partner:
+            partners = await db.get_partner_for_item(item["item_name"])
+            if partners:
+                target_partner = partners[0]["name"]
+            else:
+                console.print(
+                    f"[yellow]⚠️  No partner found for '{item['item_name']}'. "
+                    f"Use --partner to specify one.[/yellow]"
+                )
+                raise typer.Exit(1)
+
+        result = await db.record_donation(
+            item_id=item_id, partner_name=target_partner
+        )
+
+        if "error" in result:
+            console.print(f"[red]❌ {result['error']}[/red]")
+            raise typer.Exit(1)
+
+        email = result["email_payload"]
+        console.print(
+            Panel(
+                f"Item:       {result['item_name']}\n"
+                f"Quantity:   {result['quantity']} {result['unit']}\n"
+                f"Partner:    {result['donated_to']}\n"
+                f"CO₂ Saved:  {result['co2_saved_kg']} kg\n"
+                f"Status:     ✅ {result['status']}\n\n"
+                f"📧 Mock Email Logged:\n"
+                f"   To:      {email['to']}\n"
+                f"   Subject: {email['subject']}",
+                title="🤝 Donation Recorded",
+                border_style="green",
+            )
+        )
+
+    _run(_do())
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #  FORECAST Command
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

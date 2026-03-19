@@ -467,6 +467,125 @@ async def get_partner_for_item(item_name: str) -> list[dict]:
     return rows
 
 
+async def get_all_partners() -> list[dict]:
+    """List all unique donation partners from the carbon impact DB."""
+    return await _execute(
+        """SELECT preferred_partner as name,
+                  GROUP_CONCAT(item_name, ', ') as accepted_items,
+                  COUNT(*) as item_count
+           FROM carbon_impact_db
+           WHERE preferred_partner != 'N/A'
+           GROUP BY preferred_partner
+           ORDER BY preferred_partner"""
+    )
+
+
+async def find_donation_matches(days: int = 7) -> list[dict]:
+    """Find expiring items that have a matching donation partner.
+
+    Returns items with their matched partner, sorted by expiry (FEFO).
+    """
+    sim_date = await get_config("simulated_date")
+    today_expr = f"'{sim_date}'" if sim_date else "date('now')"
+    return await _execute(
+        f"""SELECT i.id as item_id, i.item_name, i.quantity, i.unit,
+                  i.expiry_date, i.co2_per_unit_kg, i.category,
+                  CAST(julianday(i.expiry_date) - julianday({today_expr}) AS INTEGER) as days_left,
+                  c.preferred_partner as partner_name,
+                  'partner@example.org' as partner_email
+           FROM inventory_items i
+           JOIN carbon_impact_db c
+             ON LOWER(i.item_name) = LOWER(c.item_name)
+           WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON')
+             AND i.expiry_date IS NOT NULL
+             AND julianday(i.expiry_date) <= julianday({today_expr}) + :days
+             AND julianday(i.expiry_date) > julianday({today_expr})
+             AND c.preferred_partner != 'N/A'
+           ORDER BY i.expiry_date ASC""",
+        {"days": days},
+    )
+
+
+async def record_donation(
+    item_id: str,
+    partner_name: str,
+    quantity: Optional[float] = None,
+) -> dict:
+    """Mark an item as donated to a community partner.
+
+    - Updates item status to DONATED
+    - Logs a DONATE inventory event
+    - Creates a COMMUNITY_MESH triage action with the mock email payload
+    - Logs a COMMUNITY_MESH audit entry
+    Returns a summary dict with CO2 saved.
+    """
+    item = await get_item(item_id)
+    if not item:
+        return {"error": "Item not found"}
+
+    donate_qty = quantity if quantity is not None else item["quantity"]
+    co2_saved = round(donate_qty * item.get("co2_per_unit_kg", 0), 2)
+
+    # Update item status
+    await update_inventory_item(item_id, status="DONATED")
+
+    # Log inventory event
+    await insert_event(
+        item_id=item_id,
+        timestamp=_now_iso(),
+        action_type="DONATE",
+        qty_change=-donate_qty,
+        notes=f"Donated to {partner_name}",
+    )
+
+    # Build mock email payload
+    email_payload = json.dumps({
+        "to": f"{partner_name.lower().replace(' ', '_')}@example.org",
+        "subject": f"Donation Available: {item['item_name']}",
+        "body": (
+            f"Hi {partner_name},\n\n"
+            f"We have {donate_qty} {item.get('unit', 'units')} of {item['item_name']} "
+            f"(expires {item.get('expiry_date', 'N/A')}) available for pickup.\n\n"
+            f"CO\u2082 saved by this donation: {co2_saved} kg\n\n"
+            f"— Eco-Pulse Community Mesh"
+        ),
+    })
+
+    # Create triage action
+    await insert_triage_action(
+        item_id=item_id,
+        action_type="COMMUNITY_MESH",
+        ai_generated=False,
+        ai_bypassed=True,
+        content=email_payload,
+    )
+
+    # Audit log
+    await log_audit(
+        "COMMUNITY_MESH",
+        severity="INFO",
+        details={
+            "item_name": item["item_name"],
+            "partner": partner_name,
+            "quantity": donate_qty,
+            "unit": item.get("unit"),
+            "co2_saved_kg": co2_saved,
+            "email_logged": True,
+        },
+    )
+
+    return {
+        "item_id": item_id,
+        "item_name": item["item_name"],
+        "donated_to": partner_name,
+        "quantity": donate_qty,
+        "unit": item.get("unit"),
+        "co2_saved_kg": co2_saved,
+        "email_payload": json.loads(email_payload),
+        "status": "DONATED",
+    }
+
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #  Triage Actions
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

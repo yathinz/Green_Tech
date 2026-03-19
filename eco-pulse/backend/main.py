@@ -351,6 +351,34 @@ async def get_item_forecast(item_id: str):
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  Community Mesh — Donation Partner Matching
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+@app.get("/community-mesh/partners")
+async def list_partners():
+    """List all registered donation partners."""
+    partners = await db.get_all_partners()
+    return {"partners": partners, "count": len(partners)}
+
+
+@app.get("/community-mesh/matches")
+async def find_donation_matches(days: int = Query(7, ge=1, le=30)):
+    """Find expiring items with matching donation partners (FEFO order)."""
+    matches = await db.find_donation_matches(days=days)
+    return {"matches": matches, "count": len(matches)}
+
+
+@app.post("/community-mesh/donate/{item_id}")
+async def donate_item(item_id: str, partner: str = Form(...)):
+    """Donate an item to a community partner. Logs mock email and marks DONATED."""
+    result = await db.record_donation(item_id=item_id, partner_name=partner)
+    if "error" in result:
+        return JSONResponse(status_code=404, content=result)
+    return result
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #  System Endpoints
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
