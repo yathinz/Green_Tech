@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecopulse-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ecopulse-data:/data
+      - ./data:/app/data:ro
+      - ./sample_inputs:/app/samples:ro
+      - ./scripts:/app/scripts:ro
+      - ./tests:/app/tests:ro
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DATABASE_PATH=/data/ecopulse.db
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.85}
+      - LLM_TIMEOUT_SECONDS=${LLM_TIMEOUT_SECONDS:-60}
+      - MODEL_NAME=${MODEL_NAME:-gemini-2.5-flash}
+      - DEV_MODE=${DEV_MODE:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: ecopulse-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ecopulse-data:/data:ro
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=ecopulse
+      - GF_PLUGINS_PREINSTALL_SYNC=frser-sqlite-datasource
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/eco-pulse.json
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ecopulse-data:
+    driver: local

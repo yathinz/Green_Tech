@@ -1,0 +1,31 @@
+item_name,category,co2_per_unit_kg,avg_shelf_life_days,preferred_partner
+whole milk,Milk & Cream,3.2,7,FoodRescue Local
+cheddar cheese,Cheese,13.5,30,FoodRescue Local
+greek yogurt,Yogurt,3.5,14,FoodRescue Local
+butter,Butter & Spreads,12.1,60,N/A
+egg,Eggs,0.35,28,FoodRescue Local
+organic apple,Fresh Fruit,0.4,21,Community Garden
+banana,Fresh Fruit,0.7,7,Community Garden
+tomato,Fresh Vegetables,1.4,10,Community Garden
+lettuce,Herbs & Leafy Greens,0.3,5,Community Garden
+carrot,Root Vegetables,0.3,21,Community Garden
+chicken breast,Poultry,6.9,3,Food Bank Central
+ground beef,Red Meat,27.0,3,Food Bank Central
+salmon fillet,Seafood,5.1,2,Food Bank Central
+sourdough bread,Bread & Rolls,0.9,5,Shelter Network
+croissant,Pastry & Cakes,1.3,3,Shelter Network
+bagel,Bread & Rolls,0.8,4,Shelter Network
+orange juice,Juice & Soft Drinks,0.7,10,N/A
+coffee bean,Coffee & Tea,8.0,180,N/A
+oat milk,Plant-Based Milk,0.9,14,N/A
+white rice,Grains & Rice,2.7,365,N/A
+pasta,Pasta & Noodles,0.9,365,N/A
+olive oil,Cooking Oils & Vinegar,3.3,365,N/A
+printer paper,Office - Paper,1.1,0,N/A
+cleaning spray,Cleaning Products,0.5,365,N/A
+hand sanitizer,Cleaning Products,0.3,730,N/A
+lab ethanol,Lab Chemicals,2.0,365,University Recycle
+petri dish,Lab Equipment,0.8,0,N/A
+whiteboard marker,Office - Supplies,0.2,180,N/A
+napkin,Office - Paper,0.4,0,N/A
+sugar,Sugar & Sweeteners,0.8,730,N/A

@@ -1,0 +1,10 @@
+apiVersion: 1
+datasources:
+  - name: EcoPulse-SQLite
+    uid: ecopulse-sqlite
+    type: frser-sqlite-datasource
+    access: proxy
+    isDefault: true
+    jsonData:
+      path: /data/ecopulse.db
+    editable: true

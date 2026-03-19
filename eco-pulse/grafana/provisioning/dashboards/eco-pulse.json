@@ -1,0 +1,1755 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "type": "frser-sqlite-datasource",
+          "uid": "ecopulse-sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "#F2495C",
+        "name": "AI Events",
+        "rawQuery": "SELECT a.timestamp as time, a.event_type || ': ' || SUBSTR(a.details, 1, 50) as text, CASE a.severity WHEN 'ERROR' THEN 'red' WHEN 'WARN' THEN 'yellow' ELSE 'green' END as color FROM audit_log a WHERE a.event_type IN ('AI_BYPASSED', 'AI_FALLBACK', 'TRIAGE') ORDER BY a.timestamp DESC"
+      }
+    ]
+  },
+  "description": "Eco-Pulse V3.0 — Zero-Waste Inventory Engine Dashboard",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "id": 1,
+      "title": "📊 Inventory Overview",
+      "description": "Complete inventory view sorted by FEFO (First Expiry, First Out) with color-coded urgency levels.",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "urgency"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "days_left"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 3
+                    },
+                    {
+                      "color": "green",
+                      "value": 7
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "days_left"
+          }
+        ],
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "🚨 Urgent (< 2 days)",
+      "description": "Items expiring within 2 days — requires immediate triage action.",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT COUNT(*) as \"Urgent\" FROM inventory_items WHERE julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 AND status = 'ACTIVE'",
+          "refId": "A",
+          "queryText": "SELECT COUNT(*) as \"Urgent\" FROM inventory_items WHERE julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 AND status = 'ACTIVE'"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "red"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 3,
+      "title": "🟡 Warning (3–7 days)",
+      "description": "Items expiring within 3-7 days — should plan usage or donation.",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT COUNT(*) as \"Warning\" FROM inventory_items WHERE julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) BETWEEN 3 AND 7 AND status = 'ACTIVE'",
+          "refId": "A",
+          "queryText": "SELECT COUNT(*) as \"Warning\" FROM inventory_items WHERE julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) BETWEEN 3 AND 7 AND status = 'ACTIVE'"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "yellow"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 4,
+      "title": "🟢 Safe (> 7 days)",
+      "description": "Items with more than 7 days until expiry — no immediate action needed.",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT COUNT(*) as \"Safe\" FROM inventory_items WHERE (julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) > 7 OR expiry_date IS NULL) AND status = 'ACTIVE'",
+          "refId": "A",
+          "queryText": "SELECT COUNT(*) as \"Safe\" FROM inventory_items WHERE (julianday(expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) > 7 OR expiry_date IS NULL) AND status = 'ACTIVE'"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 5,
+      "title": "🍳 AI Recipe Suggestions",
+      "description": "Latest AI-generated recipes for expiring ingredients — AI applied to waste reduction.",
+      "type": "table",
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT r.title as \"Recipe\", r.ingredient_names as \"Uses Expiring Items\", r.estimated_servings as \"Servings\", ROUND(r.co2_saved_kg, 1) as \"CO₂ Saved (kg)\", CASE WHEN r.discount_percent > 0 THEN '$' || ROUND(r.suggested_price, 2) || ' (' || r.discount_percent || '% off)' ELSE '-' END as \"Menu Deal\", CASE WHEN r.ai_generated = 1 THEN '🤖 AI' ELSE '📋 Rule-based' END as \"Source\", r.created_at as \"Generated\" FROM recipes r ORDER BY r.created_at DESC LIMIT 5",
+          "refId": "A",
+          "queryText": "SELECT r.title as \"Recipe\", r.ingredient_names as \"Uses Expiring Items\", r.estimated_servings as \"Servings\", ROUND(r.co2_saved_kg, 1) as \"CO₂ Saved (kg)\", CASE WHEN r.discount_percent > 0 THEN '$' || ROUND(r.suggested_price, 2) || ' (' || r.discount_percent || '% off)' ELSE '-' END as \"Menu Deal\", CASE WHEN r.ai_generated = 1 THEN '🤖 AI' ELSE '📋 Rule-based' END as \"Source\", r.created_at as \"Generated\" FROM recipes r ORDER BY r.created_at DESC LIMIT 5"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "📈 Burn-Rate Forecast — Historical Usage",
+      "description": "Historical daily usage over time. Shows actual consumption trends by item.",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(ABS(e.qty_change)) as \"Daily Usage\" FROM inventory_events e WHERE e.action_type = 'USE' GROUP BY date(e.timestamp) ORDER BY time",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ],
+          "queryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(ABS(e.qty_change)) as \"Daily Usage\" FROM inventory_events e WHERE e.action_type = 'USE' GROUP BY date(e.timestamp) ORDER BY time"
+        },
+        {
+          "rawQueryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(CASE WHEN e.action_type = 'ADD' OR e.action_type = 'RESTOCK' THEN e.qty_change ELSE 0 END) as \"Restocks\" FROM inventory_events e GROUP BY date(e.timestamp) ORDER BY time",
+          "refId": "B",
+          "timeColumns": [
+            "time"
+          ],
+          "queryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(CASE WHEN e.action_type = 'ADD' OR e.action_type = 'RESTOCK' THEN e.qty_change ELSE 0 END) as \"Restocks\" FROM inventory_events e GROUP BY date(e.timestamp) ORDER BY time"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 15,
+            "showPoints": "auto",
+            "pointSize": 5,
+            "spanNulls": true,
+            "axisCenteredZero": false,
+            "axisLabel": "Quantity"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Restocks"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 30
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "🌍 Total CO₂ Saved",
+      "description": "Total CO₂ emissions prevented — from items consumed/donated before expiry plus recipe-based waste diversion.",
+      "type": "stat",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 20
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ('CONSUMED', 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\"",
+          "refId": "A",
+          "queryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ('CONSUMED', 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          },
+          "unit": "kg",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 8,
+      "title": "🌿 Potential CO₂ Savings from Recipes",
+      "description": "CO₂ savings achievable by cooking the AI-generated recipes — each row shows a recipe and the carbon emissions prevented if the recipe is prepared instead of wasting the ingredients.",
+      "type": "table",
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 20
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT r.title as \"Recipe\", r.ingredient_names as \"Ingredients\", r.estimated_servings as \"Servings\", ROUND(r.co2_saved_kg, 2) as \"CO₂ Saved (kg)\", r.created_at as \"Generated\" FROM recipes r WHERE r.co2_saved_kg > 0 ORDER BY r.created_at DESC LIMIT 20",
+          "refId": "A",
+          "queryText": "SELECT r.title as \"Recipe\", r.ingredient_names as \"Ingredients\", r.estimated_servings as \"Servings\", ROUND(r.co2_saved_kg, 2) as \"CO₂ Saved (kg)\", r.created_at as \"Generated\" FROM recipes r WHERE r.co2_saved_kg > 0 ORDER BY r.created_at DESC LIMIT 20"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CO₂ Saved (kg)"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": true,
+          "reducer": [
+            "sum"
+          ],
+          "fields": [
+            "CO₂ Saved (kg)"
+          ]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "📋 Ingestion Activity Log",
+      "description": "Recent activity feed — input types, confidence scores, and latencies.",
+      "type": "table",
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT a.timestamp, a.input_method as \"Input Type\", a.event_type as \"Event\", CASE WHEN a.confidence >= 0.85 THEN '✅ ' || ROUND(a.confidence * 100) || '%' WHEN a.confidence IS NOT NULL THEN '⚠️ ' || ROUND(a.confidence * 100) || '%' ELSE '—' END as \"Confidence\", a.latency_ms || 'ms' as \"Latency\", a.model_used as \"Model\", SUBSTR(a.details, 1, 100) as \"Details\" FROM audit_log a WHERE a.event_type IN ('INGESTION', 'AI_CALL', 'AI_FALLBACK') ORDER BY a.timestamp DESC LIMIT 20",
+          "refId": "A",
+          "queryText": "SELECT a.timestamp, a.input_method as \"Input Type\", a.event_type as \"Event\", CASE WHEN a.confidence >= 0.85 THEN '✅ ' || ROUND(a.confidence * 100) || '%' WHEN a.confidence IS NOT NULL THEN '⚠️ ' || ROUND(a.confidence * 100) || '%' ELSE '—' END as \"Confidence\", a.latency_ms || 'ms' as \"Latency\", a.model_used as \"Model\", SUBSTR(a.details, 1, 100) as \"Details\" FROM audit_log a WHERE a.event_type IN ('INGESTION', 'AI_CALL', 'AI_FALLBACK') ORDER BY a.timestamp DESC LIMIT 20"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "🤖 AI Success vs Fallback",
+      "description": "Pie chart showing AI reliability — success, fallback, and bypass rates.",
+      "type": "piechart",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 25
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT CASE WHEN event_type = 'AI_CALL' AND severity = 'INFO' THEN 'AI Success' WHEN event_type = 'AI_FALLBACK' THEN 'AI Fallback' WHEN event_type = 'AI_BYPASSED' THEN 'AI Bypassed' END as \"Status\", COUNT(*) as \"Count\" FROM audit_log WHERE event_type IN ('AI_CALL', 'AI_FALLBACK', 'AI_BYPASSED') GROUP BY \"Status\"",
+          "refId": "A",
+          "queryText": "SELECT CASE WHEN event_type = 'AI_CALL' AND severity = 'INFO' THEN 'AI Success' WHEN event_type = 'AI_FALLBACK' THEN 'AI Fallback' WHEN event_type = 'AI_BYPASSED' THEN 'AI Bypassed' END as \"Status\", COUNT(*) as \"Count\" FROM audit_log WHERE event_type IN ('AI_CALL', 'AI_FALLBACK', 'AI_BYPASSED') GROUP BY \"Status\""
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AI Success"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AI Fallback"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "yellow"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AI Bypassed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "pieType": "donut",
+        "tooltip": {
+          "mode": "single"
+        },
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "values": [
+            "value",
+            "percent"
+          ]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "🤖 AI Fallback Rate",
+      "description": "Percentage of AI calls that required fallback — lower is better.",
+      "type": "stat",
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 25
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT ROUND(CAST(SUM(CASE WHEN event_type IN ('AI_FALLBACK', 'AI_BYPASSED') THEN 1 ELSE 0 END) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as \"Fallback Rate (%)\" FROM audit_log WHERE event_type IN ('AI_CALL', 'AI_FALLBACK', 'AI_BYPASSED')",
+          "refId": "A",
+          "queryText": "SELECT ROUND(CAST(SUM(CASE WHEN event_type IN ('AI_FALLBACK', 'AI_BYPASSED') THEN 1 ELSE 0 END) AS FLOAT) / NULLIF(COUNT(*), 0) * 100, 1) as \"Fallback Rate (%)\" FROM audit_log WHERE event_type IN ('AI_CALL', 'AI_FALLBACK', 'AI_BYPASSED')"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center"
+      }
+    },
+    {
+      "id": 12,
+      "title": "👁️ Pending Human Review Queue",
+      "description": "Items flagged for human review — hallucination-handling pipeline in action.",
+      "type": "table",
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT p.created_at as \"Flagged At\", p.suggested_item_name as \"Suggested Item\", p.suggested_quantity as \"Qty\", ROUND(p.confidence_score * 100) || '%' as \"Confidence\", p.failure_reason as \"Reason\", CASE p.reviewed WHEN 0 THEN '⏳ Pending' WHEN 1 THEN '✅ Approved' WHEN 2 THEN '❌ Rejected' END as \"Status\" FROM pending_human_review p ORDER BY p.reviewed ASC, p.created_at DESC",
+          "refId": "A",
+          "queryText": "SELECT p.created_at as \"Flagged At\", p.suggested_item_name as \"Suggested Item\", p.suggested_quantity as \"Qty\", ROUND(p.confidence_score * 100) || '%' as \"Confidence\", p.failure_reason as \"Reason\", CASE p.reviewed WHEN 0 THEN '⏳ Pending' WHEN 1 THEN '✅ Approved' WHEN 2 THEN '❌ Rejected' END as \"Status\" FROM pending_human_review p ORDER BY p.reviewed ASC, p.created_at DESC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "🏆 Waste Prevention Score",
+      "description": "Composite metric — % of perishable items consumed/donated before expiring.",
+      "type": "gauge",
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 31
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT ROUND((CAST(consumed_before_expiry AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT COUNT(CASE WHEN status IN ('CONSUMED', 'DONATED') THEN 1 END) as consumed_before_expiry, COUNT(*) as total_items FROM inventory_items WHERE expiry_date IS NOT NULL)",
+          "refId": "A",
+          "queryText": "SELECT ROUND((CAST(consumed_before_expiry AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT COUNT(CASE WHEN status IN ('CONSUMED', 'DONATED') THEN 1 END) as consumed_before_expiry, COUNT(*) as total_items FROM inventory_items WHERE expiry_date IS NOT NULL)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 40
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      }
+    },
+    {
+      "id": 14,
+      "title": "📅 Activity Timeline & AI Event Annotations",
+      "description": "Time series with AI event annotations — visual audit trail showing when AI failed and fallbacks triggered.",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 7,
+        "w": 18,
+        "x": 6,
+        "y": 31
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(CASE WHEN e.action_type = 'USE' THEN ABS(e.qty_change) ELSE 0 END) as \"Actual Usage\", SUM(CASE WHEN e.action_type = 'ADD' OR e.action_type = 'RESTOCK' THEN e.qty_change ELSE 0 END) as \"Restocks\" FROM inventory_events e GROUP BY date(e.timestamp) ORDER BY time",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ],
+          "queryText": "SELECT CAST(strftime('%s', date(e.timestamp)) AS INTEGER) as time, SUM(CASE WHEN e.action_type = 'USE' THEN ABS(e.qty_change) ELSE 0 END) as \"Actual Usage\", SUM(CASE WHEN e.action_type = 'ADD' OR e.action_type = 'RESTOCK' THEN e.qty_change ELSE 0 END) as \"Restocks\" FROM inventory_events e GROUP BY date(e.timestamp) ORDER BY time"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "showPoints": "auto",
+            "pointSize": 5,
+            "spanNulls": true,
+            "axisLabel": "Quantity"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Restocks"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 25
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "super-light-green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Actual Usage"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "super-light-blue"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "title": "📊 Forecast Summary",
+      "description": "Complete burn-rate forecast for all active inventory items — predicted runout dates, daily consumption, and model confidence.",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", i.category as \"Category\", ROUND(i.quantity, 1) || ' ' || i.unit as \"Current Stock\", ROUND(f.daily_burn_rate, 2) as \"Daily Burn Rate\", ROUND(f.days_of_supply, 1) as \"Days of Supply\", f.predicted_runout_date as \"Predicted Runout\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CASE WHEN i.expiry_date IS NOT NULL THEN CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ELSE NULL END as \"Days Till Expiry\", CASE WHEN i.expiry_date IS NULL THEN CASE WHEN f.days_of_supply <= 3 THEN '🔴 Understocked' WHEN f.days_of_supply <= 7 THEN '🟡 Understocked' ELSE '🟢 Well Stocked' END WHEN julianday(i.expiry_date) < julianday(f.predicted_runout_date) THEN '📦 Overstocked' WHEN CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) = CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) THEN '🟢 Well Stocked' ELSE '🟡 Understocked' END as \"Status\", ROUND(f.weekend_multiplier, 2) as \"Weekend Multiplier\", ROUND(f.r_squared * 100, 1) || '%' as \"Model R²\", f.data_points_used as \"Data Points\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name as \"Item\", i.category as \"Category\", ROUND(i.quantity, 1) || ' ' || i.unit as \"Current Stock\", ROUND(f.daily_burn_rate, 2) as \"Daily Burn Rate\", ROUND(f.days_of_supply, 1) as \"Days of Supply\", f.predicted_runout_date as \"Predicted Runout\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CASE WHEN i.expiry_date IS NOT NULL THEN CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ELSE NULL END as \"Days Till Expiry\", CASE WHEN i.expiry_date IS NULL THEN CASE WHEN f.days_of_supply <= 3 THEN '🔴 Understocked' WHEN f.days_of_supply <= 7 THEN '🟡 Understocked' ELSE '🟢 Well Stocked' END WHEN julianday(i.expiry_date) < julianday(f.predicted_runout_date) THEN '📦 Overstocked' WHEN CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) = CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) THEN '🟢 Well Stocked' ELSE '🟡 Understocked' END as \"Status\", ROUND(f.weekend_multiplier, 2) as \"Weekend Multiplier\", ROUND(f.r_squared * 100, 1) || '%' as \"Model R²\", f.data_points_used as \"Data Points\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Days Until Runout"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 7
+                    },
+                    {
+                      "color": "green",
+                      "value": 14
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Days Till Expiry"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 7
+                    },
+                    {
+                      "color": "green",
+                      "value": 14
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Days of Supply"
+          }
+        ],
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 16,
+      "title": "⏰ Days of Supply Remaining",
+      "description": "How many days of stock remain per item — sorted by urgency.",
+      "type": "bargauge",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 46
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", ROUND(f.days_of_supply, 1) as \"Days\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name as \"Item\", ROUND(f.days_of_supply, 1) as \"Days\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 60,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 3
+              },
+              {
+                "color": "yellow",
+                "value": 7
+              },
+              {
+                "color": "green",
+                "value": 14
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "values": true,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Days$/"
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "minVizWidth": 8,
+        "minVizHeight": 16,
+        "namePlacement": "auto"
+      }
+    },
+    {
+      "id": 18,
+      "title": "📅 Predicted Runout Timeline",
+      "description": "When each item is predicted to run out — earliest runout first. Weekend multiplier shows consumption spikes on weekends.",
+      "type": "table",
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 54
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", f.predicted_runout_date as \"Runs Out On\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Left\", ROUND(i.quantity, 1) || ' ' || i.unit as \"Stock Now\", CASE WHEN f.weekend_multiplier > 1.3 THEN '📈 ' || ROUND(f.weekend_multiplier, 1) || 'x' WHEN f.weekend_multiplier < 0.7 THEN '📉 ' || ROUND(f.weekend_multiplier, 1) || 'x' ELSE '➡️ ' || ROUND(f.weekend_multiplier, 1) || 'x' END as \"Weekend Effect\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.predicted_runout_date ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name as \"Item\", f.predicted_runout_date as \"Runs Out On\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Left\", ROUND(i.quantity, 1) || ' ' || i.unit as \"Stock Now\", CASE WHEN f.weekend_multiplier > 1.3 THEN '📈 ' || ROUND(f.weekend_multiplier, 1) || 'x' WHEN f.weekend_multiplier < 0.7 THEN '📉 ' || ROUND(f.weekend_multiplier, 1) || 'x' ELSE '➡️ ' || ROUND(f.weekend_multiplier, 1) || 'x' END as \"Weekend Effect\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.predicted_runout_date ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Days Left"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 14
+                    },
+                    {
+                      "color": "green",
+                      "value": 30
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Days Left"
+          }
+        ],
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 19,
+      "title": "📐 Forecast Model Confidence",
+      "description": "R² score for each item's forecast model — higher means the prediction is more reliable.",
+      "type": "gauge",
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name || ' (R²)' as \"metric\", ROUND(f.r_squared * 100, 1) as \"R² Score\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.r_squared ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name || ' (R²)' as \"metric\", ROUND(f.r_squared * 100, 1) as \"R² Score\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.r_squared ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 30
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 20,
+      "title": "🔴 Understocked Items",
+      "description": "Items that will run out well before they expire — need restocking. Ordered by severity (largest gap first).",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 61
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(f.predicted_runout_date) < julianday(i.expiry_date) AND CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) != CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "queryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(f.predicted_runout_date) < julianday(i.expiry_date) AND CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) != CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Gap (days)"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "yellow",
+                      "value": null
+                    },
+                    {
+                      "color": "orange",
+                      "value": 14
+                    },
+                    {
+                      "color": "red",
+                      "value": 30
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Gap (days)"
+          }
+        ],
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 21,
+      "title": "📦 Overstocked Items",
+      "description": "Items that will expire before you use them up — consider donating or recipes. Ordered by severity (largest gap first).",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 61
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(i.expiry_date) < julianday(f.predicted_runout_date) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "queryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(i.expiry_date) < julianday(f.predicted_runout_date) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Gap (days)"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "yellow",
+                      "value": null
+                    },
+                    {
+                      "color": "orange",
+                      "value": 14
+                    },
+                    {
+                      "color": "red",
+                      "value": 30
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Gap (days)"
+          }
+        ],
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 22,
+      "title": "🟢 Well Stocked Items",
+      "description": "Items perfectly balanced — predicted runout matches expiry exactly.",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 61
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) = CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "queryText": "SELECT i.item_name as \"Item\", CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Until Runout\", CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as \"Days Till Expiry\", ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) as \"Gap (days)\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE i.status IN ('ACTIVE', 'EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) = CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) ORDER BY ABS(CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) - CAST(julianday(f.predicted_runout_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER)) DESC",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Gap (days)"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Gap (days)"
+          }
+        ],
+        "footer": {
+          "show": true,
+          "reducer": [
+            "count"
+          ],
+          "countRows": true
+        }
+      }
+    },
+    {
+      "id": 23,
+      "title": "⏳ Running Low — Under 7 Days of Supply",
+      "description": "Items predicted to run out within 7 days based on burn-rate forecasting. Items with ≤ 3 days are auto-marked EXPIRING_SOON.",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 69
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT i.item_name as \"Item\", ROUND(f.days_of_supply, 1) as \"Days of Supply\", ROUND(f.daily_burn_rate, 2) as \"Daily Burn Rate\", i.quantity as \"Current Qty\", i.unit as \"Unit\", f.predicted_runout_date as \"Predicted Runout\", i.status as \"Status\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE f.days_of_supply < 7 AND f.days_of_supply IS NOT NULL AND i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC",
+          "refId": "A",
+          "queryText": "SELECT i.item_name as \"Item\", ROUND(f.days_of_supply, 1) as \"Days of Supply\", ROUND(f.daily_burn_rate, 2) as \"Daily Burn Rate\", i.quantity as \"Current Qty\", i.unit as \"Unit\", f.predicted_runout_date as \"Predicted Runout\", i.status as \"Status\" FROM forecasts f JOIN inventory_items i ON f.item_id = i.id WHERE f.days_of_supply < 7 AND f.days_of_supply IS NOT NULL AND i.status IN ('ACTIVE', 'EXPIRING_SOON') ORDER BY f.days_of_supply ASC"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Days of Supply"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 0
+                    },
+                    {
+                      "color": "orange",
+                      "value": 3
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "red"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "displayName": "Days of Supply",
+            "desc": false
+          }
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "title": "💰 Menu Discount Suggestions",
+      "description": "AI-suggested discounted menu items for recipes using expiring ingredients. Helps move perishable stock faster via promotional pricing.",
+      "type": "table",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 77
+      },
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "ecopulse-sqlite"
+      },
+      "targets": [
+        {
+          "rawQueryText": "SELECT title as \"Recipe\", ingredient_names as \"Uses Ingredients\", estimated_servings as \"Servings\", ROUND(original_price, 2) as \"Original Price ($)\", ROUND(suggested_price, 2) as \"Deal Price ($)\", discount_percent as \"Discount %\", ROUND(co2_saved_kg, 2) as \"CO₂ Saved (kg)\", created_at as \"Created\" FROM recipes WHERE discount_percent > 0 AND discount_percent IS NOT NULL ORDER BY created_at DESC LIMIT 20",
+          "refId": "A",
+          "queryText": "SELECT title as \"Recipe\", ingredient_names as \"Uses Ingredients\", estimated_servings as \"Servings\", ROUND(original_price, 2) as \"Original Price ($)\", ROUND(suggested_price, 2) as \"Deal Price ($)\", discount_percent as \"Discount %\", ROUND(co2_saved_kg, 2) as \"CO₂ Saved (kg)\", created_at as \"Created\" FROM recipes WHERE discount_percent > 0 AND discount_percent IS NOT NULL ORDER BY created_at DESC LIMIT 20"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Discount %"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "yellow",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 15
+                    },
+                    {
+                      "color": "orange",
+                      "value": 25
+                    },
+                    {
+                      "color": "red",
+                      "value": 35
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Deal Price ($)"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "green"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Original Price ($)"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed",
+                  "fixedColor": "text"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "displayName": "Created",
+            "desc": true
+          }
+        ]
+      }
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [
+    "eco-pulse",
+    "sustainability",
+    "zero-waste"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "🌿 Eco-Pulse V3.0 — Zero-Waste Dashboard",
+  "uid": "ecopulse-main",
+  "version": 7
+}

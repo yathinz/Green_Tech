@@ -1,0 +1,27 @@
+=======================================
+   GREENFIELD GROCERY
+   123 Sustainability Ave
+   Portland, OR 97201
+=======================================
+Date: 2026-03-15  Time: 14:32
+Cashier: Register 4
+
+  Whole Milk 1gal        $4.29
+  Eggs Large 1dz         $3.99
+  Organic Apples 6ct     $5.49
+  Chicken Breast 2lb     $8.99
+  Sourdough Bread 1 loaf $4.50
+  Greek Yogurt 32oz      $6.29
+  Bananas 1 bunch        $1.29
+  Cheddar Cheese 8oz     $4.99
+  Tomatoes 4ct           $3.79
+  Orange Juice 64oz      $4.49
+
+---------------------------------------
+  Subtotal:              $48.11
+  Tax (0%):               $0.00
+  TOTAL:                 $48.11
+  Visa ****1234
+
+  Thank you for shopping green! 🌿
+=======================================
