@@ -50,9 +50,9 @@
       },
       "targets": [
         {
-          "rawQueryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC",
+          "rawQueryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN i.status IN ('CONSUMED','DONATED') THEN '✅ ' || i.status WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.status IN ('CONSUMED','DONATED') THEN 1 ELSE 0 END, CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC",
           "refId": "A",
-          "queryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC"
+          "queryText": "SELECT i.item_name, i.category, i.quantity, i.unit, i.expiry_date, CAST(julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) AS INTEGER) as days_left, i.status, CASE WHEN i.status IN ('CONSUMED','DONATED') THEN '✅ ' || i.status WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 2 THEN '🔴 URGENT' WHEN julianday(i.expiry_date) - julianday(COALESCE((SELECT value FROM system_config WHERE key = 'simulated_date'), date('now'))) <= 7 THEN '🟡 WARNING' ELSE '🟢 SAFE' END as urgency, i.co2_per_unit_kg, i.input_method FROM inventory_items i WHERE i.status != 'EXPIRED' ORDER BY CASE WHEN i.status IN ('CONSUMED','DONATED') THEN 1 ELSE 0 END, CASE WHEN i.expiry_date IS NULL THEN 1 ELSE 0 END, i.expiry_date ASC"
         }
       ],
       "fieldConfig": {
@@ -438,9 +438,9 @@
       },
       "targets": [
         {
-          "rawQueryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ('CONSUMED', 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\"",
+          "rawQueryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ( 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\"",
           "refId": "A",
-          "queryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ('CONSUMED', 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\""
+          "queryText": "SELECT ROUND(COALESCE((SELECT SUM(i.quantity * i.co2_per_unit_kg) FROM inventory_items i WHERE i.status IN ( 'DONATED')), 0) + COALESCE((SELECT SUM(r.co2_saved_kg) FROM recipes r WHERE r.co2_saved_kg > 0), 0), 1) as \"Total CO₂ Saved (kg)\""
         }
       ],
       "fieldConfig": {
@@ -781,7 +781,7 @@
     {
       "id": 13,
       "title": "🏆 Waste Prevention Score",
-      "description": "Composite metric — % of perishable items consumed/donated before expiring.",
+      "description": "Composite metric — % of perishable items saved (consumed/donated historically + active items predicted to be used before expiry via burn-rate forecasts).",
       "type": "gauge",
       "gridPos": {
         "h": 7,
@@ -795,9 +795,9 @@
       },
       "targets": [
         {
-          "rawQueryText": "SELECT ROUND((CAST(consumed_before_expiry AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT COUNT(CASE WHEN status IN ('CONSUMED', 'DONATED') THEN 1 END) as consumed_before_expiry, COUNT(*) as total_items FROM inventory_items WHERE expiry_date IS NOT NULL)",
+          "rawQueryText": "SELECT ROUND((CAST(saved + predicted_save AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT (SELECT COUNT(*) FROM inventory_items WHERE expiry_date IS NOT NULL AND status IN ('CONSUMED','DONATED')) as saved, (SELECT COUNT(*) FROM inventory_items i JOIN forecasts f ON f.item_id = i.id WHERE i.status IN ('ACTIVE','EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(f.predicted_runout_date) <= julianday(i.expiry_date)) as predicted_save, (SELECT COUNT(*) FROM inventory_items WHERE expiry_date IS NOT NULL) as total_items)",
           "refId": "A",
-          "queryText": "SELECT ROUND((CAST(consumed_before_expiry AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT COUNT(CASE WHEN status IN ('CONSUMED', 'DONATED') THEN 1 END) as consumed_before_expiry, COUNT(*) as total_items FROM inventory_items WHERE expiry_date IS NOT NULL)"
+          "queryText": "SELECT ROUND((CAST(saved + predicted_save AS FLOAT) / NULLIF(total_items, 0)) * 100, 1) as \"Waste Prevention Score (%)\" FROM (SELECT (SELECT COUNT(*) FROM inventory_items WHERE expiry_date IS NOT NULL AND status IN ('CONSUMED','DONATED')) as saved, (SELECT COUNT(*) FROM inventory_items i JOIN forecasts f ON f.item_id = i.id WHERE i.status IN ('ACTIVE','EXPIRING_SOON') AND i.expiry_date IS NOT NULL AND julianday(f.predicted_runout_date) <= julianday(i.expiry_date)) as predicted_save, (SELECT COUNT(*) FROM inventory_items WHERE expiry_date IS NOT NULL) as total_items)"
         }
       ],
       "fieldConfig": {

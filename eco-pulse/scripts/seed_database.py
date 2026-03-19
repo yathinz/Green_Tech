@@ -161,7 +161,93 @@ async def seed_inventory_and_events() -> dict:
         )
         event_count += 1
 
-    return {"items": len(item_ids), "events": event_count}
+    # ── Historical completed items ──────────────────────────────
+    # Portions consumed / donated FROM the current active stock.
+    # Each row keeps its quantity as a source of truth, and that
+    # same amount is deducted from the active item.
+    #
+    # Format: (item_name, qty, unit, expiry, status, finished_date, note)
+    HISTORICAL_ITEMS = [
+        # ── CONSUMED (used up from current batch) ──────────────
+        ("whole milk",       3.0,  "L",     "2026-03-22", "CONSUMED", "2026-03-15", "Used for morning prep"),
+        ("whole milk",       2.0,  "L",     "2026-03-22", "CONSUMED", "2026-03-18", "Used for recipes"),
+        ("chicken breast",   1.5,  "kg",    "2026-03-22", "CONSUMED", "2026-03-16", "Lunch service"),
+        ("chicken breast",   1.0,  "kg",    "2026-03-22", "CONSUMED", "2026-03-19", "Dinner service"),
+        ("egg",             12.0,  "units", "2026-04-16", "CONSUMED", "2026-03-17", "Baking batch"),
+        ("greek yogurt",    10.0,  "units", "2026-04-03", "CONSUMED", "2026-03-14", "Smoothie station"),
+        ("greek yogurt",     8.0,  "units", "2026-04-03", "CONSUMED", "2026-03-18", "Staff breakfast"),
+        ("organic apple",   15.0,  "units", "2026-04-03", "CONSUMED", "2026-03-16", "Juice bar"),
+        ("organic apple",   10.0,  "units", "2026-04-03", "CONSUMED", "2026-03-19", "Snack station"),
+        ("sourdough bread",  4.0,  "units", "2026-03-22", "CONSUMED", "2026-03-17", "Sandwich prep"),
+        ("sourdough bread",  3.0,  "units", "2026-03-22", "CONSUMED", "2026-03-19", "Toast service"),
+        ("coffee bean",    400.0,  "g",     "2026-06-17", "CONSUMED", "2026-03-15", "Daily brewing"),
+        ("coffee bean",    350.0,  "g",     "2026-06-17", "CONSUMED", "2026-03-18", "Catering order"),
+        ("tomato",           3.0,  "units", "2026-04-30", "CONSUMED", "2026-03-18", "Salad prep"),
+        ("orange juice",     2.0,  "L",     "2026-04-06", "CONSUMED", "2026-03-17", "Breakfast bar"),
+        ("cheddar cheese",   1.0,  "kg",    "2026-04-17", "CONSUMED", "2026-03-16", "Sandwich station"),
+        # ── DONATED (given away before expiry) ─────────────────
+        ("whole milk",       2.0,  "L",     "2026-03-22", "DONATED",  "2026-03-19", "Donated to FoodRescue Local"),
+        ("chicken breast",   1.5,  "kg",    "2026-03-22", "DONATED",  "2026-03-19", "Donated to Food Bank Central"),
+        ("sourdough bread",  4.0,  "units", "2026-03-22", "DONATED",  "2026-03-19", "Donated to Shelter Network"),
+        ("organic apple",   10.0,  "units", "2026-04-03", "DONATED",  "2026-03-18", "Donated to Community Garden"),
+        ("greek yogurt",     8.0,  "units", "2026-04-03", "DONATED",  "2026-03-19", "Donated to FoodRescue Local"),
+        # ── EXPIRED (not rescued in time) ──────────────────────
+        ("tomato",           2.0,  "units", "2026-03-15", "EXPIRED",  "2026-03-15", "Expired — composted"),
+        ("whole milk",       1.0,  "L",     "2026-03-10", "EXPIRED",  "2026-03-10", "Expired — composted"),
+    ]
+
+    # Sum up how much to deduct from each active item
+    deductions: dict[str, float] = {}
+    for (name, qty, *_rest) in HISTORICAL_ITEMS:
+        deductions[name] = deductions.get(name, 0.0) + qty
+
+    # Deduct historical consumed/donated/expired amounts from active rows
+    for item_key, active_id in item_ids.items():
+        # Find item name from events
+        active_name = next(
+            (e["item_name"] for e in events if e["item_id"] == item_key), None
+        )
+        if active_name and active_name in deductions:
+            deduct = deductions[active_name]
+            # Read current qty from the SEED_OVERRIDE (what we just inserted)
+            override = SEED_OVERRIDES.get(active_name)
+            if override:
+                new_qty = max(override["qty"] - deduct, 0.0)
+                await db.update_inventory_item(active_id, quantity=round(new_qty, 1))
+
+    # Insert historical items with their original quantities (source of truth)
+    historical_count = 0
+    for (name, orig_qty, unit, expiry, status, finished, note) in HISTORICAL_ITEMS:
+        carbon = carbon_lookup.get(name, {})
+        hist_id = await db.insert_inventory_item(
+            item_name=name,
+            category=carbon.get("category", "Other"),
+            quantity=orig_qty,     # actual qty consumed / donated / expired
+            unit=unit,
+            expiry_date=expiry,
+            co2_per_unit_kg=float(carbon.get("co2_per_unit_kg", 0)),
+            confidence_score=0.95,
+            input_method="CSV_IMPORT",
+            status=status,
+        )
+        # Matching event so the ledger is complete
+        action = "DONATE" if status == "DONATED" else ("WASTE" if status == "EXPIRED" else "USE")
+        await db.insert_event(
+            item_id=hist_id,
+            timestamp=f"{finished} 18:00:00",
+            action_type=action,
+            qty_change=-orig_qty,
+            day_of_week=0,
+            is_weekend=0,
+            notes=note,
+        )
+        historical_count += 1
+        event_count += 1
+
+    return {
+        "items": len(item_ids) + historical_count,
+        "events": event_count,
+    }
 
 
 async def seed_all(database_path: str = "/data/ecopulse.db") -> dict:
