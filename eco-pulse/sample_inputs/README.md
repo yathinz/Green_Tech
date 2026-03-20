@@ -12,9 +12,11 @@ ingestion pipeline. These files are designed to test both **happy-path** and
 |---|---|---|
 | `receipt_clear.txt` | Clear, well-formatted grocery receipt | High confidence (≥ 0.85) — items auto-ingested |
 | `receipt_blurry.txt` | Noisy receipt with OCR-like artefacts | Low confidence (< 0.85) — triggers human review fallback |
-| `shelf_photo.txt` | Description simulating a pantry shelf photo | Mixed confidence — some items auto-ingested, others flagged |
 | `voice_sample.txt` | Transcription simulating a voice memo | Used with `--text` flag to demo text ingestion |
 | `grocery_list.csv` | CSV batch import file | Direct CSV ingestion — no AI needed |
+| `camera_capture.jpg` | Photo of a grocery receipt | Image ingestion via Gemini vision — `--image` flag |
+| `fridge_shelf.jpg` | Photo of a fridge shelf with items | Image ingestion — identifies items from shelf photo |
+| `groceries.jpg` | Photo of grocery items / bags | Image ingestion — extracts items from a grocery haul photo |
 
 ---
 
@@ -32,38 +34,53 @@ eco-pulse ingest --text "$(cat sample_inputs/receipt_blurry.txt)"
 ```
 **Expected:** Some items flagged for human review due to low confidence.
 
-### Scenario 3: Shelf Photo Description
-```bash
-eco-pulse ingest --text "$(cat sample_inputs/shelf_photo.txt)"
-```
-**Expected:** Mixed results — clear items auto-ingested, ambiguous items queued.
-
-### Scenario 4: Voice Memo Transcription
+### Scenario 3: Voice Memo Transcription
 ```bash
 eco-pulse ingest --text "$(cat sample_inputs/voice_sample.txt)"
 ```
 **Expected:** Natural language parsed by AI, items extracted and normalised.
 
-### Scenario 5: CSV Batch Import
+### Scenario 4: CSV Batch Import
 ```bash
 eco-pulse ingest --csv sample_inputs/grocery_list.csv
 ```
 **Expected:** All items directly ingested without AI processing.
 
+### Scenario 5: Camera Capture (Real Image)
+```bash
+eco-pulse ingest --image sample_inputs/camera_capture.jpg
+```
+**Expected:** Gemini vision extracts items from the receipt photo with high confidence.
+
+### Scenario 6: Fridge Shelf Photo (Real Image)
+```bash
+eco-pulse ingest --image sample_inputs/fridge_shelf.jpg
+```
+**Expected:** Gemini vision identifies items visible on the fridge shelf.
+
+### Scenario 7: Grocery Haul Photo (Real Image)
+```bash
+eco-pulse ingest --image sample_inputs/groceries.jpg
+```
+**Expected:** Gemini vision extracts items from the grocery haul photo.
+
 ---
 
 ## 🖼️ Image & Audio Notes
 
-For a real demo, you would use actual image files (`.jpg`/`.png`) and audio
-files (`.wav`) with the `--image` and `--voice` flags respectively. The text
-files in this directory serve as portable, git-friendly alternatives that
-exercise the same AI extraction pipeline via the `--text` flag.
+This directory includes **real image files** for demonstrating Gemini vision
+ingestion alongside text-based alternatives:
 
-To test with real images/audio:
-1. Take a photo of a grocery receipt → `eco-pulse ingest --image photo.jpg`
-2. Record a voice memo → `eco-pulse ingest --voice memo.wav`
-3. The AI pipeline handles these identically to text, but via different
-   input modalities (image → Gemini vision, audio → Gemini audio).
+- `camera_capture.jpg` — receipt photo for `--image` ingestion
+- `fridge_shelf.jpg` — fridge shelf photo for `--image` ingestion
+- `groceries.jpg` — grocery haul photo for `--image` ingestion
+
+The `.txt` files serve as portable, git-friendly alternatives that exercise
+the same AI extraction pipeline via the `--text` flag.
+
+To test with audio:
+1. Record a voice memo → `eco-pulse ingest --voice memo.wav`
+2. Or use `--file` with a pre-recorded `.wav` for Docker/headless environments.
 
 ---
 

@@ -50,16 +50,16 @@
 
 ### AI Disclosure
 
-**Did you use an AI assistant (Copilot, ChatGPT, etc.)?** Yes — GitHub Copilot (Claude) for code generation, debugging, and test writing.
+**Did you use an AI assistant (Copilot, ChatGPT, etc.)?** Yes — GitHub Copilot (Claude) for code generation, debugging, and test writing and Gemini for sample image generation.
 
 **How did you verify the suggestions?**
-- Every change was validated by running the full 37-test suite (`pytest -v`) against an in-memory SQLite instance
+- Every change was validated by running the full 37-test suite (`pytest -v`) against an in-memory SQLite instance (new tests were added when implementing new features to maintain code coverage and all api calls were mocked to have consistent tests)
 - Manual end-to-end testing via CLI commands inside Docker
 - Grafana dashboard queries verified against live seeded data
 - All AI-generated code was reviewed for correctness before committing although reviews were surface level due to time constraints.
 
 **Give one example of a suggestion you rejected or changed:**
-The generated code used only `item_name` as the deduplication key — so buying milk today and buying milk next week with a different expiry date would silently merge into one row, losing the expiry distinction. I changed the composite key to `item_name + expiry_date`, so the same item with different expiry dates gets separate inventory entries (as it should in a FEFO system), while the same item with the same expiry correctly merges quantities. Full list of changes I made during review: [my_changes.md](my_changes.md)
+The generated code used only `item_name` as the deduplication key — so buying milk today and buying milk next week with a different expiry date would silently merge into one row, losing the expiry distinction. I changed the composite key to `item_name + expiry_date`, so the same item with different expiry dates gets separate inventory entries (as it should in a FEFO system), while the same item with the same expiry correctly merges quantities. Full list of changes I made during reviews: [my_changes.md](my_changes.md)
 
 ### Tradeoffs & Prioritization
 
@@ -921,7 +921,7 @@ docker exec -it ecopulse-app python -m cli <command> [options]
 
 ---
 
-## 🎬 End-to-End Demo Flows (11 Flows)
+## 🎬 End-to-End Demo Flows (13 Flows)
 
 Each flow can be triggered independently and demonstrates a complete pipeline.
 
@@ -948,6 +948,18 @@ docker exec -it ecopulse-app python -m cli ingest --text "Received 20 liters of 
 docker exec -it ecopulse-app python -m cli ingest --image /app/samples/receipt_blurry.jpg
 ```
 **Expected:** AI returns confidence < 0.85, items routed to `pending_human_review`, dashboard flags them.
+
+### Flow 4b: 🧊 Fridge Shelf Image Ingestion
+```bash
+docker exec -it ecopulse-app python -m cli ingest --image /app/samples/fridge_shelf.jpg
+```
+**Expected:** Gemini vision identifies items visible on the fridge shelf, extracts quantities and categories.
+
+### Flow 4c: 🛒 Grocery Haul Image Ingestion
+```bash
+docker exec -it ecopulse-app python -m cli ingest --image /app/samples/groceries.jpg
+```
+**Expected:** Gemini vision extracts items from the grocery haul photo, normalises and ingests them.
 
 ### Flow 5: ⏱️ API Timeout Fallback (F3)
 ```bash
@@ -1239,9 +1251,11 @@ eco-pulse/
 ├── sample_inputs/
 │   ├── receipt_clear.txt             # Clear receipt (high confidence)
 │   ├── receipt_blurry.txt            # Blurry receipt (low confidence → fallback)
-│   ├── shelf_photo.txt               # Pantry shelf description
 │   ├── voice_sample.txt              # Voice memo transcription
 │   ├── grocery_list.csv              # CSV batch import
+│   ├── camera_capture.jpg            # Receipt photo (Gemini vision)
+│   ├── fridge_shelf.jpg              # Fridge shelf photo (Gemini vision)
+│   ├── groceries.jpg                 # Grocery haul photo (Gemini vision)
 │   └── README.md                     # Attribution & demo scenarios
 │
 ├── grafana/
