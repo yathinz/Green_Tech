@@ -50,6 +50,7 @@
 
 [Tech_Stack](#-tech-stack)
 
+
 ### AI Disclosure
 
 **Did you use an AI assistant (Copilot, ChatGPT, etc.)?** Yes — GitHub Copilot (Claude) for code generation, debugging, and test writing and Gemini for sample image generation.
@@ -117,6 +118,8 @@ The generated code used only `item_name` as the deduplication key — so buying 
 - [Tradeoffs](#-tradeoffs--6-documented-decisions)
 - [Project Structure](#-project-structure)
 - [Data Sources & Attribution](#-data-sources--attribution)
+
+
 
 ---
 
