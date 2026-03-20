@@ -117,7 +117,7 @@ def generate_events_csv(days: int = 30) -> str:
     os.makedirs(DATA_DIR, exist_ok=True)
     filepath = os.path.join(DATA_DIR, "mock_inventory_events.csv")
 
-    base_date = datetime(2026, 2, 17, 0, 0, 0)  # Start 30 days before March 19
+    base_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=days)
     events = []
     event_id = 1
 

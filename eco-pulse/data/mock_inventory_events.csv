@@ -1,640 +1,615 @@
 event_id,timestamp,item_id,item_name,action_type,qty_change,day_of_week,is_weekend,notes
-15,2026-02-17 07:43:00,tomato-001,tomato,USE,-1.23,1,0,Smoothie bar
-13,2026-02-17 08:46:00,yogurt-001,greek yogurt,USE,-1.48,1,0,Lunch prep
-8,2026-02-17 08:57:00,apple-001,organic apple,RESTOCK,62.63,1,0,Emergency restock
-19,2026-02-17 09:00:00,oj-001,orange juice,USE,-0.21,1,0,Evening special
-16,2026-02-17 09:32:00,chicken-001,chicken breast,USE,-0.61,1,0,Morning rush
-6,2026-02-17 09:43:00,coffee-001,coffee bean,USE,-39.37,1,0,Evening special
-3,2026-02-17 12:01:00,milk-001,whole milk,WASTE,-0.53,1,0,Expired — composted
-2,2026-02-17 12:52:00,milk-001,whole milk,USE,-1.21,1,0,Lunch prep
-7,2026-02-17 13:17:00,apple-001,organic apple,USE,-1.79,1,0,Evening special
-20,2026-02-17 13:26:00,oj-001,orange juice,ADD,2.71,1,0,Emergency restock
-9,2026-02-17 13:43:00,bread-001,sourdough bread,USE,-1.25,1,0,Breakfast service
-10,2026-02-17 14:03:00,egg-001,egg,RESTOCK,51.53,1,0,Weekly delivery
-12,2026-02-17 14:13:00,cheese-001,cheddar cheese,RESTOCK,2.24,1,0,Wholesale order
-17,2026-02-17 14:36:00,oj-001,orange juice,USE,-0.29,1,0,Morning rush
-1,2026-02-17 14:52:00,milk-001,whole milk,USE,-0.56,1,0,Recipe testing
-21,2026-02-17 16:12:00,oj-001,orange juice,USE,-0.31,1,0,Daily prep
-11,2026-02-17 16:43:00,cheese-001,cheddar cheese,USE,-0.15,1,0,Recipe testing
-18,2026-02-17 17:34:00,oj-001,orange juice,ADD,3.91,1,0,Weekly delivery
-5,2026-02-17 18:15:00,coffee-001,coffee bean,USE,-42.63,1,0,Catering order
-4,2026-02-17 18:57:00,milk-001,whole milk,USE,-0.68,1,0,Breakfast service
-14,2026-02-17 19:00:00,tomato-001,tomato,USE,-0.85,1,0,Customer order
-26,2026-02-18 07:00:00,coffee-001,coffee bean,RESTOCK,918.0,2,0,Wholesale order
-34,2026-02-18 07:37:00,cheese-001,cheddar cheese,USE,-0.09,2,0,Breakfast service
-27,2026-02-18 10:12:00,coffee-001,coffee bean,USE,-61.81,2,0,Smoothie bar
-22,2026-02-18 11:22:00,milk-001,whole milk,USE,-1.2,2,0,Customer order
-36,2026-02-18 12:15:00,yogurt-001,greek yogurt,ADD,14.81,2,0,Supplier drop-off
-35,2026-02-18 12:21:00,cheese-001,cheddar cheese,USE,-0.11,2,0,Smoothie bar
-33,2026-02-18 13:03:00,cheese-001,cheddar cheese,USE,-0.11,2,0,Afternoon service
-39,2026-02-18 13:15:00,oj-001,orange juice,USE,-0.4,2,0,Evening special
-38,2026-02-18 13:17:00,chicken-001,chicken breast,RESTOCK,7.48,2,0,Emergency restock
-32,2026-02-18 13:36:00,egg-001,egg,WASTE,-1.41,2,0,Expired — composted
-37,2026-02-18 13:51:00,chicken-001,chicken breast,USE,-0.36,2,0,Catering order
-28,2026-02-18 14:26:00,coffee-001,coffee bean,RESTOCK,606.95,2,0,Emergency restock
-30,2026-02-18 16:51:00,bread-001,sourdough bread,USE,-0.75,2,0,Customer order
-25,2026-02-18 16:54:00,coffee-001,coffee bean,USE,-92.22,2,0,Evening special
-31,2026-02-18 17:48:00,egg-001,egg,USE,-5.99,2,0,Catering order
-29,2026-02-18 17:53:00,apple-001,organic apple,USE,-2.23,2,0,Baking batch
-41,2026-02-18 18:04:00,oj-001,orange juice,USE,-0.2,2,0,Lunch prep
-24,2026-02-18 18:43:00,coffee-001,coffee bean,USE,-63.77,2,0,Daily prep
-40,2026-02-18 18:48:00,oj-001,orange juice,ADD,3.67,2,0,Supplier drop-off
-23,2026-02-18 19:35:00,milk-001,whole milk,USE,-1.04,2,0,Morning rush
-54,2026-02-19 08:24:00,tomato-001,tomato,USE,-1.31,3,0,Lunch prep
-45,2026-02-19 09:15:00,coffee-001,coffee bean,USE,-65.71,3,0,Staff meal
-53,2026-02-19 09:32:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Smoothie bar
-51,2026-02-19 09:48:00,bread-001,sourdough bread,ADD,11.37,3,0,Wholesale order
-59,2026-02-19 10:00:00,oj-001,orange juice,USE,-0.38,3,0,Customer order
-46,2026-02-19 10:32:00,coffee-001,coffee bean,WASTE,-16.93,3,0,Damaged in storage
-44,2026-02-19 10:34:00,milk-001,whole milk,USE,-1.4,3,0,Lunch prep
-52,2026-02-19 11:23:00,cheese-001,cheddar cheese,RESTOCK,2.02,3,0,Weekly delivery
-48,2026-02-19 12:37:00,apple-001,organic apple,USE,-2.04,3,0,Catering order
-57,2026-02-19 12:47:00,chicken-001,chicken breast,ADD,3.61,3,0,Wholesale order
-55,2026-02-19 13:01:00,chicken-001,chicken breast,USE,-0.59,3,0,Daily prep
-47,2026-02-19 14:07:00,coffee-001,coffee bean,USE,-45.25,3,0,Customer order
-42,2026-02-19 14:53:00,milk-001,whole milk,ADD,14.07,3,0,Weekly delivery
-56,2026-02-19 16:16:00,chicken-001,chicken breast,USE,-0.4,3,0,Catering order
-49,2026-02-19 17:26:00,apple-001,organic apple,USE,-3.71,3,0,Morning rush
-43,2026-02-19 17:48:00,milk-001,whole milk,ADD,11.78,3,0,Farmers market purchase
-50,2026-02-19 18:46:00,apple-001,organic apple,ADD,28.06,3,0,Farmers market purchase
-58,2026-02-19 18:57:00,oj-001,orange juice,USE,-0.37,3,0,Staff meal
-60,2026-02-20 08:01:00,coffee-001,coffee bean,RESTOCK,627.62,4,0,Emergency restock
-68,2026-02-20 08:31:00,egg-001,egg,USE,-5.66,4,0,Evening special
-65,2026-02-20 09:27:00,egg-001,egg,USE,-5.18,4,0,Evening special
-64,2026-02-20 10:29:00,bread-001,sourdough bread,USE,-1.79,4,0,Recipe testing
-69,2026-02-20 11:21:00,cheese-001,cheddar cheese,WASTE,-0.05,4,0,Expired — composted
-73,2026-02-20 11:22:00,chicken-001,chicken breast,USE,-0.48,4,0,Recipe testing
-72,2026-02-20 11:38:00,chicken-001,chicken breast,USE,-0.63,4,0,Baking batch
-61,2026-02-20 12:57:00,apple-001,organic apple,USE,-3.95,4,0,Breakfast service
-62,2026-02-20 16:05:00,apple-001,organic apple,RESTOCK,34.01,4,0,Weekly delivery
-70,2026-02-20 16:15:00,cheese-001,cheddar cheese,ADD,0.64,4,0,Farmers market purchase
-66,2026-02-20 16:52:00,egg-001,egg,ADD,33.03,4,0,Supplier drop-off
-63,2026-02-20 18:04:00,bread-001,sourdough bread,ADD,11.26,4,0,Weekly delivery
-67,2026-02-20 18:52:00,egg-001,egg,USE,-3.71,4,0,Lunch prep
-71,2026-02-20 19:13:00,cheese-001,cheddar cheese,USE,-0.06,4,0,Catering order
-81,2026-02-21 08:44:00,apple-001,organic apple,USE,-5.09,5,1,Breakfast service
-79,2026-02-21 08:50:00,coffee-001,coffee bean,USE,-64.08,5,1,Recipe testing
-77,2026-02-21 09:00:00,coffee-001,coffee bean,USE,-153.76,5,1,Staff meal
-87,2026-02-21 09:11:00,cheese-001,cheddar cheese,USE,-0.23,5,1,Breakfast service
-80,2026-02-21 09:40:00,apple-001,organic apple,USE,-3.59,5,1,Catering order
-83,2026-02-21 10:17:00,bread-001,sourdough bread,USE,-2.63,5,1,Customer order
-88,2026-02-21 11:34:00,yogurt-001,greek yogurt,USE,-1.56,5,1,Evening special
-89,2026-02-21 11:35:00,yogurt-001,greek yogurt,USE,-2.81,5,1,Afternoon service
-75,2026-02-21 13:01:00,milk-001,whole milk,USE,-1.79,5,1,Afternoon service
-95,2026-02-21 13:24:00,oj-001,orange juice,RESTOCK,4.18,5,1,Supplier drop-off
-84,2026-02-21 13:31:00,bread-001,sourdough bread,USE,-2.31,5,1,Recipe testing
-90,2026-02-21 13:44:00,yogurt-001,greek yogurt,RESTOCK,34.53,5,1,Farmers market purchase
-74,2026-02-21 14:04:00,milk-001,whole milk,RESTOCK,16.52,5,1,Supplier drop-off
-82,2026-02-21 15:20:00,apple-001,organic apple,RESTOCK,25.57,5,1,Weekly delivery
-86,2026-02-21 15:21:00,egg-001,egg,RESTOCK,66.32,5,1,Wholesale order
-92,2026-02-21 16:43:00,tomato-001,tomato,WASTE,-0.63,5,1,Damaged in storage
-91,2026-02-21 17:17:00,tomato-001,tomato,ADD,14.55,5,1,Farmers market purchase
-76,2026-02-21 17:19:00,milk-001,whole milk,USE,-1.74,5,1,Staff meal
-78,2026-02-21 18:28:00,coffee-001,coffee bean,WASTE,-37.35,5,1,Quality issue
-94,2026-02-21 19:00:00,oj-001,orange juice,USE,-0.79,5,1,Evening special
-85,2026-02-21 19:22:00,bread-001,sourdough bread,RESTOCK,20.58,5,1,Emergency restock
-93,2026-02-21 19:39:00,tomato-001,tomato,RESTOCK,28.77,5,1,Wholesale order
-112,2026-02-22 07:17:00,egg-001,egg,USE,-5.61,6,1,Catering order
-110,2026-02-22 08:09:00,egg-001,egg,ADD,46.08,6,1,Farmers market purchase
-103,2026-02-22 08:46:00,coffee-001,coffee bean,USE,-156.73,6,1,Evening special
-109,2026-02-22 08:50:00,egg-001,egg,RESTOCK,85.35,6,1,Farmers market purchase
-114,2026-02-22 09:00:00,cheese-001,cheddar cheese,ADD,1.02,6,1,Emergency restock
-119,2026-02-22 09:58:00,chicken-001,chicken breast,USE,-0.78,6,1,Customer order
-98,2026-02-22 10:27:00,milk-001,whole milk,USE,-1.71,6,1,Morning rush
-115,2026-02-22 11:13:00,chicken-001,chicken breast,ADD,4.7,6,1,Wholesale order
-101,2026-02-22 11:15:00,coffee-001,coffee bean,WASTE,-27.57,6,1,Damaged in storage
-102,2026-02-22 11:35:00,coffee-001,coffee bean,USE,-159.25,6,1,Lunch prep
-118,2026-02-22 13:25:00,chicken-001,chicken breast,USE,-0.61,6,1,Breakfast service
-117,2026-02-22 14:31:00,chicken-001,chicken breast,USE,-1.1,6,1,Catering order
-105,2026-02-22 14:37:00,apple-001,organic apple,USE,-6.19,6,1,Breakfast service
-106,2026-02-22 14:57:00,apple-001,organic apple,USE,-4.78,6,1,Staff meal
-104,2026-02-22 15:10:00,apple-001,organic apple,USE,-5.98,6,1,Customer order
-99,2026-02-22 15:55:00,coffee-001,coffee bean,USE,-104.29,6,1,Staff meal
-96,2026-02-22 16:25:00,milk-001,whole milk,USE,-1.93,6,1,Morning rush
-100,2026-02-22 16:43:00,coffee-001,coffee bean,USE,-99.88,6,1,Smoothie bar
-113,2026-02-22 17:48:00,cheese-001,cheddar cheese,USE,-0.24,6,1,Afternoon service
-120,2026-02-22 18:04:00,chicken-001,chicken breast,USE,-1.05,6,1,Smoothie bar
-107,2026-02-22 18:36:00,bread-001,sourdough bread,USE,-2.31,6,1,Evening special
-111,2026-02-22 19:04:00,egg-001,egg,RESTOCK,87.96,6,1,Emergency restock
-97,2026-02-22 19:12:00,milk-001,whole milk,USE,-1.5,6,1,Evening special
-108,2026-02-22 19:12:00,egg-001,egg,ADD,48.65,6,1,Farmers market purchase
-116,2026-02-22 19:12:00,chicken-001,chicken breast,USE,-0.6,6,1,Daily prep
-122,2026-02-23 08:37:00,milk-001,whole milk,RESTOCK,18.26,0,0,Farmers market purchase
-124,2026-02-23 09:16:00,coffee-001,coffee bean,USE,-74.81,0,0,Evening special
-141,2026-02-23 10:09:00,yogurt-001,greek yogurt,RESTOCK,29.84,0,0,Farmers market purchase
-131,2026-02-23 11:05:00,bread-001,sourdough bread,USE,-0.9,0,0,Afternoon service
-130,2026-02-23 11:17:00,bread-001,sourdough bread,USE,-0.72,0,0,Lunch prep
-144,2026-02-23 11:56:00,chicken-001,chicken breast,USE,-0.74,0,0,Daily prep
-145,2026-02-23 12:05:00,chicken-001,chicken breast,USE,-0.3,0,0,Morning rush
-135,2026-02-23 12:13:00,cheese-001,cheddar cheese,USE,-0.09,0,0,Smoothie bar
-128,2026-02-23 12:15:00,apple-001,organic apple,USE,-1.74,0,0,Lunch prep
-136,2026-02-23 14:01:00,cheese-001,cheddar cheese,USE,-0.09,0,0,Customer order
-126,2026-02-23 14:04:00,coffee-001,coffee bean,USE,-50.55,0,0,Daily prep
-125,2026-02-23 14:16:00,coffee-001,coffee bean,RESTOCK,747.07,0,0,Emergency restock
-129,2026-02-23 14:24:00,apple-001,organic apple,USE,-1.82,0,0,Morning rush
-142,2026-02-23 14:39:00,tomato-001,tomato,USE,-1.45,0,0,Daily prep
-137,2026-02-23 14:50:00,cheese-001,cheddar cheese,ADD,0.63,0,0,Weekly delivery
-146,2026-02-23 14:54:00,oj-001,orange juice,USE,-0.26,0,0,Recipe testing
-139,2026-02-23 15:16:00,yogurt-001,greek yogurt,USE,-0.87,0,0,Smoothie bar
-133,2026-02-23 15:21:00,egg-001,egg,USE,-5.2,0,0,Afternoon service
-127,2026-02-23 15:22:00,apple-001,organic apple,USE,-1.54,0,0,Baking batch
-143,2026-02-23 15:36:00,tomato-001,tomato,USE,-0.84,0,0,Catering order
-138,2026-02-23 15:54:00,yogurt-001,greek yogurt,USE,-1.72,0,0,Smoothie bar
-132,2026-02-23 16:45:00,bread-001,sourdough bread,USE,-1.28,0,0,Recipe testing
-121,2026-02-23 17:50:00,milk-001,whole milk,ADD,11.75,0,0,Wholesale order
-123,2026-02-23 17:50:00,milk-001,whole milk,USE,-1.14,0,0,Staff meal
-140,2026-02-23 18:24:00,yogurt-001,greek yogurt,USE,-1.38,0,0,Customer order
-134,2026-02-23 19:16:00,egg-001,egg,USE,-5.49,0,0,Recipe testing
-162,2026-02-24 07:24:00,yogurt-001,greek yogurt,USE,-1.56,1,0,Daily prep
-164,2026-02-24 09:07:00,tomato-001,tomato,USE,-1.11,1,0,Recipe testing
-157,2026-02-24 09:34:00,egg-001,egg,WASTE,-1.06,1,0,Past expiry date
-159,2026-02-24 11:04:00,cheese-001,cheddar cheese,ADD,1.34,1,0,Supplier drop-off
-150,2026-02-24 11:05:00,coffee-001,coffee bean,USE,-89.24,1,0,Catering order
-154,2026-02-24 11:08:00,bread-001,sourdough bread,USE,-0.78,1,0,Catering order
-158,2026-02-24 11:13:00,cheese-001,cheddar cheese,ADD,1.35,1,0,Weekly delivery
-156,2026-02-24 11:55:00,egg-001,egg,ADD,58.74,1,0,Emergency restock
-151,2026-02-24 12:36:00,apple-001,organic apple,USE,-3.22,1,0,Recipe testing
-148,2026-02-24 12:50:00,coffee-001,coffee bean,WASTE,-25.74,1,0,Expired — composted
-165,2026-02-24 13:26:00,chicken-001,chicken breast,RESTOCK,8.22,1,0,Supplier drop-off
-166,2026-02-24 13:32:00,oj-001,orange juice,USE,-0.25,1,0,Recipe testing
-163,2026-02-24 13:50:00,tomato-001,tomato,USE,-0.97,1,0,Lunch prep
-153,2026-02-24 14:09:00,apple-001,organic apple,USE,-2.32,1,0,Lunch prep
-147,2026-02-24 14:30:00,milk-001,whole milk,USE,-1.2,1,0,Breakfast service
-155,2026-02-24 14:37:00,bread-001,sourdough bread,ADD,15.15,1,0,Farmers market purchase
-160,2026-02-24 14:38:00,yogurt-001,greek yogurt,USE,-1.97,1,0,Daily prep
-149,2026-02-24 17:07:00,coffee-001,coffee bean,ADD,831.07,1,0,Wholesale order
-161,2026-02-24 19:37:00,yogurt-001,greek yogurt,ADD,23.5,1,0,Emergency restock
-152,2026-02-24 19:42:00,apple-001,organic apple,USE,-3.82,1,0,Staff meal
-185,2026-02-25 07:06:00,tomato-001,tomato,USE,-2.0,2,0,Evening special
-187,2026-02-25 07:13:00,oj-001,orange juice,ADD,3.76,2,0,Weekly delivery
-180,2026-02-25 08:06:00,cheese-001,cheddar cheese,USE,-0.14,2,0,Lunch prep
-186,2026-02-25 09:31:00,chicken-001,chicken breast,ADD,3.94,2,0,Wholesale order
-181,2026-02-25 09:53:00,yogurt-001,greek yogurt,USE,-1.59,2,0,Staff meal
-167,2026-02-25 10:44:00,coffee-001,coffee bean,ADD,466.38,2,0,Wholesale order
-176,2026-02-25 11:25:00,bread-001,sourdough bread,USE,-0.82,2,0,Customer order
-179,2026-02-25 11:25:00,egg-001,egg,USE,-5.21,2,0,Morning rush
-175,2026-02-25 12:10:00,bread-001,sourdough bread,ADD,19.21,2,0,Weekly delivery
-184,2026-02-25 12:21:00,tomato-001,tomato,WASTE,-0.32,2,0,Expired — composted
-188,2026-02-25 12:27:00,oj-001,orange juice,ADD,3.58,2,0,Weekly delivery
-174,2026-02-25 12:50:00,bread-001,sourdough bread,USE,-1.48,2,0,Daily prep
-182,2026-02-25 12:52:00,yogurt-001,greek yogurt,USE,-1.66,2,0,Catering order
-183,2026-02-25 13:16:00,tomato-001,tomato,USE,-1.55,2,0,Evening special
-178,2026-02-25 14:14:00,bread-001,sourdough bread,RESTOCK,22.38,2,0,Farmers market purchase
-172,2026-02-25 14:17:00,apple-001,organic apple,USE,-3.76,2,0,Afternoon service
-177,2026-02-25 15:00:00,bread-001,sourdough bread,ADD,9.5,2,0,Supplier drop-off
-170,2026-02-25 16:39:00,apple-001,organic apple,USE,-1.82,2,0,Afternoon service
-171,2026-02-25 16:45:00,apple-001,organic apple,USE,-2.4,2,0,Staff meal
-173,2026-02-25 18:42:00,apple-001,organic apple,USE,-1.38,2,0,Daily prep
-169,2026-02-25 18:44:00,coffee-001,coffee bean,USE,-48.62,2,0,Evening special
-168,2026-02-25 19:07:00,coffee-001,coffee bean,USE,-59.82,2,0,Customer order
-200,2026-02-26 07:09:00,cheese-001,cheddar cheese,WASTE,-0.05,3,0,Mould found
-191,2026-02-26 08:06:00,milk-001,whole milk,USE,-0.66,3,0,Lunch prep
-190,2026-02-26 08:32:00,milk-001,whole milk,USE,-1.4,3,0,Baking batch
-209,2026-02-26 08:53:00,tomato-001,tomato,ADD,13.06,3,0,Supplier drop-off
-189,2026-02-26 09:31:00,milk-001,whole milk,USE,-0.58,3,0,Breakfast service
-199,2026-02-26 09:51:00,cheese-001,cheddar cheese,USE,-0.14,3,0,Daily prep
-211,2026-02-26 09:53:00,oj-001,orange juice,ADD,2.89,3,0,Wholesale order
-194,2026-02-26 10:51:00,bread-001,sourdough bread,USE,-1.74,3,0,Afternoon service
-207,2026-02-26 11:06:00,tomato-001,tomato,USE,-1.51,3,0,Catering order
-210,2026-02-26 11:10:00,chicken-001,chicken breast,USE,-0.37,3,0,Baking batch
-208,2026-02-26 11:27:00,tomato-001,tomato,USE,-1.78,3,0,Smoothie bar
-205,2026-02-26 12:20:00,tomato-001,tomato,ADD,9.28,3,0,Emergency restock
-198,2026-02-26 12:29:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Catering order
-204,2026-02-26 12:57:00,tomato-001,tomato,USE,-1.21,3,0,Breakfast service
-195,2026-02-26 13:32:00,egg-001,egg,RESTOCK,36.78,3,0,Farmers market purchase
-197,2026-02-26 13:54:00,cheese-001,cheddar cheese,USE,-0.09,3,0,Afternoon service
-193,2026-02-26 14:13:00,bread-001,sourdough bread,USE,-0.8,3,0,Afternoon service
-201,2026-02-26 15:39:00,yogurt-001,greek yogurt,USE,-1.69,3,0,Smoothie bar
-202,2026-02-26 15:53:00,yogurt-001,greek yogurt,USE,-1.5,3,0,Evening special
-203,2026-02-26 16:57:00,yogurt-001,greek yogurt,USE,-1.54,3,0,Daily prep
-192,2026-02-26 17:07:00,coffee-001,coffee bean,USE,-48.74,3,0,Daily prep
-206,2026-02-26 17:39:00,tomato-001,tomato,USE,-1.02,3,0,Breakfast service
-196,2026-02-26 19:18:00,egg-001,egg,USE,-2.11,3,0,Daily prep
-234,2026-02-27 07:52:00,chicken-001,chicken breast,ADD,5.65,4,0,Wholesale order
-233,2026-02-27 08:03:00,chicken-001,chicken breast,USE,-0.4,4,0,Lunch prep
-237,2026-02-27 08:24:00,oj-001,orange juice,USE,-0.47,4,0,Recipe testing
-216,2026-02-27 09:29:00,coffee-001,coffee bean,USE,-33.49,4,0,Lunch prep
-212,2026-02-27 09:51:00,milk-001,whole milk,USE,-0.76,4,0,Baking batch
-214,2026-02-27 11:08:00,milk-001,whole milk,USE,-1.27,4,0,Evening special
-218,2026-02-27 11:16:00,apple-001,organic apple,WASTE,-1.33,4,0,Expired — composted
-222,2026-02-27 11:21:00,apple-001,organic apple,RESTOCK,31.22,4,0,Wholesale order
-217,2026-02-27 11:43:00,coffee-001,coffee bean,USE,-40.21,4,0,Staff meal
-219,2026-02-27 12:07:00,apple-001,organic apple,USE,-3.18,4,0,Customer order
-224,2026-02-27 13:16:00,egg-001,egg,USE,-4.09,4,0,Morning rush
-230,2026-02-27 13:45:00,yogurt-001,greek yogurt,RESTOCK,34.97,4,0,Weekly delivery
-226,2026-02-27 14:25:00,egg-001,egg,USE,-4.79,4,0,Breakfast service
-231,2026-02-27 14:43:00,tomato-001,tomato,USE,-1.5,4,0,Morning rush
-236,2026-02-27 14:45:00,oj-001,orange juice,USE,-0.31,4,0,Catering order
-223,2026-02-27 14:49:00,bread-001,sourdough bread,USE,-1.06,4,0,Evening special
-232,2026-02-27 15:38:00,tomato-001,tomato,WASTE,-0.67,4,0,Damaged in storage
-215,2026-02-27 15:42:00,milk-001,whole milk,USE,-1.23,4,0,Evening special
-221,2026-02-27 16:15:00,apple-001,organic apple,USE,-3.12,4,0,Evening special
-228,2026-02-27 16:33:00,yogurt-001,greek yogurt,USE,-0.87,4,0,Morning rush
-220,2026-02-27 17:25:00,apple-001,organic apple,USE,-2.64,4,0,Daily prep
-225,2026-02-27 18:44:00,egg-001,egg,USE,-3.46,4,0,Lunch prep
-229,2026-02-27 19:17:00,yogurt-001,greek yogurt,USE,-2.29,4,0,Evening special
-227,2026-02-27 19:21:00,cheese-001,cheddar cheese,USE,-0.1,4,0,Recipe testing
-235,2026-02-27 19:36:00,oj-001,orange juice,USE,-0.48,4,0,Evening special
-213,2026-02-27 19:42:00,milk-001,whole milk,USE,-1.0,4,0,Lunch prep
-260,2026-02-28 07:11:00,chicken-001,chicken breast,ADD,7.26,5,1,Weekly delivery
-241,2026-02-28 07:23:00,apple-001,organic apple,USE,-5.37,5,1,Afternoon service
-248,2026-02-28 07:49:00,egg-001,egg,USE,-3.69,5,1,Evening special
-240,2026-02-28 07:58:00,apple-001,organic apple,USE,-4.68,5,1,Daily prep
-257,2026-02-28 08:23:00,yogurt-001,greek yogurt,USE,-1.64,5,1,Breakfast service
-254,2026-02-28 08:35:00,yogurt-001,greek yogurt,USE,-3.32,5,1,Smoothie bar
-250,2026-02-28 09:15:00,cheese-001,cheddar cheese,USE,-0.22,5,1,Lunch prep
-243,2026-02-28 10:13:00,apple-001,organic apple,ADD,16.84,5,1,Wholesale order
-259,2026-02-28 10:31:00,chicken-001,chicken breast,ADD,6.55,5,1,Weekly delivery
-247,2026-02-28 11:47:00,egg-001,egg,USE,-6.61,5,1,Smoothie bar
-238,2026-02-28 12:52:00,milk-001,whole milk,USE,-2.14,5,1,Baking batch
-244,2026-02-28 14:02:00,apple-001,organic apple,RESTOCK,42.3,5,1,Farmers market purchase
-258,2026-02-28 15:31:00,tomato-001,tomato,USE,-1.11,5,1,Morning rush
-239,2026-02-28 15:48:00,coffee-001,coffee bean,USE,-94.3,5,1,Evening special
-245,2026-02-28 16:08:00,bread-001,sourdough bread,USE,-2.88,5,1,Evening special
-253,2026-02-28 16:31:00,yogurt-001,greek yogurt,USE,-3.54,5,1,Staff meal
-252,2026-02-28 16:56:00,yogurt-001,greek yogurt,USE,-3.68,5,1,Smoothie bar
-246,2026-02-28 17:04:00,egg-001,egg,USE,-3.23,5,1,Baking batch
-249,2026-02-28 17:12:00,cheese-001,cheddar cheese,USE,-0.19,5,1,Lunch prep
-251,2026-02-28 17:47:00,cheese-001,cheddar cheese,USE,-0.22,5,1,Recipe testing
-256,2026-02-28 17:48:00,yogurt-001,greek yogurt,USE,-1.56,5,1,Baking batch
-255,2026-02-28 18:38:00,yogurt-001,greek yogurt,USE,-3.35,5,1,Smoothie bar
-242,2026-02-28 19:55:00,apple-001,organic apple,RESTOCK,42.54,5,1,Wholesale order
-279,2026-03-01 07:32:00,oj-001,orange juice,RESTOCK,3.36,6,1,Weekly delivery
-263,2026-03-01 08:28:00,bread-001,sourdough bread,USE,-2.02,6,1,Lunch prep
-268,2026-03-01 08:34:00,cheese-001,cheddar cheese,USE,-0.22,6,1,Baking batch
-282,2026-03-01 08:41:00,oj-001,orange juice,USE,-0.64,6,1,Lunch prep
-272,2026-03-01 09:19:00,yogurt-001,greek yogurt,USE,-3.79,6,1,Catering order
-267,2026-03-01 09:58:00,cheese-001,cheddar cheese,USE,-0.12,6,1,Daily prep
-273,2026-03-01 10:08:00,tomato-001,tomato,USE,-2.53,6,1,Baking batch
-265,2026-03-01 10:21:00,egg-001,egg,ADD,51.82,6,1,Emergency restock
-275,2026-03-01 11:17:00,chicken-001,chicken breast,WASTE,-0.12,6,1,Expired — composted
-277,2026-03-01 12:21:00,oj-001,orange juice,USE,-0.57,6,1,Daily prep
-276,2026-03-01 12:31:00,chicken-001,chicken breast,USE,-0.72,6,1,Baking batch
-281,2026-03-01 12:38:00,oj-001,orange juice,USE,-0.44,6,1,Morning rush
-274,2026-03-01 12:53:00,tomato-001,tomato,USE,-2.12,6,1,Evening special
-278,2026-03-01 14:31:00,oj-001,orange juice,USE,-0.45,6,1,Lunch prep
-264,2026-03-01 15:38:00,bread-001,sourdough bread,RESTOCK,14.04,6,1,Emergency restock
-283,2026-03-01 17:02:00,oj-001,orange juice,USE,-0.32,6,1,Evening special
-270,2026-03-01 17:45:00,yogurt-001,greek yogurt,RESTOCK,34.41,6,1,Farmers market purchase
-269,2026-03-01 18:17:00,cheese-001,cheddar cheese,USE,-0.18,6,1,Afternoon service
-266,2026-03-01 18:55:00,egg-001,egg,USE,-8.76,6,1,Evening special
-261,2026-03-01 19:11:00,milk-001,whole milk,USE,-2.19,6,1,Smoothie bar
-262,2026-03-01 19:11:00,milk-001,whole milk,ADD,7.17,6,1,Supplier drop-off
-271,2026-03-01 19:43:00,yogurt-001,greek yogurt,USE,-1.38,6,1,Afternoon service
-280,2026-03-01 19:51:00,oj-001,orange juice,RESTOCK,3.41,6,1,Wholesale order
-304,2026-03-02 07:04:00,oj-001,orange juice,USE,-0.44,0,0,Afternoon service
-292,2026-03-02 07:06:00,bread-001,sourdough bread,USE,-1.22,0,0,Smoothie bar
-291,2026-03-02 09:34:00,bread-001,sourdough bread,USE,-0.78,0,0,Afternoon service
-288,2026-03-02 09:54:00,coffee-001,coffee bean,USE,-74.38,0,0,Evening special
-295,2026-03-02 10:01:00,egg-001,egg,USE,-3.58,0,0,Catering order
-293,2026-03-02 10:23:00,egg-001,egg,USE,-3.48,0,0,Morning rush
-298,2026-03-02 10:47:00,cheese-001,cheddar cheese,USE,-0.13,0,0,Smoothie bar
-297,2026-03-02 11:14:00,cheese-001,cheddar cheese,USE,-0.1,0,0,Catering order
-301,2026-03-02 12:16:00,yogurt-001,greek yogurt,USE,-1.82,0,0,Recipe testing
-285,2026-03-02 13:10:00,milk-001,whole milk,USE,-1.31,0,0,Smoothie bar
-296,2026-03-02 13:41:00,egg-001,egg,USE,-5.17,0,0,Baking batch
-302,2026-03-02 14:11:00,tomato-001,tomato,USE,-1.1,0,0,Breakfast service
-300,2026-03-02 14:38:00,yogurt-001,greek yogurt,RESTOCK,26.13,0,0,Wholesale order
-294,2026-03-02 15:35:00,egg-001,egg,USE,-4.06,0,0,Smoothie bar
-287,2026-03-02 15:41:00,milk-001,whole milk,USE,-1.14,0,0,Baking batch
-299,2026-03-02 15:53:00,yogurt-001,greek yogurt,USE,-0.95,0,0,Breakfast service
-286,2026-03-02 16:21:00,milk-001,whole milk,RESTOCK,17.21,0,0,Farmers market purchase
-303,2026-03-02 17:09:00,tomato-001,tomato,USE,-1.96,0,0,Baking batch
-290,2026-03-02 18:17:00,coffee-001,coffee bean,USE,-36.24,0,0,Morning rush
-284,2026-03-02 18:19:00,milk-001,whole milk,RESTOCK,23.21,0,0,Emergency restock
-289,2026-03-02 19:54:00,coffee-001,coffee bean,USE,-82.95,0,0,Smoothie bar
-323,2026-03-03 07:11:00,tomato-001,tomato,USE,-0.67,1,0,Daily prep
-325,2026-03-03 07:34:00,tomato-001,tomato,USE,-0.98,1,0,Afternoon service
-315,2026-03-03 08:00:00,egg-001,egg,USE,-5.85,1,0,Morning rush
-307,2026-03-03 08:08:00,coffee-001,coffee bean,USE,-51.32,1,0,Evening special
-322,2026-03-03 08:12:00,yogurt-001,greek yogurt,USE,-2.18,1,0,Morning rush
-313,2026-03-03 08:41:00,bread-001,sourdough bread,USE,-0.86,1,0,Breakfast service
-324,2026-03-03 09:28:00,tomato-001,tomato,USE,-1.42,1,0,Lunch prep
-316,2026-03-03 10:32:00,cheese-001,cheddar cheese,USE,-0.14,1,0,Morning rush
-321,2026-03-03 10:33:00,cheese-001,cheddar cheese,USE,-0.12,1,0,Afternoon service
-314,2026-03-03 11:00:00,bread-001,sourdough bread,ADD,9.95,1,0,Supplier drop-off
-328,2026-03-03 11:14:00,oj-001,orange juice,USE,-0.3,1,0,Lunch prep
-317,2026-03-03 11:47:00,cheese-001,cheddar cheese,USE,-0.14,1,0,Customer order
-306,2026-03-03 11:48:00,milk-001,whole milk,ADD,11.97,1,0,Supplier drop-off
-309,2026-03-03 11:58:00,coffee-001,coffee bean,USE,-63.48,1,0,Customer order
-329,2026-03-03 13:05:00,oj-001,orange juice,USE,-0.37,1,0,Recipe testing
-319,2026-03-03 15:32:00,cheese-001,cheddar cheese,WASTE,-0.02,1,0,Mould found
-305,2026-03-03 15:42:00,milk-001,whole milk,USE,-0.67,1,0,Evening special
-320,2026-03-03 15:52:00,cheese-001,cheddar cheese,USE,-0.14,1,0,Daily prep
-326,2026-03-03 16:01:00,chicken-001,chicken breast,USE,-0.58,1,0,Lunch prep
-327,2026-03-03 16:24:00,oj-001,orange juice,USE,-0.18,1,0,Customer order
-312,2026-03-03 17:49:00,apple-001,organic apple,USE,-2.01,1,0,Morning rush
-318,2026-03-03 18:01:00,cheese-001,cheddar cheese,USE,-0.06,1,0,Baking batch
-310,2026-03-03 18:41:00,coffee-001,coffee bean,USE,-67.15,1,0,Breakfast service
-308,2026-03-03 19:00:00,coffee-001,coffee bean,USE,-95.77,1,0,Morning rush
-311,2026-03-03 19:56:00,apple-001,organic apple,USE,-2.2,1,0,Daily prep
-334,2026-03-04 07:12:00,coffee-001,coffee bean,USE,-81.08,2,0,Evening special
-342,2026-03-04 08:04:00,yogurt-001,greek yogurt,USE,-1.59,2,0,Customer order
-343,2026-03-04 08:32:00,yogurt-001,greek yogurt,USE,-2.06,2,0,Daily prep
-347,2026-03-04 09:03:00,oj-001,orange juice,USE,-0.28,2,0,Recipe testing
-341,2026-03-04 09:35:00,cheese-001,cheddar cheese,ADD,0.85,2,0,Wholesale order
-331,2026-03-04 11:12:00,milk-001,whole milk,RESTOCK,9.9,2,0,Farmers market purchase
-338,2026-03-04 13:21:00,bread-001,sourdough bread,USE,-1.94,2,0,Customer order
-340,2026-03-04 14:23:00,egg-001,egg,USE,-5.36,2,0,Smoothie bar
-337,2026-03-04 14:44:00,bread-001,sourdough bread,ADD,14.6,2,0,Weekly delivery
-336,2026-03-04 14:48:00,apple-001,organic apple,USE,-3.22,2,0,Customer order
-345,2026-03-04 15:01:00,chicken-001,chicken breast,USE,-0.55,2,0,Catering order
-339,2026-03-04 15:25:00,bread-001,sourdough bread,ADD,18.61,2,0,Weekly delivery
-330,2026-03-04 15:35:00,milk-001,whole milk,RESTOCK,10.07,2,0,Emergency restock
-346,2026-03-04 15:48:00,oj-001,orange juice,USE,-0.32,2,0,Evening special
-335,2026-03-04 17:06:00,coffee-001,coffee bean,USE,-41.46,2,0,Customer order
-333,2026-03-04 17:28:00,milk-001,whole milk,USE,-0.78,2,0,Customer order
-344,2026-03-04 18:06:00,tomato-001,tomato,USE,-1.52,2,0,Staff meal
-332,2026-03-04 19:03:00,milk-001,whole milk,USE,-0.6,2,0,Lunch prep
-355,2026-03-05 07:15:00,egg-001,egg,USE,-5.02,3,0,Recipe testing
-348,2026-03-05 07:35:00,milk-001,whole milk,USE,-0.59,3,0,Breakfast service
-358,2026-03-05 08:07:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Staff meal
-359,2026-03-05 08:13:00,yogurt-001,greek yogurt,ADD,21.73,3,0,Weekly delivery
-352,2026-03-05 08:37:00,bread-001,sourdough bread,USE,-1.99,3,0,Smoothie bar
-356,2026-03-05 11:19:00,cheese-001,cheddar cheese,USE,-0.07,3,0,Catering order
-350,2026-03-05 11:43:00,coffee-001,coffee bean,USE,-37.84,3,0,Evening special
-361,2026-03-05 12:34:00,oj-001,orange juice,RESTOCK,7.37,3,0,Farmers market purchase
-351,2026-03-05 12:43:00,apple-001,organic apple,RESTOCK,50.04,3,0,Supplier drop-off
-360,2026-03-05 15:08:00,chicken-001,chicken breast,USE,-0.42,3,0,Morning rush
-357,2026-03-05 15:29:00,cheese-001,cheddar cheese,RESTOCK,1.71,3,0,Farmers market purchase
-354,2026-03-05 16:29:00,egg-001,egg,USE,-2.8,3,0,Recipe testing
-349,2026-03-05 17:05:00,milk-001,whole milk,USE,-0.82,3,0,Staff meal
-362,2026-03-05 18:36:00,oj-001,orange juice,ADD,3.72,3,0,Wholesale order
-353,2026-03-05 19:28:00,egg-001,egg,USE,-5.83,3,0,Afternoon service
-373,2026-03-06 09:06:00,chicken-001,chicken breast,USE,-0.4,4,0,Evening special
-376,2026-03-06 09:06:00,oj-001,orange juice,USE,-0.38,4,0,Afternoon service
-367,2026-03-06 10:02:00,apple-001,organic apple,RESTOCK,57.17,4,0,Emergency restock
-374,2026-03-06 10:03:00,chicken-001,chicken breast,USE,-0.28,4,0,Staff meal
-365,2026-03-06 10:17:00,coffee-001,coffee bean,USE,-48.24,4,0,Lunch prep
-375,2026-03-06 11:51:00,oj-001,orange juice,USE,-0.31,4,0,Catering order
-378,2026-03-06 13:01:00,oj-001,orange juice,USE,-0.49,4,0,Daily prep
-377,2026-03-06 13:36:00,oj-001,orange juice,USE,-0.33,4,0,Baking batch
-364,2026-03-06 13:51:00,milk-001,whole milk,RESTOCK,21.09,4,0,Weekly delivery
-372,2026-03-06 14:14:00,tomato-001,tomato,USE,-1.67,4,0,Lunch prep
-363,2026-03-06 14:41:00,milk-001,whole milk,USE,-1.13,4,0,Customer order
-371,2026-03-06 15:01:00,tomato-001,tomato,USE,-0.92,4,0,Staff meal
-366,2026-03-06 15:53:00,coffee-001,coffee bean,USE,-88.17,4,0,Daily prep
-369,2026-03-06 18:12:00,egg-001,egg,USE,-5.11,4,0,Catering order
-370,2026-03-06 19:05:00,egg-001,egg,RESTOCK,88.57,4,0,Emergency restock
-368,2026-03-06 19:52:00,apple-001,organic apple,WASTE,-1.4,4,0,Mould found
-381,2026-03-07 07:34:00,coffee-001,coffee bean,USE,-57.88,5,1,Customer order
-394,2026-03-07 07:35:00,chicken-001,chicken breast,USE,-0.56,5,1,Breakfast service
-389,2026-03-07 07:44:00,yogurt-001,greek yogurt,USE,-3.32,5,1,Lunch prep
-396,2026-03-07 08:09:00,chicken-001,chicken breast,USE,-0.43,5,1,Afternoon service
-385,2026-03-07 08:47:00,bread-001,sourdough bread,USE,-3.08,5,1,Recipe testing
-401,2026-03-07 09:45:00,oj-001,orange juice,USE,-0.33,5,1,Breakfast service
-382,2026-03-07 10:33:00,apple-001,organic apple,USE,-2.77,5,1,Recipe testing
-380,2026-03-07 11:17:00,coffee-001,coffee bean,ADD,777.58,5,1,Supplier drop-off
-391,2026-03-07 12:31:00,chicken-001,chicken breast,USE,-0.84,5,1,Catering order
-400,2026-03-07 12:51:00,oj-001,orange juice,USE,-0.59,5,1,Evening special
-398,2026-03-07 14:17:00,oj-001,orange juice,USE,-0.45,5,1,Catering order
-383,2026-03-07 14:34:00,apple-001,organic apple,USE,-5.28,5,1,Daily prep
-387,2026-03-07 14:48:00,egg-001,egg,USE,-8.93,5,1,Catering order
-390,2026-03-07 14:57:00,tomato-001,tomato,USE,-2.15,5,1,Afternoon service
-393,2026-03-07 15:08:00,chicken-001,chicken breast,USE,-1.02,5,1,Lunch prep
-384,2026-03-07 15:16:00,bread-001,sourdough bread,ADD,18.71,5,1,Weekly delivery
-395,2026-03-07 15:24:00,chicken-001,chicken breast,USE,-1.02,5,1,Daily prep
-399,2026-03-07 17:13:00,oj-001,orange juice,USE,-0.47,5,1,Customer order
-386,2026-03-07 17:54:00,egg-001,egg,RESTOCK,63.69,5,1,Wholesale order
-388,2026-03-07 18:00:00,cheese-001,cheddar cheese,USE,-0.1,5,1,Recipe testing
-392,2026-03-07 18:16:00,chicken-001,chicken breast,USE,-0.74,5,1,Lunch prep
-397,2026-03-07 18:33:00,oj-001,orange juice,ADD,4.44,5,1,Supplier drop-off
-379,2026-03-07 19:20:00,coffee-001,coffee bean,USE,-119.35,5,1,Breakfast service
-414,2026-03-08 07:13:00,egg-001,egg,ADD,25.27,6,1,Supplier drop-off
-409,2026-03-08 07:43:00,bread-001,sourdough bread,USE,-1.09,6,1,Catering order
-424,2026-03-08 07:54:00,chicken-001,chicken breast,USE,-0.5,6,1,Daily prep
-425,2026-03-08 07:58:00,chicken-001,chicken breast,USE,-0.7,6,1,Breakfast service
-422,2026-03-08 09:21:00,tomato-001,tomato,USE,-2.42,6,1,Breakfast service
-408,2026-03-08 09:22:00,apple-001,organic apple,USE,-3.4,6,1,Baking batch
-406,2026-03-08 10:26:00,coffee-001,coffee bean,USE,-126.43,6,1,Catering order
-419,2026-03-08 10:28:00,yogurt-001,greek yogurt,USE,-2.9,6,1,Recipe testing
-416,2026-03-08 10:46:00,cheese-001,cheddar cheese,RESTOCK,2.39,6,1,Weekly delivery
-426,2026-03-08 10:47:00,oj-001,orange juice,USE,-0.61,6,1,Smoothie bar
-402,2026-03-08 11:07:00,coffee-001,coffee bean,USE,-121.18,6,1,Staff meal
-417,2026-03-08 11:09:00,yogurt-001,greek yogurt,USE,-3.19,6,1,Staff meal
-407,2026-03-08 11:32:00,apple-001,organic apple,USE,-3.9,6,1,Daily prep
-428,2026-03-08 11:56:00,oj-001,orange juice,ADD,4.85,6,1,Weekly delivery
-404,2026-03-08 12:42:00,coffee-001,coffee bean,USE,-87.47,6,1,Recipe testing
-415,2026-03-08 13:05:00,cheese-001,cheddar cheese,USE,-0.1,6,1,Morning rush
-412,2026-03-08 13:26:00,bread-001,sourdough bread,USE,-2.63,6,1,Recipe testing
-403,2026-03-08 13:43:00,coffee-001,coffee bean,ADD,734.69,6,1,Emergency restock
-421,2026-03-08 14:33:00,yogurt-001,greek yogurt,ADD,10.79,6,1,Emergency restock
-410,2026-03-08 14:34:00,bread-001,sourdough bread,ADD,19.9,6,1,Weekly delivery
-418,2026-03-08 15:44:00,yogurt-001,greek yogurt,USE,-2.28,6,1,Afternoon service
-423,2026-03-08 16:37:00,tomato-001,tomato,USE,-2.66,6,1,Baking batch
-420,2026-03-08 16:54:00,yogurt-001,greek yogurt,USE,-1.51,6,1,Catering order
-411,2026-03-08 17:24:00,bread-001,sourdough bread,USE,-2.77,6,1,Lunch prep
-427,2026-03-08 18:10:00,oj-001,orange juice,USE,-0.63,6,1,Daily prep
-413,2026-03-08 19:08:00,bread-001,sourdough bread,USE,-1.82,6,1,Smoothie bar
-405,2026-03-08 19:17:00,coffee-001,coffee bean,USE,-110.89,6,1,Recipe testing
-441,2026-03-09 08:04:00,chicken-001,chicken breast,ADD,7.42,0,0,Weekly delivery
-430,2026-03-09 09:52:00,milk-001,whole milk,USE,-1.43,0,0,Lunch prep
-437,2026-03-09 10:17:00,yogurt-001,greek yogurt,USE,-0.89,0,0,Daily prep
-434,2026-03-09 10:20:00,egg-001,egg,ADD,47.65,0,0,Weekly delivery
-439,2026-03-09 10:23:00,tomato-001,tomato,USE,-1.55,0,0,Smoothie bar
-438,2026-03-09 10:49:00,yogurt-001,greek yogurt,RESTOCK,18.48,0,0,Emergency restock
-431,2026-03-09 11:09:00,apple-001,organic apple,USE,-2.62,0,0,Breakfast service
-435,2026-03-09 12:27:00,egg-001,egg,USE,-2.23,0,0,Staff meal
-436,2026-03-09 12:30:00,cheese-001,cheddar cheese,ADD,1.48,0,0,Wholesale order
-429,2026-03-09 12:44:00,milk-001,whole milk,ADD,11.27,0,0,Weekly delivery
-442,2026-03-09 15:20:00,oj-001,orange juice,USE,-0.32,0,0,Catering order
-432,2026-03-09 16:03:00,apple-001,organic apple,RESTOCK,52.24,0,0,Emergency restock
-440,2026-03-09 16:25:00,tomato-001,tomato,USE,-1.92,0,0,Afternoon service
-433,2026-03-09 18:56:00,egg-001,egg,USE,-2.9,0,0,Daily prep
-444,2026-03-10 07:23:00,milk-001,whole milk,RESTOCK,17.42,1,0,Weekly delivery
-450,2026-03-10 10:21:00,bread-001,sourdough bread,USE,-1.11,1,0,Lunch prep
-446,2026-03-10 11:04:00,apple-001,organic apple,USE,-2.63,1,0,Evening special
-454,2026-03-10 11:50:00,tomato-001,tomato,USE,-0.79,1,0,Customer order
-445,2026-03-10 12:45:00,apple-001,organic apple,ADD,29.04,1,0,Supplier drop-off
-449,2026-03-10 13:20:00,bread-001,sourdough bread,USE,-1.72,1,0,Recipe testing
-453,2026-03-10 13:24:00,tomato-001,tomato,ADD,12.46,1,0,Farmers market purchase
-456,2026-03-10 14:17:00,oj-001,orange juice,USE,-0.23,1,0,Afternoon service
-447,2026-03-10 14:46:00,bread-001,sourdough bread,USE,-1.39,1,0,Recipe testing
-451,2026-03-10 14:57:00,yogurt-001,greek yogurt,USE,-2.41,1,0,Staff meal
-455,2026-03-10 15:35:00,chicken-001,chicken breast,USE,-0.43,1,0,Breakfast service
-448,2026-03-10 16:34:00,bread-001,sourdough bread,USE,-1.74,1,0,Evening special
-452,2026-03-10 16:51:00,tomato-001,tomato,USE,-1.04,1,0,Daily prep
-443,2026-03-10 16:56:00,milk-001,whole milk,USE,-0.73,1,0,Staff meal
-467,2026-03-11 07:20:00,cheese-001,cheddar cheese,ADD,1.34,2,0,Supplier drop-off
-470,2026-03-11 08:01:00,yogurt-001,greek yogurt,USE,-2.07,2,0,Lunch prep
-461,2026-03-11 08:03:00,apple-001,organic apple,USE,-3.27,2,0,Morning rush
-477,2026-03-11 09:18:00,oj-001,orange juice,RESTOCK,5.73,2,0,Supplier drop-off
-463,2026-03-11 09:32:00,apple-001,organic apple,USE,-3.16,2,0,Breakfast service
-457,2026-03-11 09:44:00,milk-001,whole milk,ADD,8.85,2,0,Emergency restock
-468,2026-03-11 09:46:00,cheese-001,cheddar cheese,USE,-0.14,2,0,Afternoon service
-474,2026-03-11 10:13:00,tomato-001,tomato,USE,-1.07,2,0,Evening special
-459,2026-03-11 10:29:00,coffee-001,coffee bean,USE,-43.47,2,0,Afternoon service
-478,2026-03-11 10:48:00,oj-001,orange juice,WASTE,-0.08,2,0,Damaged in storage
-473,2026-03-11 10:57:00,yogurt-001,greek yogurt,USE,-1.9,2,0,Baking batch
-458,2026-03-11 11:31:00,coffee-001,coffee bean,USE,-45.61,2,0,Afternoon service
-476,2026-03-11 12:13:00,oj-001,orange juice,USE,-0.3,2,0,Baking batch
-471,2026-03-11 13:05:00,yogurt-001,greek yogurt,USE,-0.84,2,0,Smoothie bar
-469,2026-03-11 13:47:00,cheese-001,cheddar cheese,USE,-0.11,2,0,Breakfast service
-472,2026-03-11 14:54:00,yogurt-001,greek yogurt,RESTOCK,20.68,2,0,Weekly delivery
-460,2026-03-11 15:11:00,coffee-001,coffee bean,USE,-38.9,2,0,Smoothie bar
-475,2026-03-11 15:34:00,tomato-001,tomato,RESTOCK,16.66,2,0,Emergency restock
-464,2026-03-11 15:51:00,egg-001,egg,WASTE,-1.29,2,0,Damaged in storage
-466,2026-03-11 16:47:00,cheese-001,cheddar cheese,ADD,1.39,2,0,Emergency restock
-462,2026-03-11 17:54:00,apple-001,organic apple,WASTE,-1.58,2,0,Quality issue
-465,2026-03-11 18:43:00,egg-001,egg,RESTOCK,42.64,2,0,Farmers market purchase
-499,2026-03-12 07:25:00,oj-001,orange juice,ADD,4.53,3,0,Wholesale order
-497,2026-03-12 07:34:00,tomato-001,tomato,WASTE,-0.43,3,0,Damaged in storage
-485,2026-03-12 07:47:00,cheese-001,cheddar cheese,USE,-0.07,3,0,Staff meal
-486,2026-03-12 08:20:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Catering order
-491,2026-03-12 09:37:00,yogurt-001,greek yogurt,USE,-1.85,3,0,Smoothie bar
-481,2026-03-12 09:46:00,coffee-001,coffee bean,USE,-68.85,3,0,Morning rush
-484,2026-03-12 10:27:00,egg-001,egg,ADD,25.73,3,0,Farmers market purchase
-487,2026-03-12 10:36:00,cheese-001,cheddar cheese,USE,-0.06,3,0,Lunch prep
-492,2026-03-12 10:54:00,yogurt-001,greek yogurt,USE,-2.0,3,0,Recipe testing
-482,2026-03-12 11:35:00,coffee-001,coffee bean,USE,-47.9,3,0,Recipe testing
-493,2026-03-12 12:11:00,yogurt-001,greek yogurt,USE,-1.01,3,0,Daily prep
-494,2026-03-12 12:21:00,tomato-001,tomato,USE,-1.51,3,0,Staff meal
-479,2026-03-12 15:27:00,coffee-001,coffee bean,RESTOCK,1353.96,3,0,Emergency restock
-480,2026-03-12 15:58:00,coffee-001,coffee bean,USE,-97.52,3,0,Evening special
-490,2026-03-12 16:51:00,yogurt-001,greek yogurt,ADD,19.03,3,0,Wholesale order
-483,2026-03-12 17:52:00,bread-001,sourdough bread,USE,-1.07,3,0,Evening special
-495,2026-03-12 18:05:00,tomato-001,tomato,USE,-1.15,3,0,Morning rush
-496,2026-03-12 18:41:00,tomato-001,tomato,USE,-0.85,3,0,Lunch prep
-489,2026-03-12 18:45:00,yogurt-001,greek yogurt,USE,-1.36,3,0,Staff meal
-488,2026-03-12 19:08:00,cheese-001,cheddar cheese,USE,-0.06,3,0,Catering order
-498,2026-03-12 19:37:00,chicken-001,chicken breast,USE,-0.35,3,0,Afternoon service
-501,2026-03-13 07:23:00,milk-001,whole milk,ADD,8.56,4,0,Weekly delivery
-511,2026-03-13 08:28:00,tomato-001,tomato,ADD,9.45,4,0,Farmers market purchase
-507,2026-03-13 08:36:00,egg-001,egg,USE,-3.82,4,0,Smoothie bar
-509,2026-03-13 08:50:00,tomato-001,tomato,USE,-0.68,4,0,Daily prep
-508,2026-03-13 10:48:00,egg-001,egg,USE,-3.68,4,0,Customer order
-505,2026-03-13 11:07:00,apple-001,organic apple,ADD,38.9,4,0,Supplier drop-off
-512,2026-03-13 14:01:00,tomato-001,tomato,USE,-1.38,4,0,Customer order
-503,2026-03-13 14:43:00,coffee-001,coffee bean,RESTOCK,765.2,4,0,Wholesale order
-500,2026-03-13 15:08:00,milk-001,whole milk,USE,-0.54,4,0,Catering order
-513,2026-03-13 16:36:00,oj-001,orange juice,USE,-0.36,4,0,Evening special
-502,2026-03-13 17:12:00,coffee-001,coffee bean,USE,-36.32,4,0,Lunch prep
-510,2026-03-13 18:02:00,tomato-001,tomato,RESTOCK,24.25,4,0,Weekly delivery
-506,2026-03-13 19:46:00,apple-001,organic apple,RESTOCK,24.08,4,0,Supplier drop-off
-504,2026-03-13 19:52:00,coffee-001,coffee bean,ADD,929.36,4,0,Farmers market purchase
-516,2026-03-14 08:31:00,coffee-001,coffee bean,ADD,667.85,5,1,Farmers market purchase
-514,2026-03-14 08:35:00,coffee-001,coffee bean,ADD,815.5,5,1,Supplier drop-off
-530,2026-03-14 08:44:00,cheese-001,cheddar cheese,USE,-0.17,5,1,Catering order
-533,2026-03-14 09:00:00,tomato-001,tomato,WASTE,-0.55,5,1,Past expiry date
-531,2026-03-14 09:02:00,cheese-001,cheddar cheese,ADD,1.35,5,1,Wholesale order
-532,2026-03-14 09:57:00,cheese-001,cheddar cheese,USE,-0.12,5,1,Catering order
-529,2026-03-14 10:04:00,cheese-001,cheddar cheese,USE,-0.13,5,1,Breakfast service
-528,2026-03-14 10:16:00,cheese-001,cheddar cheese,WASTE,-0.03,5,1,Expired — composted
-520,2026-03-14 10:18:00,apple-001,organic apple,RESTOCK,37.84,5,1,Emergency restock
-524,2026-03-14 10:25:00,egg-001,egg,USE,-9.37,5,1,Recipe testing
-519,2026-03-14 10:36:00,apple-001,organic apple,USE,-3.97,5,1,Daily prep
-536,2026-03-14 10:53:00,oj-001,orange juice,USE,-0.52,5,1,Breakfast service
-535,2026-03-14 11:07:00,oj-001,orange juice,USE,-0.37,5,1,Smoothie bar
-537,2026-03-14 11:33:00,oj-001,orange juice,USE,-0.78,5,1,Catering order
-515,2026-03-14 11:37:00,coffee-001,coffee bean,USE,-82.71,5,1,Morning rush
-522,2026-03-14 12:04:00,bread-001,sourdough bread,USE,-1.73,5,1,Smoothie bar
-518,2026-03-14 13:33:00,apple-001,organic apple,ADD,32.52,5,1,Wholesale order
-523,2026-03-14 14:23:00,egg-001,egg,USE,-9.42,5,1,Lunch prep
-517,2026-03-14 15:53:00,apple-001,organic apple,USE,-3.72,5,1,Morning rush
-527,2026-03-14 16:36:00,egg-001,egg,USE,-4.03,5,1,Staff meal
-534,2026-03-14 17:35:00,chicken-001,chicken breast,USE,-0.9,5,1,Staff meal
-525,2026-03-14 17:41:00,egg-001,egg,USE,-3.4,5,1,Staff meal
-539,2026-03-14 18:04:00,oj-001,orange juice,USE,-0.69,5,1,Afternoon service
-521,2026-03-14 18:34:00,apple-001,organic apple,USE,-4.89,5,1,Staff meal
-538,2026-03-14 18:53:00,oj-001,orange juice,ADD,3.6,5,1,Wholesale order
-526,2026-03-14 19:14:00,egg-001,egg,USE,-5.2,5,1,Customer order
-571,2026-03-15 07:05:00,oj-001,orange juice,RESTOCK,5.17,6,1,Supplier drop-off
-552,2026-03-15 07:14:00,egg-001,egg,ADD,54.03,6,1,Weekly delivery
-573,2026-03-15 07:26:00,oj-001,orange juice,USE,-0.53,6,1,Recipe testing
-546,2026-03-15 07:31:00,coffee-001,coffee bean,USE,-121.62,6,1,Afternoon service
-567,2026-03-15 07:57:00,chicken-001,chicken breast,USE,-0.48,6,1,Baking batch
-565,2026-03-15 08:17:00,chicken-001,chicken breast,USE,-0.8,6,1,Evening special
-556,2026-03-15 08:44:00,cheese-001,cheddar cheese,USE,-0.17,6,1,Smoothie bar
-569,2026-03-15 09:08:00,oj-001,orange juice,USE,-0.46,6,1,Afternoon service
-548,2026-03-15 09:53:00,bread-001,sourdough bread,RESTOCK,12.61,6,1,Wholesale order
-550,2026-03-15 09:55:00,bread-001,sourdough bread,ADD,12.0,6,1,Farmers market purchase
-547,2026-03-15 09:58:00,coffee-001,coffee bean,USE,-86.6,6,1,Customer order
-570,2026-03-15 10:17:00,oj-001,orange juice,ADD,2.94,6,1,Weekly delivery
-554,2026-03-15 10:29:00,cheese-001,cheddar cheese,USE,-0.09,6,1,Catering order
-553,2026-03-15 11:08:00,egg-001,egg,USE,-8.02,6,1,Catering order
-549,2026-03-15 11:15:00,bread-001,sourdough bread,USE,-2.42,6,1,Catering order
-572,2026-03-15 11:16:00,oj-001,orange juice,USE,-0.78,6,1,Daily prep
-560,2026-03-15 11:18:00,tomato-001,tomato,USE,-3.16,6,1,Staff meal
-557,2026-03-15 12:01:00,yogurt-001,greek yogurt,USE,-3.45,6,1,Customer order
-563,2026-03-15 12:29:00,chicken-001,chicken breast,USE,-0.64,6,1,Baking batch
-561,2026-03-15 12:30:00,tomato-001,tomato,USE,-2.45,6,1,Baking batch
-551,2026-03-15 13:02:00,egg-001,egg,WASTE,-0.87,6,1,Mould found
-564,2026-03-15 13:07:00,chicken-001,chicken breast,USE,-0.51,6,1,Recipe testing
-555,2026-03-15 14:02:00,cheese-001,cheddar cheese,USE,-0.13,6,1,Evening special
-542,2026-03-15 14:22:00,milk-001,whole milk,USE,-1.13,6,1,Recipe testing
-545,2026-03-15 14:51:00,coffee-001,coffee bean,USE,-159.59,6,1,Breakfast service
-559,2026-03-15 14:54:00,yogurt-001,greek yogurt,USE,-3.48,6,1,Recipe testing
-566,2026-03-15 15:11:00,chicken-001,chicken breast,ADD,6.25,6,1,Wholesale order
-543,2026-03-15 15:50:00,milk-001,whole milk,USE,-1.62,6,1,Smoothie bar
-562,2026-03-15 16:09:00,tomato-001,tomato,RESTOCK,22.06,6,1,Farmers market purchase
-541,2026-03-15 16:35:00,milk-001,whole milk,RESTOCK,17.83,6,1,Farmers market purchase
-544,2026-03-15 17:17:00,milk-001,whole milk,USE,-2.18,6,1,Recipe testing
-558,2026-03-15 18:33:00,yogurt-001,greek yogurt,USE,-2.41,6,1,Customer order
-540,2026-03-15 18:51:00,milk-001,whole milk,USE,-2.37,6,1,Evening special
-568,2026-03-15 19:27:00,oj-001,orange juice,USE,-0.77,6,1,Breakfast service
-576,2026-03-16 07:36:00,coffee-001,coffee bean,USE,-99.96,0,0,Staff meal
-595,2026-03-16 08:33:00,chicken-001,chicken breast,USE,-0.36,0,0,Breakfast service
-583,2026-03-16 09:12:00,egg-001,egg,RESTOCK,53.24,0,0,Emergency restock
-594,2026-03-16 10:39:00,chicken-001,chicken breast,USE,-0.45,0,0,Evening special
-575,2026-03-16 10:46:00,milk-001,whole milk,USE,-0.63,0,0,Customer order
-588,2026-03-16 10:54:00,yogurt-001,greek yogurt,USE,-1.96,0,0,Customer order
-591,2026-03-16 10:56:00,tomato-001,tomato,ADD,14.22,0,0,Farmers market purchase
-587,2026-03-16 10:57:00,yogurt-001,greek yogurt,USE,-1.61,0,0,Baking batch
-590,2026-03-16 11:24:00,tomato-001,tomato,USE,-1.25,0,0,Baking batch
-574,2026-03-16 11:32:00,milk-001,whole milk,USE,-1.38,0,0,Recipe testing
-596,2026-03-16 11:55:00,oj-001,orange juice,WASTE,-0.19,0,0,Past expiry date
-585,2026-03-16 12:16:00,cheese-001,cheddar cheese,USE,-0.08,0,0,Morning rush
-581,2026-03-16 13:35:00,bread-001,sourdough bread,USE,-0.85,0,0,Evening special
-579,2026-03-16 14:21:00,bread-001,sourdough bread,USE,-1.3,0,0,Recipe testing
-586,2026-03-16 15:02:00,cheese-001,cheddar cheese,USE,-0.09,0,0,Evening special
-589,2026-03-16 15:33:00,tomato-001,tomato,USE,-1.69,0,0,Lunch prep
-577,2026-03-16 15:34:00,coffee-001,coffee bean,USE,-59.01,0,0,Lunch prep
-593,2026-03-16 15:55:00,chicken-001,chicken breast,RESTOCK,10.37,0,0,Wholesale order
-584,2026-03-16 16:52:00,egg-001,egg,USE,-2.45,0,0,Morning rush
-592,2026-03-16 17:52:00,tomato-001,tomato,USE,-0.67,0,0,Recipe testing
-578,2026-03-16 18:06:00,apple-001,organic apple,USE,-2.32,0,0,Evening special
-598,2026-03-16 18:06:00,oj-001,orange juice,USE,-0.24,0,0,Smoothie bar
-597,2026-03-16 18:21:00,oj-001,orange juice,WASTE,-0.14,0,0,Past expiry date
-582,2026-03-16 18:43:00,bread-001,sourdough bread,ADD,11.79,0,0,Emergency restock
-580,2026-03-16 19:44:00,bread-001,sourdough bread,USE,-1.57,0,0,Catering order
-612,2026-03-17 07:42:00,yogurt-001,greek yogurt,USE,-2.03,1,0,Daily prep
-610,2026-03-17 09:28:00,cheese-001,cheddar cheese,WASTE,-0.03,1,0,Past expiry date
-600,2026-03-17 10:37:00,coffee-001,coffee bean,USE,-56.35,1,0,Afternoon service
-602,2026-03-17 11:19:00,coffee-001,coffee bean,USE,-43.15,1,0,Breakfast service
-609,2026-03-17 12:17:00,cheese-001,cheddar cheese,USE,-0.06,1,0,Daily prep
-604,2026-03-17 12:21:00,apple-001,organic apple,USE,-1.54,1,0,Lunch prep
-605,2026-03-17 12:28:00,bread-001,sourdough bread,USE,-1.41,1,0,Smoothie bar
-613,2026-03-17 14:49:00,yogurt-001,greek yogurt,USE,-1.1,1,0,Evening special
-608,2026-03-17 14:58:00,egg-001,egg,USE,-3.99,1,0,Breakfast service
-607,2026-03-17 15:15:00,egg-001,egg,USE,-4.64,1,0,Afternoon service
-614,2026-03-17 15:36:00,yogurt-001,greek yogurt,ADD,17.48,1,0,Weekly delivery
-601,2026-03-17 15:45:00,coffee-001,coffee bean,USE,-64.67,1,0,Recipe testing
-617,2026-03-17 16:35:00,oj-001,orange juice,USE,-0.39,1,0,Baking batch
-599,2026-03-17 17:12:00,milk-001,whole milk,ADD,11.2,1,0,Emergency restock
-616,2026-03-17 17:21:00,chicken-001,chicken breast,ADD,6.28,1,0,Emergency restock
-611,2026-03-17 17:42:00,cheese-001,cheddar cheese,RESTOCK,2.32,1,0,Weekly delivery
-606,2026-03-17 18:32:00,bread-001,sourdough bread,USE,-1.86,1,0,Evening special
-615,2026-03-17 18:39:00,chicken-001,chicken breast,USE,-0.36,1,0,Baking batch
-603,2026-03-17 19:57:00,apple-001,organic apple,WASTE,-1.07,1,0,Expired — composted
-639,2026-03-18 07:15:00,chicken-001,chicken breast,USE,-0.55,2,0,Catering order
-634,2026-03-18 09:21:00,tomato-001,tomato,USE,-0.97,2,0,Catering order
-629,2026-03-18 09:46:00,egg-001,egg,RESTOCK,66.42,2,0,Farmers market purchase
-623,2026-03-18 10:04:00,bread-001,sourdough bread,USE,-0.97,2,0,Customer order
-628,2026-03-18 10:57:00,egg-001,egg,USE,-2.28,2,0,Afternoon service
-624,2026-03-18 11:34:00,bread-001,sourdough bread,ADD,14.76,2,0,Wholesale order
-632,2026-03-18 11:40:00,cheese-001,cheddar cheese,USE,-0.05,2,0,Evening special
-633,2026-03-18 12:05:00,cheese-001,cheddar cheese,USE,-0.09,2,0,Recipe testing
-635,2026-03-18 12:50:00,tomato-001,tomato,ADD,19.6,2,0,Wholesale order
-619,2026-03-18 13:26:00,coffee-001,coffee bean,USE,-37.18,2,0,Daily prep
-627,2026-03-18 13:45:00,egg-001,egg,USE,-3.33,2,0,Baking batch
-638,2026-03-18 14:21:00,chicken-001,chicken breast,ADD,7.43,2,0,Emergency restock
-631,2026-03-18 14:51:00,cheese-001,cheddar cheese,RESTOCK,1.71,2,0,Supplier drop-off
-618,2026-03-18 15:28:00,milk-001,whole milk,RESTOCK,23.9,2,0,Wholesale order
-621,2026-03-18 16:44:00,apple-001,organic apple,ADD,37.65,2,0,Supplier drop-off
-622,2026-03-18 17:10:00,apple-001,organic apple,WASTE,-0.51,2,0,Past expiry date
-637,2026-03-18 17:46:00,chicken-001,chicken breast,USE,-0.44,2,0,Recipe testing
-636,2026-03-18 17:50:00,chicken-001,chicken breast,USE,-0.61,2,0,Baking batch
-625,2026-03-18 19:06:00,bread-001,sourdough bread,USE,-1.79,2,0,Smoothie bar
-626,2026-03-18 19:07:00,egg-001,egg,USE,-2.82,2,0,Daily prep
-630,2026-03-18 19:35:00,egg-001,egg,ADD,54.09,2,0,Farmers market purchase
-620,2026-03-18 19:51:00,coffee-001,coffee bean,USE,-74.8,2,0,Customer order
+15,2026-02-18 07:43:00,tomato-001,tomato,USE,-1.23,2,0,Smoothie bar
+13,2026-02-18 08:46:00,yogurt-001,greek yogurt,USE,-1.48,2,0,Lunch prep
+8,2026-02-18 08:57:00,apple-001,organic apple,RESTOCK,62.63,2,0,Emergency restock
+19,2026-02-18 09:00:00,oj-001,orange juice,USE,-0.21,2,0,Evening special
+16,2026-02-18 09:32:00,chicken-001,chicken breast,USE,-0.61,2,0,Morning rush
+6,2026-02-18 09:43:00,coffee-001,coffee bean,USE,-39.37,2,0,Evening special
+3,2026-02-18 12:01:00,milk-001,whole milk,WASTE,-0.53,2,0,Expired — composted
+2,2026-02-18 12:52:00,milk-001,whole milk,USE,-1.21,2,0,Lunch prep
+7,2026-02-18 13:17:00,apple-001,organic apple,USE,-1.79,2,0,Evening special
+20,2026-02-18 13:26:00,oj-001,orange juice,ADD,2.71,2,0,Emergency restock
+9,2026-02-18 13:43:00,bread-001,sourdough bread,USE,-1.25,2,0,Breakfast service
+10,2026-02-18 14:03:00,egg-001,egg,RESTOCK,51.53,2,0,Weekly delivery
+12,2026-02-18 14:13:00,cheese-001,cheddar cheese,RESTOCK,2.24,2,0,Wholesale order
+17,2026-02-18 14:36:00,oj-001,orange juice,USE,-0.29,2,0,Morning rush
+1,2026-02-18 14:52:00,milk-001,whole milk,USE,-0.56,2,0,Recipe testing
+21,2026-02-18 16:12:00,oj-001,orange juice,USE,-0.31,2,0,Daily prep
+11,2026-02-18 16:43:00,cheese-001,cheddar cheese,USE,-0.15,2,0,Recipe testing
+18,2026-02-18 17:34:00,oj-001,orange juice,ADD,3.91,2,0,Weekly delivery
+5,2026-02-18 18:15:00,coffee-001,coffee bean,USE,-42.63,2,0,Catering order
+4,2026-02-18 18:57:00,milk-001,whole milk,USE,-0.68,2,0,Breakfast service
+14,2026-02-18 19:00:00,tomato-001,tomato,USE,-0.85,2,0,Customer order
+26,2026-02-19 07:00:00,coffee-001,coffee bean,RESTOCK,918.0,3,0,Wholesale order
+34,2026-02-19 07:37:00,cheese-001,cheddar cheese,USE,-0.09,3,0,Breakfast service
+27,2026-02-19 10:12:00,coffee-001,coffee bean,USE,-61.81,3,0,Smoothie bar
+22,2026-02-19 11:22:00,milk-001,whole milk,USE,-1.2,3,0,Customer order
+36,2026-02-19 12:15:00,yogurt-001,greek yogurt,ADD,14.81,3,0,Supplier drop-off
+35,2026-02-19 12:21:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Smoothie bar
+33,2026-02-19 13:03:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Afternoon service
+39,2026-02-19 13:15:00,oj-001,orange juice,USE,-0.4,3,0,Evening special
+38,2026-02-19 13:17:00,chicken-001,chicken breast,RESTOCK,7.48,3,0,Emergency restock
+32,2026-02-19 13:36:00,egg-001,egg,WASTE,-1.41,3,0,Expired — composted
+37,2026-02-19 13:51:00,chicken-001,chicken breast,USE,-0.36,3,0,Catering order
+28,2026-02-19 14:26:00,coffee-001,coffee bean,RESTOCK,606.95,3,0,Emergency restock
+30,2026-02-19 16:51:00,bread-001,sourdough bread,USE,-0.75,3,0,Customer order
+25,2026-02-19 16:54:00,coffee-001,coffee bean,USE,-92.22,3,0,Evening special
+31,2026-02-19 17:48:00,egg-001,egg,USE,-5.99,3,0,Catering order
+29,2026-02-19 17:53:00,apple-001,organic apple,USE,-2.23,3,0,Baking batch
+41,2026-02-19 18:04:00,oj-001,orange juice,USE,-0.2,3,0,Lunch prep
+24,2026-02-19 18:43:00,coffee-001,coffee bean,USE,-63.77,3,0,Daily prep
+40,2026-02-19 18:48:00,oj-001,orange juice,ADD,3.67,3,0,Supplier drop-off
+23,2026-02-19 19:35:00,milk-001,whole milk,USE,-1.04,3,0,Morning rush
+54,2026-02-20 08:24:00,tomato-001,tomato,USE,-1.31,4,0,Lunch prep
+45,2026-02-20 09:15:00,coffee-001,coffee bean,USE,-65.71,4,0,Staff meal
+53,2026-02-20 09:32:00,cheese-001,cheddar cheese,USE,-0.11,4,0,Smoothie bar
+51,2026-02-20 09:48:00,bread-001,sourdough bread,ADD,11.37,4,0,Wholesale order
+59,2026-02-20 10:00:00,oj-001,orange juice,USE,-0.38,4,0,Customer order
+46,2026-02-20 10:32:00,coffee-001,coffee bean,WASTE,-16.93,4,0,Damaged in storage
+44,2026-02-20 10:34:00,milk-001,whole milk,USE,-1.4,4,0,Lunch prep
+52,2026-02-20 11:23:00,cheese-001,cheddar cheese,RESTOCK,2.02,4,0,Weekly delivery
+48,2026-02-20 12:37:00,apple-001,organic apple,USE,-2.04,4,0,Catering order
+57,2026-02-20 12:47:00,chicken-001,chicken breast,ADD,3.61,4,0,Wholesale order
+55,2026-02-20 13:01:00,chicken-001,chicken breast,USE,-0.59,4,0,Daily prep
+47,2026-02-20 14:07:00,coffee-001,coffee bean,USE,-45.25,4,0,Customer order
+42,2026-02-20 14:53:00,milk-001,whole milk,ADD,14.07,4,0,Weekly delivery
+56,2026-02-20 16:16:00,chicken-001,chicken breast,USE,-0.4,4,0,Catering order
+49,2026-02-20 17:26:00,apple-001,organic apple,USE,-3.71,4,0,Morning rush
+43,2026-02-20 17:48:00,milk-001,whole milk,ADD,11.78,4,0,Farmers market purchase
+50,2026-02-20 18:46:00,apple-001,organic apple,ADD,28.06,4,0,Farmers market purchase
+58,2026-02-20 18:57:00,oj-001,orange juice,USE,-0.37,4,0,Staff meal
+72,2026-02-21 07:29:00,cheese-001,cheddar cheese,USE,-0.09,5,1,Baking batch
+73,2026-02-21 07:29:00,yogurt-001,greek yogurt,USE,-2.6,5,1,Recipe testing
+79,2026-02-21 07:39:00,tomato-001,tomato,RESTOCK,19.72,5,1,Supplier drop-off
+60,2026-02-21 08:01:00,coffee-001,coffee bean,RESTOCK,627.62,5,1,Emergency restock
+68,2026-02-21 08:31:00,egg-001,egg,USE,-9.06,5,1,Evening special
+77,2026-02-21 08:34:00,tomato-001,tomato,RESTOCK,23.51,5,1,Supplier drop-off
+65,2026-02-21 09:27:00,egg-001,egg,USE,-8.29,5,1,Evening special
+78,2026-02-21 09:42:00,tomato-001,tomato,USE,-2.04,5,1,Evening special
+64,2026-02-21 10:29:00,bread-001,sourdough bread,USE,-2.86,5,1,Recipe testing
+74,2026-02-21 12:04:00,yogurt-001,greek yogurt,USE,-1.46,5,1,Staff meal
+61,2026-02-21 12:57:00,apple-001,organic apple,USE,-6.32,5,1,Breakfast service
+69,2026-02-21 14:44:00,egg-001,egg,USE,-7.77,5,1,Lunch prep
+71,2026-02-21 15:28:00,cheese-001,cheddar cheese,USE,-0.2,5,1,Catering order
+62,2026-02-21 16:05:00,apple-001,organic apple,RESTOCK,34.01,5,1,Weekly delivery
+66,2026-02-21 16:52:00,egg-001,egg,ADD,33.03,5,1,Supplier drop-off
+75,2026-02-21 16:57:00,yogurt-001,greek yogurt,RESTOCK,21.52,5,1,Emergency restock
+63,2026-02-21 18:04:00,bread-001,sourdough bread,ADD,11.26,5,1,Weekly delivery
+70,2026-02-21 18:25:00,cheese-001,cheddar cheese,USE,-0.15,5,1,Smoothie bar
+76,2026-02-21 18:31:00,tomato-001,tomato,RESTOCK,30.89,5,1,Supplier drop-off
+67,2026-02-21 18:52:00,egg-001,egg,USE,-5.94,5,1,Lunch prep
+80,2026-02-21 19:11:00,tomato-001,tomato,RESTOCK,15.92,5,1,Weekly delivery
+96,2026-02-22 07:06:00,tomato-001,tomato,RESTOCK,29.61,6,1,Supplier drop-off
+85,2026-02-22 07:54:00,egg-001,egg,RESTOCK,87.5,6,1,Emergency restock
+94,2026-02-22 08:04:00,tomato-001,tomato,USE,-2.97,6,1,Evening special
+98,2026-02-22 09:44:00,chicken-001,chicken breast,RESTOCK,5.33,6,1,Supplier drop-off
+83,2026-02-22 09:47:00,egg-001,egg,USE,-6.89,6,1,Afternoon service
+87,2026-02-22 10:11:00,cheese-001,cheddar cheese,USE,-0.1,6,1,Baking batch
+88,2026-02-22 11:34:00,yogurt-001,greek yogurt,USE,-1.56,6,1,Smoothie bar
+89,2026-02-22 11:35:00,yogurt-001,greek yogurt,USE,-2.81,6,1,Catering order
+90,2026-02-22 13:44:00,yogurt-001,greek yogurt,RESTOCK,34.53,6,1,Wholesale order
+84,2026-02-22 14:22:00,egg-001,egg,USE,-4.8,6,1,Daily prep
+95,2026-02-22 14:47:00,tomato-001,tomato,USE,-1.56,6,1,Morning rush
+86,2026-02-22 15:21:00,cheese-001,cheddar cheese,RESTOCK,1.66,6,1,Emergency restock
+91,2026-02-22 16:04:00,yogurt-001,greek yogurt,RESTOCK,39.36,6,1,Emergency restock
+99,2026-02-22 16:19:00,chicken-001,chicken breast,USE,-0.77,6,1,Lunch prep
+81,2026-02-22 16:33:00,coffee-001,coffee bean,USE,-143.45,6,1,Customer order
+93,2026-02-22 16:43:00,yogurt-001,greek yogurt,WASTE,-0.78,6,1,Expired — composted
+97,2026-02-22 17:09:00,chicken-001,chicken breast,ADD,5.51,6,1,Farmers market purchase
+92,2026-02-22 17:17:00,yogurt-001,greek yogurt,ADD,18.19,6,1,Supplier drop-off
+82,2026-02-22 17:28:00,apple-001,organic apple,USE,-3.62,6,1,Recipe testing
+108,2026-02-23 07:08:00,bread-001,sourdough bread,USE,-1.27,0,0,Baking batch
+123,2026-02-23 07:23:00,oj-001,orange juice,ADD,3.64,0,0,Emergency restock
+110,2026-02-23 08:09:00,egg-001,egg,ADD,46.08,0,0,Supplier drop-off
+122,2026-02-23 08:37:00,chicken-001,chicken breast,RESTOCK,9.13,0,0,Emergency restock
+113,2026-02-23 08:40:00,yogurt-001,greek yogurt,ADD,22.57,0,0,Wholesale order
+109,2026-02-23 08:50:00,egg-001,egg,RESTOCK,85.35,0,0,Emergency restock
+119,2026-02-23 09:58:00,tomato-001,tomato,USE,-1.3,0,0,Customer order
+105,2026-02-23 11:07:00,bread-001,sourdough bread,USE,-0.81,0,0,Baking batch
+115,2026-02-23 11:13:00,tomato-001,tomato,ADD,12.53,0,0,Supplier drop-off
+107,2026-02-23 11:40:00,bread-001,sourdough bread,USE,-1.02,0,0,Recipe testing
+100,2026-02-23 12:52:00,coffee-001,coffee bean,USE,-91.24,0,0,Evening special
+104,2026-02-23 12:53:00,apple-001,organic apple,USE,-3.99,0,0,Recipe testing
+112,2026-02-23 12:58:00,yogurt-001,greek yogurt,USE,-1.47,0,0,Evening special
+114,2026-02-23 13:05:00,yogurt-001,greek yogurt,USE,-1.29,0,0,Daily prep
+120,2026-02-23 13:14:00,chicken-001,chicken breast,ADD,5.65,0,0,Farmers market purchase
+118,2026-02-23 13:25:00,tomato-001,tomato,USE,-1.02,0,0,Smoothie bar
+117,2026-02-23 14:31:00,tomato-001,tomato,USE,-1.84,0,0,Customer order
+106,2026-02-23 14:57:00,bread-001,sourdough bread,USE,-1.53,0,0,Smoothie bar
+103,2026-02-23 15:17:00,coffee-001,coffee bean,USE,-79.69,0,0,Evening special
+124,2026-02-23 16:50:00,oj-001,orange juice,RESTOCK,4.49,0,0,Wholesale order
+125,2026-02-23 16:55:00,oj-001,orange juice,USE,-0.43,0,0,Baking batch
+102,2026-02-23 17:36:00,coffee-001,coffee bean,RESTOCK,1127.7,0,0,Supplier drop-off
+121,2026-02-23 17:50:00,chicken-001,chicken breast,ADD,5.88,0,0,Supplier drop-off
+111,2026-02-23 19:04:00,egg-001,egg,RESTOCK,87.96,0,0,Emergency restock
+116,2026-02-23 19:12:00,tomato-001,tomato,USE,-1.0,0,0,Breakfast service
+101,2026-02-23 19:46:00,coffee-001,coffee bean,WASTE,-12.34,0,0,Mould found
+132,2026-02-24 07:13:00,apple-001,organic apple,USE,-3.72,1,0,Smoothie bar
+126,2026-02-24 08:12:00,milk-001,whole milk,USE,-1.12,1,0,Lunch prep
+135,2026-02-24 08:44:00,yogurt-001,greek yogurt,ADD,17.97,1,0,Farmers market purchase
+136,2026-02-24 09:06:00,yogurt-001,greek yogurt,USE,-1.08,1,0,Smoothie bar
+130,2026-02-24 09:18:00,coffee-001,coffee bean,WASTE,-28.85,1,0,Quality issue
+134,2026-02-24 10:00:00,egg-001,egg,USE,-2.01,1,0,Lunch prep
+128,2026-02-24 10:55:00,coffee-001,coffee bean,USE,-45.34,1,0,Lunch prep
+131,2026-02-24 11:40:00,apple-001,organic apple,USE,-2.8,1,0,Recipe testing
+141,2026-02-24 12:33:00,oj-001,orange juice,USE,-0.36,1,0,Daily prep
+138,2026-02-24 12:34:00,yogurt-001,greek yogurt,USE,-2.28,1,0,Baking batch
+133,2026-02-24 12:46:00,bread-001,sourdough bread,USE,-1.31,1,0,Customer order
+139,2026-02-24 13:56:00,tomato-001,tomato,ADD,10.19,1,0,Wholesale order
+129,2026-02-24 17:28:00,coffee-001,coffee bean,USE,-91.62,1,0,Afternoon service
+137,2026-02-24 17:46:00,yogurt-001,greek yogurt,USE,-2.24,1,0,Customer order
+127,2026-02-24 17:50:00,milk-001,whole milk,USE,-1.08,1,0,Morning rush
+142,2026-02-24 18:18:00,oj-001,orange juice,USE,-0.36,1,0,Morning rush
+140,2026-02-24 19:19:00,chicken-001,chicken breast,USE,-0.37,1,0,Catering order
+161,2026-02-25 07:24:00,chicken-001,chicken breast,USE,-0.47,2,0,Recipe testing
+163,2026-02-25 09:07:00,oj-001,orange juice,USE,-0.28,2,0,Customer order
+156,2026-02-25 09:34:00,yogurt-001,greek yogurt,WASTE,-0.44,2,0,Mould found
+147,2026-02-25 10:14:00,apple-001,organic apple,USE,-3.92,2,0,Recipe testing
+144,2026-02-25 10:29:00,coffee-001,coffee bean,USE,-57.69,2,0,Recipe testing
+158,2026-02-25 11:04:00,tomato-001,tomato,ADD,17.9,2,0,Wholesale order
+149,2026-02-25 11:05:00,bread-001,sourdough bread,USE,-1.78,2,0,Lunch prep
+153,2026-02-25 11:08:00,cheese-001,cheddar cheese,USE,-0.06,2,0,Baking batch
+157,2026-02-25 11:13:00,tomato-001,tomato,ADD,17.94,2,0,Emergency restock
+155,2026-02-25 11:55:00,yogurt-001,greek yogurt,ADD,24.48,2,0,Supplier drop-off
+150,2026-02-25 12:36:00,egg-001,egg,USE,-4.83,2,0,Catering order
+162,2026-02-25 13:50:00,oj-001,orange juice,USE,-0.24,2,0,Daily prep
+152,2026-02-25 14:09:00,egg-001,egg,USE,-3.48,2,0,Afternoon service
+146,2026-02-25 14:36:00,coffee-001,coffee bean,ADD,430.98,2,0,Supplier drop-off
+154,2026-02-25 14:37:00,cheese-001,cheddar cheese,ADD,1.14,2,0,Weekly delivery
+159,2026-02-25 14:38:00,chicken-001,chicken breast,USE,-0.59,2,0,Lunch prep
+145,2026-02-25 14:54:00,coffee-001,coffee bean,USE,-52.34,2,0,Daily prep
+148,2026-02-25 17:07:00,bread-001,sourdough bread,USE,-1.91,2,0,Staff meal
+143,2026-02-25 17:55:00,milk-001,whole milk,RESTOCK,18.11,2,0,Weekly delivery
+160,2026-02-25 19:37:00,chicken-001,chicken breast,ADD,7.05,2,0,Supplier drop-off
+151,2026-02-25 19:42:00,egg-001,egg,USE,-5.73,2,0,Smoothie bar
+184,2026-02-26 07:06:00,oj-001,orange juice,USE,-0.5,3,0,Breakfast service
+179,2026-02-26 08:06:00,tomato-001,tomato,USE,-1.89,3,0,Morning rush
+180,2026-02-26 09:53:00,chicken-001,chicken breast,USE,-0.48,3,0,Evening special
+166,2026-02-26 10:44:00,bread-001,sourdough bread,ADD,9.33,3,0,Supplier drop-off
+175,2026-02-26 11:25:00,cheese-001,cheddar cheese,USE,-0.06,3,0,Lunch prep
+178,2026-02-26 11:25:00,yogurt-001,greek yogurt,USE,-2.17,3,0,Evening special
+174,2026-02-26 12:10:00,cheese-001,cheddar cheese,ADD,1.44,3,0,Weekly delivery
+183,2026-02-26 12:21:00,oj-001,orange juice,WASTE,-0.08,3,0,Expired — composted
+173,2026-02-26 12:50:00,cheese-001,cheddar cheese,USE,-0.11,3,0,Baking batch
+181,2026-02-26 12:52:00,chicken-001,chicken breast,USE,-0.5,3,0,Customer order
+182,2026-02-26 13:16:00,oj-001,orange juice,USE,-0.39,3,0,Lunch prep
+164,2026-02-26 13:26:00,milk-001,whole milk,RESTOCK,16.43,3,0,Emergency restock
+165,2026-02-26 13:32:00,coffee-001,coffee bean,USE,-49.9,3,0,Afternoon service
+177,2026-02-26 14:14:00,cheese-001,cheddar cheese,RESTOCK,1.68,3,0,Supplier drop-off
+171,2026-02-26 14:17:00,egg-001,egg,USE,-5.65,3,0,Customer order
+176,2026-02-26 15:00:00,cheese-001,cheddar cheese,ADD,0.71,3,0,Supplier drop-off
+169,2026-02-26 16:39:00,egg-001,egg,USE,-2.73,3,0,Daily prep
+170,2026-02-26 16:45:00,egg-001,egg,USE,-3.6,3,0,Morning rush
+172,2026-02-26 18:42:00,egg-001,egg,USE,-2.07,3,0,Staff meal
+168,2026-02-26 18:44:00,bread-001,sourdough bread,USE,-0.97,3,0,Daily prep
+167,2026-02-26 19:07:00,bread-001,sourdough bread,USE,-1.2,3,0,Afternoon service
+199,2026-02-27 07:09:00,tomato-001,tomato,WASTE,-0.68,4,0,Mould found
+186,2026-02-27 07:13:00,coffee-001,coffee bean,ADD,752.47,4,0,Weekly delivery
+190,2026-02-27 08:06:00,apple-001,organic apple,USE,-1.75,4,0,Recipe testing
+189,2026-02-27 08:32:00,apple-001,organic apple,USE,-3.73,4,0,Afternoon service
+208,2026-02-27 08:53:00,oj-001,orange juice,ADD,3.27,4,0,Supplier drop-off
+185,2026-02-27 09:31:00,milk-001,whole milk,ADD,7.89,4,0,Farmers market purchase
+188,2026-02-27 09:31:00,apple-001,organic apple,USE,-1.53,4,0,Afternoon service
+198,2026-02-27 09:51:00,tomato-001,tomato,USE,-1.81,4,0,Evening special
+193,2026-02-27 10:51:00,cheese-001,cheddar cheese,USE,-0.13,4,0,Afternoon service
+206,2026-02-27 11:06:00,oj-001,orange juice,USE,-0.38,4,0,Recipe testing
+207,2026-02-27 11:27:00,oj-001,orange juice,USE,-0.45,4,0,Recipe testing
+204,2026-02-27 12:20:00,oj-001,orange juice,ADD,2.32,4,0,Supplier drop-off
+187,2026-02-27 12:27:00,coffee-001,coffee bean,ADD,716.59,4,0,Wholesale order
+197,2026-02-27 12:29:00,tomato-001,tomato,USE,-1.5,4,0,Smoothie bar
+203,2026-02-27 12:57:00,oj-001,orange juice,USE,-0.3,4,0,Breakfast service
+194,2026-02-27 13:32:00,yogurt-001,greek yogurt,RESTOCK,15.33,4,0,Supplier drop-off
+196,2026-02-27 13:54:00,tomato-001,tomato,USE,-1.17,4,0,Customer order
+192,2026-02-27 14:13:00,cheese-001,cheddar cheese,USE,-0.06,4,0,Daily prep
+200,2026-02-27 15:39:00,chicken-001,chicken breast,USE,-0.51,4,0,Breakfast service
+201,2026-02-27 15:53:00,chicken-001,chicken breast,USE,-0.45,4,0,Breakfast service
+202,2026-02-27 16:57:00,chicken-001,chicken breast,USE,-0.46,4,0,Evening special
+191,2026-02-27 17:07:00,bread-001,sourdough bread,USE,-0.97,4,0,Baking batch
+205,2026-02-27 17:39:00,oj-001,orange juice,USE,-0.26,4,0,Smoothie bar
+195,2026-02-27 19:18:00,yogurt-001,greek yogurt,USE,-0.88,4,0,Daily prep
+215,2026-02-28 09:02:00,apple-001,organic apple,USE,-4.09,5,1,Lunch prep
+211,2026-02-28 09:51:00,apple-001,organic apple,USE,-3.25,5,1,Baking batch
+210,2026-02-28 09:53:00,coffee-001,coffee bean,ADD,578.27,5,1,Wholesale order
+213,2026-02-28 11:08:00,apple-001,organic apple,USE,-5.42,5,1,Evening special
+209,2026-02-28 11:10:00,milk-001,whole milk,USE,-1.19,5,1,Baking batch
+217,2026-02-28 11:16:00,yogurt-001,greek yogurt,WASTE,-0.83,5,1,Expired — composted
+221,2026-02-28 11:21:00,yogurt-001,greek yogurt,RESTOCK,19.51,5,1,Wholesale order
+218,2026-02-28 12:07:00,yogurt-001,greek yogurt,USE,-3.18,5,1,Customer order
+223,2026-02-28 13:16:00,chicken-001,chicken breast,USE,-0.82,5,1,Morning rush
+225,2026-02-28 14:25:00,chicken-001,chicken breast,USE,-0.96,5,1,Breakfast service
+222,2026-02-28 14:49:00,tomato-001,tomato,USE,-1.7,5,1,Evening special
+214,2026-02-28 15:42:00,apple-001,organic apple,USE,-5.24,5,1,Evening special
+220,2026-02-28 16:15:00,yogurt-001,greek yogurt,USE,-3.12,5,1,Evening special
+219,2026-02-28 17:25:00,yogurt-001,greek yogurt,USE,-2.64,5,1,Daily prep
+216,2026-02-28 17:58:00,cheese-001,cheddar cheese,USE,-0.13,5,1,Staff meal
+224,2026-02-28 18:44:00,chicken-001,chicken breast,USE,-0.69,5,1,Lunch prep
+226,2026-02-28 19:21:00,oj-001,orange juice,USE,-0.55,5,1,Recipe testing
+212,2026-02-28 19:42:00,apple-001,organic apple,USE,-4.25,5,1,Lunch prep
+240,2026-03-01 07:23:00,yogurt-001,greek yogurt,USE,-3.36,6,1,Afternoon service
+247,2026-03-01 07:49:00,chicken-001,chicken breast,USE,-0.46,6,1,Evening special
+233,2026-03-01 07:52:00,apple-001,organic apple,ADD,30.14,6,1,Wholesale order
+239,2026-03-01 07:58:00,yogurt-001,greek yogurt,USE,-2.93,6,1,Daily prep
+232,2026-03-01 08:03:00,apple-001,organic apple,USE,-3.4,6,1,Lunch prep
+236,2026-03-01 08:24:00,bread-001,sourdough bread,USE,-2.99,6,1,Recipe testing
+249,2026-03-01 09:15:00,oj-001,orange juice,USE,-0.74,6,1,Lunch prep
+242,2026-03-01 10:13:00,yogurt-001,greek yogurt,ADD,10.52,6,1,Wholesale order
+246,2026-03-01 11:47:00,chicken-001,chicken breast,USE,-0.83,6,1,Smoothie bar
+237,2026-03-01 12:52:00,egg-001,egg,USE,-8.56,6,1,Baking batch
+229,2026-03-01 13:45:00,milk-001,whole milk,RESTOCK,20.98,6,1,Weekly delivery
+243,2026-03-01 14:02:00,yogurt-001,greek yogurt,RESTOCK,26.44,6,1,Farmers market purchase
+230,2026-03-01 14:43:00,coffee-001,coffee bean,USE,-120.27,6,1,Morning rush
+235,2026-03-01 14:45:00,bread-001,sourdough bread,USE,-1.96,6,1,Catering order
+231,2026-03-01 15:38:00,coffee-001,coffee bean,WASTE,-33.51,6,1,Damaged in storage
+238,2026-03-01 15:48:00,cheese-001,cheddar cheese,USE,-0.14,6,1,Evening special
+244,2026-03-01 16:08:00,tomato-001,tomato,USE,-2.88,6,1,Evening special
+227,2026-03-01 16:33:00,milk-001,whole milk,USE,-0.84,6,1,Morning rush
+245,2026-03-01 17:04:00,chicken-001,chicken breast,USE,-0.4,6,1,Baking batch
+248,2026-03-01 17:12:00,oj-001,orange juice,USE,-0.63,6,1,Lunch prep
+250,2026-03-01 17:47:00,oj-001,orange juice,USE,-0.72,6,1,Recipe testing
+228,2026-03-01 19:17:00,milk-001,whole milk,USE,-2.2,6,1,Evening special
+234,2026-03-01 19:36:00,bread-001,sourdough bread,USE,-3.09,6,1,Evening special
+241,2026-03-01 19:55:00,yogurt-001,greek yogurt,RESTOCK,26.58,6,1,Wholesale order
+258,2026-03-02 08:03:00,egg-001,egg,RESTOCK,77.27,0,0,Weekly delivery
+262,2026-03-02 08:28:00,tomato-001,tomato,USE,-1.26,0,0,Lunch prep
+267,2026-03-02 08:34:00,oj-001,orange juice,USE,-0.46,0,0,Baking batch
+253,2026-03-02 08:35:00,milk-001,whole milk,USE,-1.24,0,0,Smoothie bar
+266,2026-03-02 09:58:00,oj-001,orange juice,USE,-0.26,0,0,Daily prep
+264,2026-03-02 10:21:00,chicken-001,chicken breast,ADD,6.48,0,0,Emergency restock
+263,2026-03-02 15:38:00,tomato-001,tomato,RESTOCK,14.04,0,0,Emergency restock
+252,2026-03-02 16:31:00,milk-001,whole milk,USE,-1.33,0,0,Staff meal
+259,2026-03-02 16:55:00,cheese-001,cheddar cheese,USE,-0.08,0,0,Morning rush
+251,2026-03-02 16:56:00,milk-001,whole milk,USE,-1.38,0,0,Smoothie bar
+261,2026-03-02 17:32:00,yogurt-001,greek yogurt,ADD,10.37,0,0,Supplier drop-off
+255,2026-03-02 17:48:00,milk-001,whole milk,USE,-0.58,0,0,Baking batch
+257,2026-03-02 18:14:00,bread-001,sourdough bread,USE,-1.79,0,0,Morning rush
+268,2026-03-02 18:17:00,oj-001,orange juice,USE,-0.38,0,0,Afternoon service
+254,2026-03-02 18:38:00,milk-001,whole milk,USE,-1.26,0,0,Smoothie bar
+265,2026-03-02 18:55:00,chicken-001,chicken breast,USE,-0.68,0,0,Evening special
+260,2026-03-02 19:11:00,cheese-001,cheddar cheese,USE,-0.14,0,0,Smoothie bar
+256,2026-03-02 19:34:00,coffee-001,coffee bean,USE,-33.94,0,0,Breakfast service
+290,2026-03-03 07:06:00,chicken-001,chicken breast,USE,-0.29,1,0,Afternoon service
+278,2026-03-03 07:32:00,bread-001,sourdough bread,RESTOCK,13.45,1,0,Weekly delivery
+281,2026-03-03 08:41:00,bread-001,sourdough bread,USE,-1.59,1,0,Lunch prep
+271,2026-03-03 09:19:00,milk-001,whole milk,USE,-1.42,1,0,Catering order
+288,2026-03-03 09:43:00,tomato-001,tomato,RESTOCK,20.67,1,0,Farmers market purchase
+287,2026-03-03 09:57:00,yogurt-001,greek yogurt,USE,-1.63,1,0,Evening special
+293,2026-03-03 10:01:00,oj-001,orange juice,USE,-0.3,1,0,Smoothie bar
+272,2026-03-03 10:08:00,coffee-001,coffee bean,USE,-79.04,1,0,Baking batch
+274,2026-03-03 11:17:00,apple-001,organic apple,WASTE,-0.65,1,0,Expired — composted
+282,2026-03-03 12:08:00,egg-001,egg,USE,-4.83,1,0,Evening special
+276,2026-03-03 12:21:00,bread-001,sourdough bread,USE,-1.43,1,0,Daily prep
+275,2026-03-03 12:31:00,apple-001,organic apple,USE,-2.39,1,0,Baking batch
+289,2026-03-03 12:36:00,tomato-001,tomato,USE,-1.63,1,0,Morning rush
+280,2026-03-03 12:38:00,bread-001,sourdough bread,USE,-1.1,1,0,Morning rush
+273,2026-03-03 12:53:00,coffee-001,coffee bean,USE,-66.11,1,0,Evening special
+294,2026-03-03 13:41:00,oj-001,orange juice,USE,-0.43,1,0,Catering order
+283,2026-03-03 14:07:00,cheese-001,cheddar cheese,USE,-0.12,1,0,Afternoon service
+277,2026-03-03 14:31:00,bread-001,sourdough bread,USE,-1.13,1,0,Lunch prep
+285,2026-03-03 15:41:00,yogurt-001,greek yogurt,USE,-1.91,1,0,Baking batch
+284,2026-03-03 16:21:00,yogurt-001,greek yogurt,RESTOCK,28.69,1,0,Farmers market purchase
+291,2026-03-03 16:23:00,chicken-001,chicken breast,USE,-0.68,1,0,Smoothie bar
+269,2026-03-03 17:45:00,milk-001,whole milk,RESTOCK,20.65,1,0,Farmers market purchase
+292,2026-03-03 18:19:00,chicken-001,chicken breast,USE,-0.42,1,0,Morning rush
+286,2026-03-03 18:22:00,yogurt-001,greek yogurt,USE,-2.04,1,0,Baking batch
+295,2026-03-03 19:11:00,oj-001,orange juice,WASTE,-0.1,1,0,Past expiry date
+270,2026-03-03 19:43:00,milk-001,whole milk,USE,-0.52,1,0,Afternoon service
+279,2026-03-03 19:51:00,bread-001,sourdough bread,RESTOCK,13.65,1,0,Wholesale order
+315,2026-03-04 07:00:00,oj-001,orange juice,RESTOCK,6.45,2,0,Farmers market purchase
+300,2026-03-04 07:39:00,coffee-001,coffee bean,RESTOCK,609.03,2,0,Farmers market purchase
+313,2026-03-04 08:00:00,chicken-001,chicken breast,USE,-0.73,2,0,Morning rush
+306,2026-03-04 08:08:00,egg-001,egg,USE,-3.08,2,0,Customer order
+311,2026-03-04 10:15:00,tomato-001,tomato,USE,-0.84,2,0,Staff meal
+304,2026-03-04 11:11:00,bread-001,sourdough bread,USE,-1.47,2,0,Evening special
+316,2026-03-04 11:47:00,oj-001,orange juice,USE,-0.39,2,0,Daily prep
+310,2026-03-04 12:19:00,tomato-001,tomato,USE,-1.12,2,0,Breakfast service
+298,2026-03-04 12:46:00,milk-001,whole milk,RESTOCK,16.38,2,0,Wholesale order
+297,2026-03-04 13:36:00,milk-001,whole milk,USE,-1.47,2,0,Smoothie bar
+296,2026-03-04 13:41:00,milk-001,whole milk,ADD,9.65,2,0,Supplier drop-off
+301,2026-03-04 13:46:00,coffee-001,coffee bean,USE,-59.78,2,0,Afternoon service
+303,2026-03-04 14:42:00,apple-001,organic apple,USE,-2.53,2,0,Catering order
+312,2026-03-04 14:49:00,tomato-001,tomato,RESTOCK,26.66,2,0,Weekly delivery
+318,2026-03-04 15:32:00,oj-001,orange juice,WASTE,-0.07,2,0,Quality issue
+308,2026-03-04 16:19:00,yogurt-001,greek yogurt,USE,-0.9,2,0,Daily prep
+314,2026-03-04 16:29:00,chicken-001,chicken breast,ADD,7.25,2,0,Wholesale order
+309,2026-03-04 17:33:00,yogurt-001,greek yogurt,WASTE,-0.98,2,0,Expired — composted
+299,2026-03-04 18:01:00,coffee-001,coffee bean,USE,-54.14,2,0,Recipe testing
+317,2026-03-04 18:01:00,oj-001,orange juice,USE,-0.2,2,0,Daily prep
+302,2026-03-04 18:29:00,apple-001,organic apple,USE,-2.53,2,0,Evening special
+305,2026-03-04 18:55:00,bread-001,sourdough bread,USE,-1.79,2,0,Morning rush
+307,2026-03-04 19:00:00,egg-001,egg,USE,-5.75,2,0,Breakfast service
+321,2026-03-05 07:23:00,milk-001,whole milk,USE,-1.37,3,0,Lunch prep
+323,2026-03-05 07:34:00,coffee-001,coffee bean,USE,-73.1,3,0,Lunch prep
+324,2026-03-05 09:07:00,coffee-001,coffee bean,USE,-38.21,3,0,Customer order
+342,2026-03-05 09:27:00,oj-001,orange juice,USE,-0.17,3,0,Catering order
+340,2026-03-05 10:09:00,chicken-001,chicken breast,USE,-0.3,3,0,Daily prep
+330,2026-03-05 10:20:00,apple-001,organic apple,USE,-3.81,3,0,Customer order
+319,2026-03-05 10:37:00,milk-001,whole milk,RESTOCK,15.06,3,0,Weekly delivery
+339,2026-03-05 10:38:00,chicken-001,chicken breast,USE,-0.62,3,0,Customer order
+322,2026-03-05 11:14:00,milk-001,whole milk,USE,-1.15,3,0,Afternoon service
+329,2026-03-05 11:14:00,apple-001,organic apple,USE,-1.35,3,0,Lunch prep
+331,2026-03-05 11:51:00,bread-001,sourdough bread,USE,-1.49,3,0,Evening special
+327,2026-03-05 12:45:00,apple-001,organic apple,USE,-3.37,3,0,Evening special
+341,2026-03-05 13:20:00,oj-001,orange juice,ADD,4.59,3,0,Supplier drop-off
+333,2026-03-05 13:30:00,egg-001,egg,ADD,42.81,3,0,Wholesale order
+334,2026-03-05 13:55:00,egg-001,egg,RESTOCK,83.99,3,0,Weekly delivery
+335,2026-03-05 14:35:00,egg-001,egg,ADD,30.67,3,0,Wholesale order
+325,2026-03-05 15:02:00,coffee-001,coffee bean,USE,-74.63,3,0,Lunch prep
+337,2026-03-05 16:07:00,chicken-001,chicken breast,USE,-0.43,3,0,Smoothie bar
+338,2026-03-05 17:36:00,chicken-001,chicken breast,ADD,5.5,3,0,Wholesale order
+326,2026-03-05 18:35:00,apple-001,organic apple,USE,-2.74,3,0,Recipe testing
+332,2026-03-05 19:03:00,egg-001,egg,ADD,38.4,3,0,Wholesale order
+328,2026-03-05 19:20:00,apple-001,organic apple,ADD,38.93,3,0,Farmers market purchase
+320,2026-03-05 19:40:00,milk-001,whole milk,USE,-1.4,3,0,Daily prep
+336,2026-03-05 19:41:00,cheese-001,cheddar cheese,ADD,0.94,3,0,Weekly delivery
+355,2026-03-06 07:56:00,chicken-001,chicken breast,ADD,6.46,4,0,Supplier drop-off
+358,2026-03-06 08:26:00,oj-001,orange juice,USE,-0.29,4,0,Baking batch
+360,2026-03-06 08:54:00,oj-001,orange juice,USE,-0.48,4,0,Customer order
+359,2026-03-06 09:51:00,oj-001,orange juice,USE,-0.34,4,0,Customer order
+345,2026-03-06 10:25:00,apple-001,organic apple,USE,-3.52,4,0,Breakfast service
+351,2026-03-06 11:12:00,yogurt-001,greek yogurt,USE,-0.98,4,0,Recipe testing
+354,2026-03-06 12:04:00,chicken-001,chicken breast,USE,-0.74,4,0,Baking batch
+356,2026-03-06 12:17:00,chicken-001,chicken breast,USE,-0.3,4,0,Lunch prep
+344,2026-03-06 12:38:00,coffee-001,coffee bean,USE,-60.29,4,0,Recipe testing
+347,2026-03-06 13:03:00,bread-001,sourdough bread,USE,-1.12,4,0,Evening special
+352,2026-03-06 13:15:00,yogurt-001,greek yogurt,USE,-2.09,4,0,Recipe testing
+353,2026-03-06 13:15:00,yogurt-001,greek yogurt,USE,-1.54,4,0,Catering order
+357,2026-03-06 13:49:00,oj-001,orange juice,USE,-0.21,4,0,Morning rush
+346,2026-03-06 15:07:00,bread-001,sourdough bread,USE,-1.46,4,0,Staff meal
+343,2026-03-06 15:24:00,milk-001,whole milk,USE,-1.13,4,0,Evening special
+349,2026-03-06 16:02:00,cheese-001,cheddar cheese,USE,-0.07,4,0,Smoothie bar
+350,2026-03-06 18:01:00,cheese-001,cheddar cheese,USE,-0.06,4,0,Afternoon service
+348,2026-03-06 18:04:00,bread-001,sourdough bread,USE,-1.78,4,0,Catering order
+372,2026-03-07 09:06:00,oj-001,orange juice,USE,-0.43,5,1,Catering order
+366,2026-03-07 10:02:00,bread-001,sourdough bread,RESTOCK,28.59,5,1,Supplier drop-off
+373,2026-03-07 10:03:00,oj-001,orange juice,USE,-0.3,5,1,Afternoon service
+364,2026-03-07 10:17:00,apple-001,organic apple,USE,-3.09,5,1,Evening special
+361,2026-03-07 10:41:00,milk-001,whole milk,USE,-1.71,5,1,Lunch prep
+363,2026-03-07 13:51:00,coffee-001,coffee bean,ADD,484.77,5,1,Wholesale order
+371,2026-03-07 14:14:00,chicken-001,chicken breast,USE,-1.0,5,1,Staff meal
+370,2026-03-07 15:01:00,chicken-001,chicken breast,USE,-0.55,5,1,Evening special
+365,2026-03-07 15:53:00,apple-001,organic apple,USE,-5.64,5,1,Daily prep
+362,2026-03-07 16:29:00,coffee-001,coffee bean,USE,-125.26,5,1,Lunch prep
+368,2026-03-07 18:12:00,cheese-001,cheddar cheese,USE,-0.2,5,1,Staff meal
+369,2026-03-07 19:05:00,cheese-001,cheddar cheese,RESTOCK,2.21,5,1,Weekly delivery
+367,2026-03-07 19:52:00,bread-001,sourdough bread,WASTE,-0.7,5,1,Quality issue
+388,2026-03-08 07:44:00,chicken-001,chicken breast,USE,-1.0,6,1,Lunch prep
+384,2026-03-08 08:47:00,cheese-001,cheddar cheese,USE,-0.23,6,1,Catering order
+375,2026-03-08 09:06:00,milk-001,whole milk,USE,-1.85,6,1,Daily prep
+380,2026-03-08 11:44:00,coffee-001,coffee bean,USE,-74.54,6,1,Daily prep
+374,2026-03-08 11:51:00,milk-001,whole milk,USE,-1.48,6,1,Baking batch
+378,2026-03-08 12:14:00,milk-001,whole milk,USE,-1.47,6,1,Customer order
+377,2026-03-08 13:01:00,milk-001,whole milk,USE,-2.34,6,1,Catering order
+376,2026-03-08 13:36:00,milk-001,whole milk,USE,-1.57,6,1,Breakfast service
+381,2026-03-08 13:52:00,bread-001,sourdough bread,USE,-2.13,6,1,Morning rush
+382,2026-03-08 14:34:00,egg-001,egg,USE,-7.92,6,1,Recipe testing
+386,2026-03-08 14:48:00,yogurt-001,greek yogurt,USE,-3.72,6,1,Afternoon service
+389,2026-03-08 14:57:00,oj-001,orange juice,USE,-0.54,6,1,Lunch prep
+383,2026-03-08 15:16:00,cheese-001,cheddar cheese,ADD,1.4,6,1,Wholesale order
+379,2026-03-08 16:49:00,coffee-001,coffee bean,USE,-87.84,6,1,Recipe testing
+385,2026-03-08 17:54:00,yogurt-001,greek yogurt,RESTOCK,26.54,6,1,Weekly delivery
+387,2026-03-08 18:00:00,tomato-001,tomato,USE,-1.39,6,1,Catering order
+393,2026-03-09 07:35:00,milk-001,whole milk,USE,-0.71,0,0,Catering order
+399,2026-03-09 07:55:00,apple-001,organic apple,USE,-2.66,0,0,Evening special
+403,2026-03-09 08:01:00,bread-001,sourdough bread,RESTOCK,12.86,0,0,Supplier drop-off
+401,2026-03-09 08:20:00,apple-001,organic apple,ADD,38.05,0,0,Wholesale order
+415,2026-03-09 09:25:00,yogurt-001,greek yogurt,ADD,23.29,0,0,Farmers market purchase
+412,2026-03-09 10:10:00,yogurt-001,greek yogurt,ADD,21.38,0,0,Supplier drop-off
+398,2026-03-09 10:20:00,apple-001,organic apple,USE,-3.85,0,0,Staff meal
+416,2026-03-09 10:56:00,tomato-001,tomato,USE,-1.49,0,0,Daily prep
+390,2026-03-09 12:31:00,milk-001,whole milk,USE,-1.05,0,0,Breakfast service
+413,2026-03-09 12:55:00,yogurt-001,greek yogurt,ADD,22.63,0,0,Emergency restock
+417,2026-03-09 13:03:00,tomato-001,tomato,USE,-1.2,0,0,Breakfast service
+396,2026-03-09 13:08:00,apple-001,organic apple,USE,-3.81,0,0,Evening special
+400,2026-03-09 13:38:00,apple-001,organic apple,WASTE,-1.23,0,0,Damaged in storage
+408,2026-03-09 14:00:00,egg-001,egg,USE,-3.85,0,0,Morning rush
+418,2026-03-09 14:23:00,chicken-001,chicken breast,USE,-0.6,0,0,Smoothie bar
+405,2026-03-09 14:43:00,bread-001,sourdough bread,USE,-1.34,0,0,Lunch prep
+392,2026-03-09 15:08:00,milk-001,whole milk,USE,-1.27,0,0,Afternoon service
+409,2026-03-09 15:09:00,cheese-001,cheddar cheese,RESTOCK,1.89,0,0,Weekly delivery
+394,2026-03-09 15:24:00,milk-001,whole milk,USE,-1.27,0,0,Catering order
+407,2026-03-09 15:36:00,egg-001,egg,USE,-5.49,0,0,Catering order
+411,2026-03-09 15:51:00,cheese-001,cheddar cheese,USE,-0.09,0,0,Afternoon service
+420,2026-03-09 16:37:00,oj-001,orange juice,USE,-0.28,0,0,Morning rush
+402,2026-03-09 17:24:00,bread-001,sourdough bread,USE,-1.39,0,0,Baking batch
+410,2026-03-09 17:26:00,cheese-001,cheddar cheese,ADD,1.33,0,0,Supplier drop-off
+404,2026-03-09 17:49:00,bread-001,sourdough bread,USE,-1.63,0,0,Morning rush
+391,2026-03-09 18:16:00,milk-001,whole milk,USE,-0.92,0,0,Daily prep
+419,2026-03-09 18:18:00,chicken-001,chicken breast,USE,-0.65,0,0,Daily prep
+395,2026-03-09 18:26:00,coffee-001,coffee bean,WASTE,-34.36,0,0,Mould found
+397,2026-03-09 18:57:00,apple-001,organic apple,USE,-2.49,0,0,Breakfast service
+414,2026-03-09 19:03:00,yogurt-001,greek yogurt,USE,-1.04,0,0,Breakfast service
+406,2026-03-09 19:32:00,bread-001,sourdough bread,ADD,14.51,0,0,Farmers market purchase
+421,2026-03-10 07:54:00,milk-001,whole milk,USE,-0.62,1,0,Lunch prep
+422,2026-03-10 07:58:00,milk-001,whole milk,USE,-0.87,1,0,Lunch prep
+427,2026-03-10 09:52:00,apple-001,organic apple,USE,-3.81,1,0,Staff meal
+434,2026-03-10 10:17:00,chicken-001,chicken breast,USE,-0.27,1,0,Catering order
+431,2026-03-10 10:20:00,yogurt-001,greek yogurt,ADD,19.85,1,0,Farmers market purchase
+436,2026-03-10 10:23:00,oj-001,orange juice,USE,-0.39,1,0,Morning rush
+423,2026-03-10 10:47:00,coffee-001,coffee bean,USE,-75.84,1,0,Breakfast service
+435,2026-03-10 10:49:00,chicken-001,chicken breast,RESTOCK,5.54,1,0,Supplier drop-off
+428,2026-03-10 11:09:00,egg-001,egg,USE,-3.92,1,0,Customer order
+425,2026-03-10 11:56:00,coffee-001,coffee bean,ADD,970.19,1,0,Wholesale order
+432,2026-03-10 12:27:00,yogurt-001,greek yogurt,USE,-0.93,1,0,Afternoon service
+433,2026-03-10 12:30:00,tomato-001,tomato,ADD,19.7,1,0,Weekly delivery
+426,2026-03-10 12:44:00,apple-001,organic apple,ADD,30.06,1,0,Weekly delivery
+429,2026-03-10 16:03:00,egg-001,egg,RESTOCK,78.36,1,0,Wholesale order
+437,2026-03-10 16:25:00,oj-001,orange juice,USE,-0.48,1,0,Staff meal
+424,2026-03-10 18:10:00,coffee-001,coffee bean,USE,-79.06,1,0,Afternoon service
+430,2026-03-10 18:56:00,yogurt-001,greek yogurt,USE,-1.21,1,0,Afternoon service
+441,2026-03-11 07:23:00,apple-001,organic apple,RESTOCK,46.45,2,0,Weekly delivery
+438,2026-03-11 08:04:00,milk-001,whole milk,ADD,14.83,2,0,Emergency restock
+447,2026-03-11 10:21:00,cheese-001,cheddar cheese,USE,-0.08,2,0,Afternoon service
+443,2026-03-11 11:04:00,egg-001,egg,USE,-3.94,2,0,Daily prep
+451,2026-03-11 11:50:00,oj-001,orange juice,USE,-0.2,2,0,Smoothie bar
+442,2026-03-11 12:45:00,egg-001,egg,ADD,43.57,2,0,Supplier drop-off
+446,2026-03-11 13:20:00,cheese-001,cheddar cheese,USE,-0.13,2,0,Breakfast service
+450,2026-03-11 13:24:00,oj-001,orange juice,ADD,3.12,2,0,Emergency restock
+444,2026-03-11 14:46:00,cheese-001,cheddar cheese,USE,-0.1,2,0,Smoothie bar
+448,2026-03-11 14:57:00,chicken-001,chicken breast,USE,-0.72,2,0,Evening special
+439,2026-03-11 15:20:00,coffee-001,coffee bean,USE,-64.26,2,0,Recipe testing
+445,2026-03-11 16:34:00,cheese-001,cheddar cheese,USE,-0.13,2,0,Customer order
+449,2026-03-11 16:51:00,oj-001,orange juice,USE,-0.26,2,0,Afternoon service
+440,2026-03-11 16:56:00,apple-001,organic apple,USE,-1.93,2,0,Evening special
+464,2026-03-12 07:20:00,tomato-001,tomato,ADD,17.91,3,0,Farmers market purchase
+467,2026-03-12 08:01:00,chicken-001,chicken breast,USE,-0.62,3,0,Baking batch
+458,2026-03-12 08:03:00,egg-001,egg,USE,-4.9,3,0,Evening special
+460,2026-03-12 09:32:00,egg-001,egg,USE,-4.75,3,0,Afternoon service
+454,2026-03-12 09:44:00,apple-001,organic apple,ADD,23.6,3,0,Supplier drop-off
+465,2026-03-12 09:46:00,tomato-001,tomato,USE,-1.87,3,0,Evening special
+471,2026-03-12 10:13:00,oj-001,orange juice,USE,-0.27,3,0,Evening special
+456,2026-03-12 10:29:00,bread-001,sourdough bread,USE,-0.87,3,0,Recipe testing
+470,2026-03-12 10:57:00,chicken-001,chicken breast,USE,-0.57,3,0,Evening special
+455,2026-03-12 11:31:00,bread-001,sourdough bread,USE,-0.91,3,0,Smoothie bar
+468,2026-03-12 13:05:00,chicken-001,chicken breast,USE,-0.25,3,0,Staff meal
+466,2026-03-12 13:47:00,tomato-001,tomato,USE,-1.49,3,0,Evening special
+453,2026-03-12 14:17:00,coffee-001,coffee bean,USE,-46.39,3,0,Afternoon service
+469,2026-03-12 14:54:00,chicken-001,chicken breast,RESTOCK,6.2,3,0,Supplier drop-off
+457,2026-03-12 15:11:00,bread-001,sourdough bread,USE,-0.78,3,0,Breakfast service
+472,2026-03-12 15:34:00,oj-001,orange juice,RESTOCK,4.16,3,0,Weekly delivery
+452,2026-03-12 15:35:00,milk-001,whole milk,USE,-0.86,3,0,Morning rush
+461,2026-03-12 15:51:00,yogurt-001,greek yogurt,WASTE,-0.54,3,0,Expired — composted
+463,2026-03-12 16:47:00,tomato-001,tomato,ADD,18.56,3,0,Weekly delivery
+459,2026-03-12 17:54:00,egg-001,egg,WASTE,-2.37,3,0,Damaged in storage
+462,2026-03-12 18:43:00,yogurt-001,greek yogurt,RESTOCK,17.77,3,0,Farmers market purchase
+494,2026-03-13 07:34:00,oj-001,orange juice,WASTE,-0.11,4,0,Mould found
+482,2026-03-13 07:47:00,tomato-001,tomato,USE,-0.99,4,0,Smoothie bar
+483,2026-03-13 08:20:00,tomato-001,tomato,USE,-1.44,4,0,Recipe testing
+474,2026-03-13 09:18:00,coffee-001,coffee bean,RESTOCK,1146.65,4,0,Emergency restock
+488,2026-03-13 09:37:00,chicken-001,chicken breast,USE,-0.55,4,0,Catering order
+478,2026-03-13 09:46:00,bread-001,sourdough bread,USE,-1.38,4,0,Lunch prep
+481,2026-03-13 10:27:00,yogurt-001,greek yogurt,ADD,10.72,4,0,Wholesale order
+484,2026-03-13 10:36:00,tomato-001,tomato,USE,-0.75,4,0,Daily prep
+475,2026-03-13 10:48:00,coffee-001,coffee bean,WASTE,-15.1,4,0,Past expiry date
+489,2026-03-13 10:54:00,chicken-001,chicken breast,USE,-0.6,4,0,Afternoon service
+479,2026-03-13 11:35:00,bread-001,sourdough bread,USE,-0.96,4,0,Catering order
+490,2026-03-13 12:11:00,chicken-001,chicken breast,USE,-0.3,4,0,Customer order
+473,2026-03-13 12:13:00,coffee-001,coffee bean,USE,-59.32,4,0,Recipe testing
+491,2026-03-13 12:21:00,oj-001,orange juice,USE,-0.38,4,0,Catering order
+476,2026-03-13 15:27:00,bread-001,sourdough bread,RESTOCK,27.08,4,0,Supplier drop-off
+477,2026-03-13 15:58:00,bread-001,sourdough bread,USE,-1.95,4,0,Catering order
+487,2026-03-13 16:51:00,chicken-001,chicken breast,ADD,5.71,4,0,Weekly delivery
+480,2026-03-13 17:52:00,cheese-001,cheddar cheese,USE,-0.08,4,0,Staff meal
+492,2026-03-13 18:05:00,oj-001,orange juice,USE,-0.29,4,0,Morning rush
+493,2026-03-13 18:41:00,oj-001,orange juice,USE,-0.21,4,0,Lunch prep
+486,2026-03-13 18:45:00,chicken-001,chicken breast,USE,-0.41,4,0,Morning rush
+485,2026-03-13 19:08:00,tomato-001,tomato,USE,-0.82,4,0,Staff meal
+498,2026-03-14 07:23:00,apple-001,organic apple,ADD,22.83,5,1,Supplier drop-off
+496,2026-03-14 07:25:00,coffee-001,coffee bean,ADD,906.35,5,1,Supplier drop-off
+508,2026-03-14 08:28:00,oj-001,orange juice,ADD,2.36,5,1,Farmers market purchase
+504,2026-03-14 08:36:00,yogurt-001,greek yogurt,USE,-2.55,5,1,Customer order
+506,2026-03-14 08:50:00,oj-001,orange juice,USE,-0.27,5,1,Catering order
+510,2026-03-14 09:42:00,oj-001,orange juice,USE,-0.49,5,1,Daily prep
+505,2026-03-14 10:48:00,yogurt-001,greek yogurt,USE,-2.45,5,1,Evening special
+502,2026-03-14 11:07:00,egg-001,egg,ADD,58.35,5,1,Weekly delivery
+509,2026-03-14 14:01:00,oj-001,orange juice,USE,-0.55,5,1,Morning rush
+500,2026-03-14 14:43:00,bread-001,sourdough bread,RESTOCK,15.3,5,1,Wholesale order
+497,2026-03-14 15:08:00,apple-001,organic apple,USE,-2.32,5,1,Breakfast service
+499,2026-03-14 17:12:00,bread-001,sourdough bread,USE,-1.16,5,1,Smoothie bar
+507,2026-03-14 18:02:00,oj-001,orange juice,RESTOCK,6.06,5,1,Weekly delivery
+495,2026-03-14 19:37:00,milk-001,whole milk,USE,-1.13,5,1,Smoothie bar
+503,2026-03-14 19:46:00,egg-001,egg,RESTOCK,36.13,5,1,Farmers market purchase
+501,2026-03-14 19:52:00,bread-001,sourdough bread,ADD,18.59,5,1,Wholesale order
+517,2026-03-15 07:46:00,bread-001,sourdough bread,USE,-2.97,6,1,Customer order
+519,2026-03-15 08:47:00,yogurt-001,greek yogurt,USE,-2.95,6,1,Recipe testing
+520,2026-03-15 11:29:00,tomato-001,tomato,USE,-1.37,6,1,Lunch prep
+512,2026-03-15 11:53:00,milk-001,whole milk,ADD,6.61,6,1,Emergency restock
+516,2026-03-15 13:33:00,apple-001,organic apple,ADD,32.52,6,1,Supplier drop-off
+511,2026-03-15 15:22:00,milk-001,whole milk,USE,-1.69,6,1,Daily prep
+515,2026-03-15 15:53:00,apple-001,organic apple,USE,-3.72,6,1,Lunch prep
+522,2026-03-15 16:50:00,chicken-001,chicken breast,USE,-0.71,6,1,Catering order
+521,2026-03-15 17:44:00,tomato-001,tomato,USE,-2.14,6,1,Breakfast service
+518,2026-03-15 17:46:00,egg-001,egg,USE,-7.28,6,1,Staff meal
+513,2026-03-15 18:43:00,coffee-001,coffee bean,USE,-145.25,6,1,Staff meal
+514,2026-03-15 18:43:00,coffee-001,coffee bean,ADD,893.45,6,1,Farmers market purchase
+540,2026-03-16 07:31:00,tomato-001,tomato,USE,-1.52,0,0,Customer order
+535,2026-03-16 07:50:00,cheese-001,cheddar cheese,RESTOCK,2.32,0,0,Farmers market purchase
+538,2026-03-16 07:50:00,yogurt-001,greek yogurt,RESTOCK,24.06,0,0,Emergency restock
+524,2026-03-16 08:08:00,milk-001,whole milk,USE,-0.94,0,0,Catering order
+529,2026-03-16 08:10:00,bread-001,sourdough bread,USE,-1.26,0,0,Breakfast service
+526,2026-03-16 08:44:00,coffee-001,coffee bean,USE,-70.25,0,0,Smoothie bar
+527,2026-03-16 09:02:00,coffee-001,coffee bean,ADD,900.19,0,0,Supplier drop-off
+530,2026-03-16 09:17:00,bread-001,sourdough bread,USE,-1.71,0,0,Catering order
+545,2026-03-16 09:18:00,chicken-001,chicken breast,ADD,5.38,0,0,Supplier drop-off
+541,2026-03-16 09:58:00,tomato-001,tomato,USE,-1.08,0,0,Catering order
+525,2026-03-16 10:04:00,coffee-001,coffee bean,USE,-56.03,0,0,Recipe testing
+547,2026-03-16 10:24:00,chicken-001,chicken breast,USE,-0.27,0,0,Evening special
+534,2026-03-16 10:40:00,cheese-001,cheddar cheese,USE,-0.13,0,0,Smoothie bar
+532,2026-03-16 10:53:00,egg-001,egg,USE,-3.9,0,0,Afternoon service
+543,2026-03-16 12:28:00,tomato-001,tomato,ADD,17.15,0,0,Wholesale order
+546,2026-03-16 14:06:00,chicken-001,chicken breast,USE,-0.75,0,0,Catering order
+531,2026-03-16 16:18:00,bread-001,sourdough bread,USE,-1.43,0,0,Daily prep
+523,2026-03-16 16:36:00,milk-001,whole milk,RESTOCK,10.74,0,0,Wholesale order
+544,2026-03-16 16:41:00,tomato-001,tomato,USE,-1.83,0,0,Morning rush
+537,2026-03-16 17:10:00,yogurt-001,greek yogurt,USE,-2.1,0,0,Breakfast service
+533,2026-03-16 17:38:00,cheese-001,cheddar cheese,RESTOCK,1.1,0,0,Emergency restock
+548,2026-03-16 18:08:00,oj-001,orange juice,USE,-0.48,0,0,Smoothie bar
+528,2026-03-16 18:20:00,apple-001,organic apple,USE,-1.49,0,0,Smoothie bar
+539,2026-03-16 18:50:00,yogurt-001,greek yogurt,RESTOCK,26.4,0,0,Wholesale order
+536,2026-03-16 18:51:00,cheese-001,cheddar cheese,USE,-0.15,0,0,Recipe testing
+542,2026-03-16 19:30:00,tomato-001,tomato,USE,-1.96,0,0,Smoothie bar
+581,2026-03-17 07:11:00,oj-001,orange juice,USE,-0.3,1,0,Baking batch
+577,2026-03-17 07:35:00,chicken-001,chicken breast,USE,-0.48,1,0,Evening special
+571,2026-03-17 08:13:00,tomato-001,tomato,RESTOCK,21.52,1,0,Supplier drop-off
+565,2026-03-17 08:14:00,cheese-001,cheddar cheese,RESTOCK,1.76,1,0,Wholesale order
+560,2026-03-17 08:17:00,bread-001,sourdough bread,USE,-1.33,1,0,Breakfast service
+562,2026-03-17 08:31:00,egg-001,egg,USE,-5.13,1,0,Recipe testing
+551,2026-03-17 08:44:00,milk-001,whole milk,USE,-1.08,1,0,Recipe testing
+575,2026-03-17 10:17:00,chicken-001,chicken breast,USE,-0.72,1,0,Morning rush
+549,2026-03-17 10:29:00,milk-001,whole milk,USE,-0.58,1,0,Customer order
+573,2026-03-17 10:30:00,tomato-001,tomato,USE,-1.4,1,0,Evening special
+555,2026-03-17 11:18:00,apple-001,organic apple,USE,-3.94,1,0,Baking batch
+552,2026-03-17 12:01:00,coffee-001,coffee bean,USE,-86.3,1,0,Staff meal
+574,2026-03-17 12:10:00,tomato-001,tomato,ADD,12.45,1,0,Emergency restock
+579,2026-03-17 12:23:00,oj-001,orange juice,USE,-0.25,1,0,Customer order
+558,2026-03-17 12:29:00,bread-001,sourdough bread,USE,-1.07,1,0,Daily prep
+556,2026-03-17 12:30:00,apple-001,organic apple,USE,-3.06,1,0,Recipe testing
+566,2026-03-17 12:47:00,cheese-001,cheddar cheese,RESTOCK,1.53,1,0,Wholesale order
+559,2026-03-17 13:07:00,bread-001,sourdough bread,USE,-0.86,1,0,Baking batch
+568,2026-03-17 13:20:00,yogurt-001,greek yogurt,ADD,20.14,1,0,Weekly delivery
+570,2026-03-17 13:27:00,tomato-001,tomato,USE,-1.15,1,0,Recipe testing
+572,2026-03-17 13:40:00,tomato-001,tomato,ADD,8.03,1,0,Emergency restock
+550,2026-03-17 14:02:00,milk-001,whole milk,USE,-0.81,1,0,Customer order
+554,2026-03-17 14:54:00,coffee-001,coffee bean,USE,-86.9,1,0,Baking batch
+561,2026-03-17 15:11:00,bread-001,sourdough bread,ADD,16.66,1,0,Emergency restock
+564,2026-03-17 15:26:00,cheese-001,cheddar cheese,ADD,0.72,1,0,Supplier drop-off
+557,2026-03-17 16:09:00,apple-001,organic apple,RESTOCK,44.12,1,0,Emergency restock
+580,2026-03-17 16:34:00,oj-001,orange juice,ADD,4.13,1,0,Weekly delivery
+563,2026-03-17 18:10:00,cheese-001,cheddar cheese,RESTOCK,1.02,1,0,Weekly delivery
+576,2026-03-17 18:20:00,chicken-001,chicken breast,ADD,7.39,1,0,Weekly delivery
+567,2026-03-17 18:26:00,yogurt-001,greek yogurt,USE,-1.77,1,0,Staff meal
+553,2026-03-17 18:33:00,coffee-001,coffee bean,USE,-60.19,1,0,Baking batch
+569,2026-03-17 18:36:00,tomato-001,tomato,USE,-1.71,1,0,Evening special
+578,2026-03-17 19:56:00,chicken-001,chicken breast,USE,-0.27,1,0,Baking batch
+599,2026-03-18 08:13:00,chicken-001,chicken breast,USE,-0.65,2,0,Breakfast service
+589,2026-03-18 08:33:00,bread-001,sourdough bread,USE,-0.97,2,0,Smoothie bar
+586,2026-03-18 10:12:00,apple-001,organic apple,USE,-2.13,2,0,Breakfast service
+595,2026-03-18 10:37:00,cheese-001,cheddar cheese,USE,-0.08,2,0,Lunch prep
+598,2026-03-18 11:05:00,chicken-001,chicken breast,USE,-0.59,2,0,Afternoon service
+593,2026-03-18 11:07:00,cheese-001,cheddar cheese,USE,-0.06,2,0,Breakfast service
+585,2026-03-18 11:24:00,coffee-001,coffee bean,USE,-62.37,2,0,Evening special
+597,2026-03-18 12:32:00,tomato-001,tomato,USE,-1.26,2,0,Evening special
+590,2026-03-18 13:43:00,bread-001,sourdough bread,USE,-1.66,2,0,Evening special
+587,2026-03-18 15:31:00,apple-001,organic apple,WASTE,-1.43,2,0,Past expiry date
+584,2026-03-18 15:33:00,coffee-001,coffee bean,USE,-84.68,2,0,Customer order
+596,2026-03-18 15:45:00,cheese-001,cheddar cheese,USE,-0.1,2,0,Smoothie bar
+588,2026-03-18 15:55:00,apple-001,organic apple,RESTOCK,55.33,2,0,Farmers market purchase
+592,2026-03-18 16:58:00,cheese-001,cheddar cheese,USE,-0.11,2,0,Recipe testing
+601,2026-03-18 17:12:00,oj-001,orange juice,USE,-0.45,2,0,Baking batch
+583,2026-03-18 17:53:00,coffee-001,coffee bean,USE,-98.4,2,0,Recipe testing
+591,2026-03-18 18:06:00,cheese-001,cheddar cheese,USE,-0.07,2,0,Afternoon service
+594,2026-03-18 18:10:00,cheese-001,cheddar cheese,USE,-0.09,2,0,Morning rush
+582,2026-03-18 18:25:00,milk-001,whole milk,USE,-1.46,2,0,Smoothie bar
+600,2026-03-18 18:44:00,oj-001,orange juice,USE,-0.32,2,0,Daily prep
+607,2026-03-19 07:42:00,apple-001,organic apple,USE,-3.25,3,0,Afternoon service
+605,2026-03-19 08:16:00,coffee-001,coffee bean,ADD,944.74,3,0,Weekly delivery
+606,2026-03-19 08:33:00,coffee-001,coffee bean,WASTE,-26.6,3,0,Past expiry date
+608,2026-03-19 12:43:00,bread-001,sourdough bread,USE,-1.7,3,0,Baking batch
+613,2026-03-19 13:26:00,oj-001,orange juice,USE,-0.19,3,0,Staff meal
+604,2026-03-19 13:37:00,milk-001,whole milk,USE,-1.09,3,0,Evening special
+602,2026-03-19 14:58:00,milk-001,whole milk,USE,-1.0,3,0,Morning rush
+612,2026-03-19 15:28:00,chicken-001,chicken breast,RESTOCK,11.95,3,0,Wholesale order
+611,2026-03-19 16:35:00,tomato-001,tomato,USE,-1.55,3,0,Daily prep
+610,2026-03-19 17:21:00,yogurt-001,greek yogurt,ADD,20.93,3,0,Wholesale order
+603,2026-03-19 17:36:00,milk-001,whole milk,WASTE,-0.42,3,0,Mould found
+609,2026-03-19 18:39:00,yogurt-001,greek yogurt,USE,-1.2,3,0,Recipe testing
+614,2026-03-19 19:51:00,oj-001,orange juice,USE,-0.37,3,0,Baking batch

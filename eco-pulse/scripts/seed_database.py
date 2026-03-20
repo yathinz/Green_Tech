@@ -9,7 +9,7 @@ import csv
 import os
 import sys
 import uuid
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 # Add backend to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
@@ -59,6 +59,18 @@ async def seed_inventory_and_events() -> dict:
     item_quantities: dict[str, float] = {}
     event_count = 0
 
+    # ── Relative date helpers ───────────────────────────────────
+    # All dates are computed relative to today so seeded data stays
+    # fresh regardless of when the judge runs the demo.
+    today = date.today()
+    def d(offset: int) -> str:
+        """Return an ISO date string offset days from today."""
+        return (today + timedelta(days=offset)).strftime("%Y-%m-%d")
+
+    # Shift CSV event timestamps so the 30-day window ends yesterday
+    ORIGINAL_BASE_DATE = date(2026, 3, 19)  # date data was originally authored
+    date_offset = timedelta(days=(today - ORIGINAL_BASE_DATE).days)
+
     # First pass: collect unique items and calculate net quantities
     events = []
     with open(csv_path, "r") as f:
@@ -69,6 +81,14 @@ async def seed_inventory_and_events() -> dict:
             if item_key not in item_quantities:
                 item_quantities[item_key] = 0.0
             item_quantities[item_key] += float(row["qty_change"])
+
+    # Shift all CSV timestamps so the event window is relative to today
+    for ev in events:
+        original_ts = datetime.strptime(ev["timestamp"], "%Y-%m-%d %H:%M:%S")
+        shifted_ts = original_ts + date_offset
+        ev["timestamp"] = shifted_ts.strftime("%Y-%m-%d %H:%M:%S")
+        ev["day_of_week"] = str(shifted_ts.weekday())
+        ev["is_weekend"] = "1" if shifted_ts.weekday() >= 5 else "0"
 
     # Carbon lookup for items
     carbon_lookup: dict[str, dict] = {}
@@ -88,22 +108,20 @@ async def seed_inventory_and_events() -> dict:
     #   Overstocked  — expiry BEFORE runout  (too much stock, will expire)
     #   Well Stocked — days until runout == days till expiry (exact match)
     #   Understocked — expiry AFTER runout  (will run out before it expires)
-    #
-    # Base date: March 19, 2026
     SEED_OVERRIDES = {
         # ── OVERSTOCKED (3): huge stock, near expiry ──
-        "chicken breast":  {"qty": 8.0,    "unit": "kg",    "expiry": "2026-03-22"},  # ~7d supply, 3d to expiry
-        "whole milk":      {"qty": 16.0,   "unit": "L",     "expiry": "2026-03-22"},  # ~7d supply, 3d to expiry
-        "sourdough bread": {"qty": 18.0,   "unit": "units", "expiry": "2026-03-22"},  # ~7d supply, 3d to expiry
+        "chicken breast":  {"qty": 8.0,    "unit": "kg",    "expiry": d(3)},   # ~7d supply, 3d to expiry
+        "whole milk":      {"qty": 16.0,   "unit": "L",     "expiry": d(3)},   # ~7d supply, 3d to expiry
+        "sourdough bread": {"qty": 18.0,   "unit": "units", "expiry": d(3)},   # ~7d supply, 3d to expiry
         # ── WELL STOCKED (4): supply ≈ expiry (gap ≤ 7d) ──
-        "greek yogurt":    {"qty": 55.0,   "unit": "units", "expiry": "2026-04-03"},  # ~12d supply, 15d to expiry
-        "orange juice":    {"qty": 14.0,   "unit": "L",     "expiry": "2026-04-06"},  # ~16d supply, 18d to expiry
-        "cheddar cheese":  {"qty": 5.0,    "unit": "kg",    "expiry": "2026-04-17"},  # ~25d supply, 29d to expiry
-        "organic apple":   {"qty": 80.0,   "unit": "units", "expiry": "2026-04-03"},  # ~13d supply, 15d to expiry
+        "greek yogurt":    {"qty": 55.0,   "unit": "units", "expiry": d(15)},  # ~12d supply, 15d to expiry
+        "orange juice":    {"qty": 14.0,   "unit": "L",     "expiry": d(18)},  # ~16d supply, 18d to expiry
+        "cheddar cheese":  {"qty": 5.0,    "unit": "kg",    "expiry": d(29)},  # ~25d supply, 29d to expiry
+        "organic apple":   {"qty": 80.0,   "unit": "units", "expiry": d(15)},  # ~13d supply, 15d to expiry
         # ── UNDERSTOCKED (3): low stock, long shelf life ──
-        "coffee bean":     {"qty": 2500.0, "unit": "g",     "expiry": "2026-06-17"},  # ~15d supply, 90d to expiry
-        "tomato":          {"qty": 15.0,   "unit": "units", "expiry": "2026-04-30"},  # ~5d supply, 42d to expiry
-        "egg":             {"qty": 36.0,   "unit": "units", "expiry": "2026-04-16"},  # ~4d supply, 28d to expiry
+        "coffee bean":     {"qty": 2500.0, "unit": "g",     "expiry": d(90)},  # ~15d supply, 90d to expiry
+        "tomato":          {"qty": 15.0,   "unit": "units", "expiry": d(42)},  # ~5d supply, 42d to expiry
+        "egg":             {"qty": 36.0,   "unit": "units", "expiry": d(28)},  # ~4d supply, 28d to expiry
     }
 
     # Create inventory items from the unique items in events
@@ -131,7 +149,7 @@ async def seed_inventory_and_events() -> dict:
                     unit = "kg" if item_name in ("cheddar cheese", "chicken breast") else "g"
 
                 shelf_life = int(carbon.get("avg_shelf_life_days", 14) or 14)
-                expiry = (datetime(2026, 3, 19) + timedelta(days=shelf_life // 2)).strftime("%Y-%m-%d")
+                expiry = (today + timedelta(days=shelf_life // 2)).strftime("%Y-%m-%d")
 
             item_id = await db.insert_inventory_item(
                 item_name=item_name,
@@ -169,31 +187,31 @@ async def seed_inventory_and_events() -> dict:
     # Format: (item_name, qty, unit, expiry, status, finished_date, note)
     HISTORICAL_ITEMS = [
         # ── CONSUMED (used up from current batch) ──────────────
-        ("whole milk",       3.0,  "L",     "2026-03-22", "CONSUMED", "2026-03-15", "Used for morning prep"),
-        ("whole milk",       2.0,  "L",     "2026-03-22", "CONSUMED", "2026-03-18", "Used for recipes"),
-        ("chicken breast",   1.5,  "kg",    "2026-03-22", "CONSUMED", "2026-03-16", "Lunch service"),
-        ("chicken breast",   1.0,  "kg",    "2026-03-22", "CONSUMED", "2026-03-19", "Dinner service"),
-        ("egg",             12.0,  "units", "2026-04-16", "CONSUMED", "2026-03-17", "Baking batch"),
-        ("greek yogurt",    10.0,  "units", "2026-04-03", "CONSUMED", "2026-03-14", "Smoothie station"),
-        ("greek yogurt",     8.0,  "units", "2026-04-03", "CONSUMED", "2026-03-18", "Staff breakfast"),
-        ("organic apple",   15.0,  "units", "2026-04-03", "CONSUMED", "2026-03-16", "Juice bar"),
-        ("organic apple",   10.0,  "units", "2026-04-03", "CONSUMED", "2026-03-19", "Snack station"),
-        ("sourdough bread",  4.0,  "units", "2026-03-22", "CONSUMED", "2026-03-17", "Sandwich prep"),
-        ("sourdough bread",  3.0,  "units", "2026-03-22", "CONSUMED", "2026-03-19", "Toast service"),
-        ("coffee bean",    400.0,  "g",     "2026-06-17", "CONSUMED", "2026-03-15", "Daily brewing"),
-        ("coffee bean",    350.0,  "g",     "2026-06-17", "CONSUMED", "2026-03-18", "Catering order"),
-        ("tomato",           3.0,  "units", "2026-04-30", "CONSUMED", "2026-03-18", "Salad prep"),
-        ("orange juice",     2.0,  "L",     "2026-04-06", "CONSUMED", "2026-03-17", "Breakfast bar"),
-        ("cheddar cheese",   1.0,  "kg",    "2026-04-17", "CONSUMED", "2026-03-16", "Sandwich station"),
+        ("whole milk",       3.0,  "L",     d(3),  "CONSUMED", d(-4), "Used for morning prep"),
+        ("whole milk",       2.0,  "L",     d(3),  "CONSUMED", d(-1), "Used for recipes"),
+        ("chicken breast",   1.5,  "kg",    d(3),  "CONSUMED", d(-3), "Lunch service"),
+        ("chicken breast",   1.0,  "kg",    d(3),  "CONSUMED", d(0),  "Dinner service"),
+        ("egg",             12.0,  "units", d(28), "CONSUMED", d(-2), "Baking batch"),
+        ("greek yogurt",    10.0,  "units", d(15), "CONSUMED", d(-5), "Smoothie station"),
+        ("greek yogurt",     8.0,  "units", d(15), "CONSUMED", d(-1), "Staff breakfast"),
+        ("organic apple",   15.0,  "units", d(15), "CONSUMED", d(-3), "Juice bar"),
+        ("organic apple",   10.0,  "units", d(15), "CONSUMED", d(0),  "Snack station"),
+        ("sourdough bread",  4.0,  "units", d(3),  "CONSUMED", d(-2), "Sandwich prep"),
+        ("sourdough bread",  3.0,  "units", d(3),  "CONSUMED", d(0),  "Toast service"),
+        ("coffee bean",    400.0,  "g",     d(90), "CONSUMED", d(-4), "Daily brewing"),
+        ("coffee bean",    350.0,  "g",     d(90), "CONSUMED", d(-1), "Catering order"),
+        ("tomato",           3.0,  "units", d(42), "CONSUMED", d(-1), "Salad prep"),
+        ("orange juice",     2.0,  "L",     d(18), "CONSUMED", d(-2), "Breakfast bar"),
+        ("cheddar cheese",   1.0,  "kg",    d(29), "CONSUMED", d(-3), "Sandwich station"),
         # ── DONATED (given away before expiry) ─────────────────
-        ("whole milk",       2.0,  "L",     "2026-03-22", "DONATED",  "2026-03-19", "Donated to FoodRescue Local"),
-        ("chicken breast",   1.5,  "kg",    "2026-03-22", "DONATED",  "2026-03-19", "Donated to Food Bank Central"),
-        ("sourdough bread",  4.0,  "units", "2026-03-22", "DONATED",  "2026-03-19", "Donated to Shelter Network"),
-        ("organic apple",   10.0,  "units", "2026-04-03", "DONATED",  "2026-03-18", "Donated to Community Garden"),
-        ("greek yogurt",     8.0,  "units", "2026-04-03", "DONATED",  "2026-03-19", "Donated to FoodRescue Local"),
+        ("whole milk",       2.0,  "L",     d(3),  "DONATED",  d(0),  "Donated to FoodRescue Local"),
+        ("chicken breast",   1.5,  "kg",    d(3),  "DONATED",  d(0),  "Donated to Food Bank Central"),
+        ("sourdough bread",  4.0,  "units", d(3),  "DONATED",  d(0),  "Donated to Shelter Network"),
+        ("organic apple",   10.0,  "units", d(15), "DONATED",  d(-1), "Donated to Community Garden"),
+        ("greek yogurt",     8.0,  "units", d(15), "DONATED",  d(0),  "Donated to FoodRescue Local"),
         # ── EXPIRED (not rescued in time) ──────────────────────
-        ("tomato",           2.0,  "units", "2026-03-15", "EXPIRED",  "2026-03-15", "Expired — composted"),
-        ("whole milk",       1.0,  "L",     "2026-03-10", "EXPIRED",  "2026-03-10", "Expired — composted"),
+        ("tomato",           2.0,  "units", d(-4), "EXPIRED",  d(-4), "Expired — composted"),
+        ("whole milk",       1.0,  "L",     d(-9), "EXPIRED",  d(-9), "Expired — composted"),
     ]
 
     # Sum up how much to deduct from each active item
