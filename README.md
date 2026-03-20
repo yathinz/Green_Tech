@@ -44,9 +44,9 @@
 
 [CLI Reference](#-cli-reference)  
 
-[End-to-End Demo Flows](#-end-to-end-demo-flows-11-flows) 
+[End-to-End Demo Flows](#-end-to-end-demo-flows-13-flows) 
 
-[Testing](#-testing--32-tests)
+[Testing](#-testing--37-tests)
 
 ### AI Disclosure
 
@@ -83,7 +83,17 @@ The generated code used only `item_name` as the deduplication key — so buying 
 
 ---
 
-## �📑 Table of Contents for MORE INFO 
+## 🎥 Project Overview and Demo Runs
+
+> *Apologies for the length — I wasn't able to include all flows under 5–7 minutes. Please watch at 2× for convenience!*
+
+📹 **[Watch the full demo on Google Drive](https://drive.google.com/file/d/1hD-dTiiVqPk-McdLvDqieiqM2CCw5-37/view?usp=sharing)**
+
+📹 **[Fallbacks and Testing](https://drive.google.com/file/d/1FBTbtUimiq_WOnshgbdBWxPPrHygmcUJ/view?usp=sharing)**
+
+---
+
+## 📑 Table of Contents for MORE INFO 
 
 - [The Problem](#-the-problem)
 - [The Solution](#-the-solution)
@@ -100,7 +110,7 @@ The generated code used only `item_name` as the deduplication key — so buying 
 - [Developer Mode](#-developer-mode--time-simulation)
 - [Quick Start](#-quick-start)
 - [CLI Reference](#-cli-reference)
-- [End-to-End Demo Flows](#-end-to-end-demo-flows-11-flows)
+- [End-to-End Demo Flows](#-end-to-end-demo-flows-13-flows)
 - [Testing](#-testing--37-tests)
 - [Tradeoffs](#-tradeoffs--6-documented-decisions)
 - [Project Structure](#-project-structure)
