@@ -48,6 +48,8 @@
 
 [Testing](#-testing--37-tests)
 
+[Fallback tests](#-end-to-end-demo-flows-13-flows)
+
 ### AI Disclosure
 
 **Did you use an AI assistant (Copilot, ChatGPT, etc.)?** Yes — GitHub Copilot (Claude) for code generation, debugging, and test writing and Gemini for sample image generation.
