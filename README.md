@@ -50,6 +50,8 @@
 
 [Tech_Stack](#-tech-stack)
 
+Grafana_credentials: admin / ecopulse
+
 
 ### AI Disclosure
 
