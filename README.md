@@ -894,38 +894,6 @@ The CLI is the **primary demo surface** — built with Typer for type-hinted com
 
 ### Commands Overview
 
-```
-eco-pulse
-├── ingest          Ingest inventory via AI or CSV
-│   ├── --image     Upload a receipt/shelf photo
-│   │   └── --multiplier  Quantity multiplier (e.g. 2.0 doubles all quantities)
-│   ├── --voice     Record or upload voice memo
-│   ├── --text      Natural language text input
-│   └── --csv       Batch CSV import
-├── inventory       Manage inventory
-│   ├── list        Show all active items (Rich table)
-│   ├── search      Fuzzy search by name
-│   ├── update      Update quantity for an item
-│   └── review      Interactive human review queue
-├── triage          Run expiry triage + AI recipes
-│   └── --dry-run   Preview without executing
-├── community-mesh  Donate expiring items to partners
-│   ├── partners    List registered donation partners
-│   ├── find-matches Find expiring items with matched partners
-│   └── donate      Donate an item (logs mock email)
-├── forecast        View/refresh burn-rate forecasts
-│   ├── --item-id   Forecast for specific item
-│   └── --refresh   Force recalculation
-├── dev             Developer mode utilities
-│   ├── advance-time    Simulate time passing
-│   ├── seed-data       Load synthetic data
-│   ├── reset-db        Reset database
-│   ├── force-timeout   Test timeout fallback (F3)
-│   └── simulate-rate-limit  Test rate-limit fallback (F4)
-├── health          System health check
-└── dashboard       Open Grafana in browser
-```
-
 ### Running Commands in Docker
 
 All CLI commands are run via `docker exec`:
